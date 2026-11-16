@@ -10,7 +10,9 @@ from .data import parquet
 
 _lock = threading.Lock()
 # Serverless (Vercel) chỉ ghi được /tmp; duckdb cần thư mục home cho cấu hình nội bộ.
-_con = duckdb.connect(config={"home_directory": "/tmp"} if os.getenv("VERCEL") else {})
+_con = duckdb.connect()
+if os.getenv("VERCEL"):
+    _con.execute("SET home_directory='/tmp'")
 M5 = str(parquet("m5_store_dept_daily.parquet"))
 CAL = str(parquet("m5_calendar.parquet"))
 CJ = str(parquet("cj_dept_weekly.parquet"))
