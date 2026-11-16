@@ -1,0 +1,881 @@
+<title>Bản đồ bán lẻ đa nguồn</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Phân tích tổng hợp 5 bộ dữ liệu bán lẻ (dunnhumby Complete Journey, Breakfast at the Frat, Carbo-Loading, Let's Get Sort-of-Real, Walmart M5) theo góc độ dữ liệu và góc độ kinh tế.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Bố cục: dải mở đầu xanh rêu đậm (nối tiếp nhận diện Retail Intelligence) → mục lục dính → các chương, mỗi phát hiện có hai lớp đọc: Dữ liệu và Kinh tế. */
+:root {
+  --bg: #f3f6f4; --surface: #ffffff; --ink: #11231e; --muted: #5d6f68; --line: #dbe4df; --soft: #e8efeb;
+  --brand: #173e35; --brand-ink: #eef5f1; --accent: #c4862a; --data: #3f6f95; --econ: #b0702a;
+  --cj: #1f6b55; --cj2: #7fb39e; --batf: #c4862a; --batf2: #e2bb7e; --carbo: #a94a3f; --carbo2: #d48f86; --lgsr: #7a65a8; --m5: #3f6f95; --uci: #8a8f8c;
+  --display: "Bricolage Grotesque", "Be Vietnam Pro", system-ui, sans-serif;
+  --body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0c1613; --surface: #12201c; --ink: #e4ede8; --muted: #93a69e; --line: #24372f; --soft: #182a24;
+  --brand: #0f2a23; --brand-ink: #e7f1ec; --accent: #e0a24a; --data: #7fa8cc; --econ: #dd9c55;
+  --cj: #4fae8c; --cj2: #2f7a62; --batf: #e0a24a; --batf2: #9c763a; --carbo: #dc7a6d; --carbo2: #94534b; --lgsr: #a593d6; --m5: #78a6d1; --uci: #8f9692;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0c1613; --surface: #12201c; --ink: #e4ede8; --muted: #93a69e; --line: #24372f; --soft: #182a24;
+  --brand: #0f2a23; --brand-ink: #e7f1ec; --accent: #e0a24a; --data: #7fa8cc; --econ: #dd9c55;
+  --cj: #4fae8c; --cj2: #2f7a62; --batf: #e0a24a; --batf2: #9c763a; --carbo: #dc7a6d; --carbo2: #94534b; --lgsr: #a593d6; --m5: #78a6d1; --uci: #8f9692;
+  color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.65 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -0.01em; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; }
+.eyebrow { font: 600 0.74rem/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+/* Mở đầu */
+.hero { background: var(--brand); color: var(--brand-ink); padding-block: 56px 40px; position: relative; overflow: hidden; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.55; pointer-events: none; }
+.hero .wrap { position: relative; display: grid; gap: 28px; }
+.hero h1 { font-size: clamp(2.1rem, 5.4vw, 4.2rem); line-height: 1.02; font-weight: 800; max-width: 17ch; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero .lead { max-width: 62ch; font-size: 1.08rem; color: color-mix(in srgb, var(--brand-ink) 82%, transparent); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: color-mix(in srgb, var(--brand-ink) 18%, transparent); border-radius: var(--r); overflow: hidden; }
+.kpi { background: var(--brand); padding: 18px 20px; display: grid; gap: 4px; }
+.kpi b { font: 700 clamp(1.6rem, 3vw, 2.2rem)/1.05 var(--display); font-variant-numeric: tabular-nums; }
+.kpi span { font-size: 0.84rem; color: color-mix(in srgb, var(--brand-ink) 72%, transparent); }
+.legend-src { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 0.84rem; }
+.legend-src span { display: inline-flex; align-items: center; gap: 7px; }
+.legend-src i { width: 10px; height: 10px; border-radius: 50%; background: var(--src); }
+
+/* Mục lục */
+.toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.toc .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 10px; scrollbar-width: none; }
+.toc a { flex: none; text-decoration: none; font-size: 0.86rem; padding: 6px 12px; border-radius: 999px; color: var(--muted); white-space: nowrap; }
+.toc a:hover { background: var(--soft); color: var(--ink); }
+.toc a.on { background: var(--brand); color: var(--brand-ink); }
+
+/* Chương */
+section.ch { padding-block: 64px 8px; scroll-margin-top: 56px; }
+.ch-head { display: grid; gap: 12px; margin-bottom: 28px; max-width: 760px; }
+.ch-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); line-height: 1.1; font-weight: 700; }
+.ch-head p { color: var(--muted); font-size: 1.04rem; }
+.finding { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 20px; margin-bottom: 28px; align-items: start; }
+.finding.full { grid-template-columns: minmax(0, 1fr); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 20px 12px; min-width: 0; }
+.panel h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: 4px; }
+.panel .sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 8px; }
+.chart { width: 100%; height: 360px; }
+.chart.tall { height: 520px; }
+.chart.xtall { height: 640px; }
+.lens { display: grid; gap: 14px; min-width: 0; }
+.lens > div { padding: 16px 18px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); position: relative; }
+.lens .tag { font: 600 0.7rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; display: inline-flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+.lens .d .tag { color: var(--data); }
+.lens .e .tag { color: var(--econ); }
+.lens .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: currentColor; }
+.lens p { font-size: 0.94rem; }
+.lens p + p { margin-top: 8px; }
+.big { font: 700 2rem/1 var(--display); font-variant-numeric: tabular-nums; display: block; margin-bottom: 6px; }
+.chip { display: inline-block; font: 600 0.68rem/1 var(--mono); padding: 4px 7px; border-radius: 6px; color: #fff; letter-spacing: 0.04em; }
+.c-cj { background: var(--cj); } .c-batf { background: var(--batf); } .c-carbo { background: var(--carbo); } .c-lgsr { background: var(--lgsr); } .c-m5 { background: var(--m5); }
+
+/* Nguồn */
+.srcs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.src { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
+.src header { display: flex; gap: 12px; align-items: flex-start; }
+.src-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--src); margin-top: 8px; flex: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--src) 22%, transparent); }
+.src h3 { font-size: 1.15rem; }
+.src p.mono { color: var(--muted); }
+.src > p { font-size: 0.93rem; }
+.src dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 0.86rem; border-top: 1px dashed var(--line); padding-top: 10px; }
+.src dt { color: var(--muted); }
+.src dd { margin: 0; }
+
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+.tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+thead th { font: 600 0.72rem/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--soft); position: sticky; top: 0; }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+.matrix td.dot-cell { text-align: center; width: 72px; }
+.matrix .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--src); }
+.matrix .nodot { color: var(--line); font-weight: 700; }
+.matrix td.note { color: var(--muted); font-size: 0.84rem; min-width: 220px; }
+.matrix th[scope=row] { font-weight: 600; white-space: nowrap; }
+.quality td:nth-child(3), .quality td:nth-child(4) { min-width: 260px; }
+
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; max-width: 70ch; font-size: 1.02rem; margin-bottom: 24px; }
+
+/* Tổng hợp */
+.synth { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.synth article { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 10px; align-content: start; }
+.synth h3 { font-size: 1.08rem; }
+.synth .who { display: flex; gap: 6px; flex-wrap: wrap; }
+.synth p { font-size: 0.93rem; color: var(--muted); }
+.synth p b { color: var(--ink); }
+.actions { counter-reset: a; display: grid; gap: 12px; }
+.actions li { list-style: none; display: grid; grid-template-columns: 44px 1fr; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; }
+.actions li::before { counter-increment: a; content: counter(a, decimal-leading-zero); font: 700 1.3rem/1 var(--display); color: var(--accent); }
+.actions h3 { font-size: 1.04rem; margin-bottom: 4px; }
+.actions p { font-size: 0.93rem; color: var(--muted); }
+.actions ul { margin: 0; padding: 0; }
+footer.foot { margin-top: 64px; background: var(--brand); color: var(--brand-ink); padding-block: 36px; font-size: 0.88rem; }
+footer.foot .wrap { display: grid; gap: 14px; }
+footer.foot p { color: color-mix(in srgb, var(--brand-ink) 78%, transparent); max-width: 90ch; }
+.seg-toggle { display: inline-flex; gap: 4px; background: var(--soft); padding: 4px; border-radius: 999px; margin-bottom: 8px; flex-wrap: wrap; }
+.seg-toggle button { border: 0; background: transparent; font: 500 0.82rem var(--body); color: var(--muted); padding: 5px 12px; border-radius: 999px; cursor: pointer; }
+.seg-toggle button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 15%, transparent); }
+
+
+.sim-ctl { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.seg-toggle .lbl { font: 600 0.7rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); align-self: center; padding: 0 6px 0 8px; }
+.shot-mode .toc, .shot-mode footer.foot { display: none; }
+.shot-mode section.ch { padding-block: 24px 4px; }
+
+@media (max-width: 860px) {
+  .finding { grid-template-columns: minmax(0, 1fr); }
+  .chart { height: 320px; } .chart.tall { height: 480px; } .chart.xtall { height: 620px; }
+  .hero { padding-block: 40px 28px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+html { scroll-behavior: smooth; }
+</style>
+
+<header class="hero">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">Retail Intelligence · Phân tích đa nguồn</div>
+    <h1>Năm bộ dữ liệu bán lẻ, <em>một</em> cách đọc cho chuỗi siêu thị</h1>
+    <p class="lead">Gộp Complete Journey bản gốc 2 năm, Breakfast at the Frat, Carbo-Loading, Let’s Get Sort-of-Real và Walmart M5. Các bộ không có khóa chung nên không nối từng dòng. Chúng được chuẩn hóa về cùng bộ chỉ số rồi so sánh. Mỗi phát hiện được đọc theo hai góc: dữ liệu đo được gì, và kinh tế học nói gì.</p>
+    <div class="kpis">
+      <div class="kpi"><b>115 triệu</b><span>dòng/ô dữ liệu đã xử lý</span></div>
+      <div class="kpi"><b>5</b><span>nguồn mới, cộng 2 nguồn trong dashboard cũ</span></div>
+      <div class="kpi"><b>2006–2016</b><span>khoảng thời gian được phủ</span></div>
+      <div class="kpi"><b>1.817</b><span>mã cửa hàng, cộng dồn các nguồn</span></div>
+      <div class="kpi"><b>17</b><span>nhóm trường được đối chiếu</span></div>
+    </div>
+    <div class="legend-src">
+      <span style="--src: var(--cj)"><i></i>CJ · Complete Journey</span>
+      <span style="--src: var(--batf)"><i></i>BATF · Breakfast at the Frat</span>
+      <span style="--src: var(--carbo)"><i></i>Carbo · Carbo-Loading</span>
+      <span style="--src: var(--lgsr)"><i></i>LGSR · Sort-of-Real (mô phỏng)</span>
+      <span style="--src: var(--m5)"><i></i>M5 · Walmart</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Các chương"><div class="wrap">
+  <a href="#nguon">Nguồn & trường</a><a href="#du-lieu">Góc dữ liệu</a><a href="#tap-trung">Tập trung</a><a href="#khach-hang">Khách hàng</a><a href="#gia">Giá</a><a href="#khuyen-mai">Khuyến mãi</a><a href="#chinh-sach">Lịch & chính sách</a><a href="#thu-nhap">Thu nhập & nhãn riêng</a><a href="#hanh-vi">Hành vi giỏ</a><a href="#du-bao">Dự báo</a><a href="#tong-hop">Tổng hợp</a><a href="#hanh-dong">Hành động</a>
+</div></nav>
+
+<main>
+<section class="ch" id="nguon"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 1 · Bản đồ nguồn</div><h2>Mỗi bộ dữ liệu nhìn bán lẻ ở một hạt khác nhau</h2>
+  <p>Hạt dữ liệu quyết định câu hỏi trả lời được. Panel hộ cho biết ai mua. Bảng cửa hàng-tuần cho biết giá tác động thế nào. Chuỗi ngày-SKU cho biết cần dự trữ bao nhiêu.</p></div>
+  <div class="srcs"><article class="src" style="--src: var(--cj)">
+  <header><span class="src-dot"></span><div><h3>The Complete Journey</h3><p class="mono">dunnhumby · bản gốc 2 năm</p></div></header>
+  <p>2.595.732 dòng giao dịch, 2.500 hộ, 582 cửa hàng, 92.339 SKU, 102 tuần; thêm 36,8 tr dòng trưng bày/tờ rơi, 30 chiến dịch và coupon.</p>
+  <dl><dt>Hạt dữ liệu</dt><dd>Dòng hóa đơn của panel hộ mua thường xuyên</dd><dt>Trả lời được</dt><dd>Ai mua, mua gì, giảm giá bao nhiêu, chiến dịch có kéo thêm chi tiêu không</dd></dl>
+</article>
+<article class="src" style="--src: var(--batf)">
+  <header><span class="src-dot"></span><div><h3>Breakfast at the Frat</h3><p class="mono">dunnhumby · 2009–2011</p></div></header>
+  <p>538.643 dòng cửa hàng × SKU × tuần, 77 cửa hàng ở IN, KY, OH, TX, 55 SKU, 156 tuần.</p>
+  <dl><dt>Hạt dữ liệu</dt><dd>Tuần × cửa hàng × SKU, có giá kệ và giá cơ sở</dd><dt>Trả lời được</dt><dd>Độ co giãn giá, hiệu ứng tờ rơi/trưng bày/giảm giá tạm thời, phân khúc cửa hàng</dd></dl>
+</article>
+<article class="src" style="--src: var(--carbo)">
+  <header><span class="src-dot"></span><div><h3>Carbo-Loading</h3><p class="mono">dunnhumby · 104 tuần</p></div></header>
+  <p>5,2 tr dòng, 510.027 hộ, 3.316.349 giỏ, 927 SKU mì Ý, sốt, siro, bột bánh.</p>
+  <dl><dt>Hạt dữ liệu</dt><dd>Dòng giao dịch hộ trong 4 ngành bổ trợ</dd><dt>Trả lời được</dt><dd>Trung thành thương hiệu, coupon, cặp hàng bổ trợ, mức tập trung thị trường</dd></dl>
+</article>
+<article class="src" style="--src: var(--lgsr)">
+  <header><span class="src-dot"></span><div><h3>Let’s Get Sort-of-Real</h3><p class="mono">dunnhumby · mẫu 5.000 khách</p></div></header>
+  <p>3,1 tr dòng, 482.636 giỏ, 761 cửa hàng, 115 tuần. Dữ liệu mô phỏng.</p>
+  <dl><dt>Hạt dữ liệu</dt><dd>Dòng giỏ hàng có nhãn nhiệm vụ giỏ, độ nhạy giá, định dạng cửa hàng</dd><dt>Trả lời được</dt><dd>Nhịp giờ, loại chuyến mua, phân khúc giá, định dạng cửa hàng</dd></dl>
+</article>
+<article class="src" style="--src: var(--m5)">
+  <header><span class="src-dot"></span><div><h3>M5 Forecasting</h3><p class="mono">Walmart · Kaggle, bản Zenodo</p></div></header>
+  <p>30.490 chuỗi SKU-cửa hàng × 1.941 ngày, 10 cửa hàng ở CA, TX, WI; 6,8 tr dòng giá tuần, lịch sự kiện và SNAP.</p>
+  <dl><dt>Hạt dữ liệu</dt><dd>Ngày × cửa hàng × SKU (lượng bán), giá theo tuần</dd><dt>Trả lời được</dt><dd>Dự báo, tính mùa vụ, tác động trợ cấp SNAP, sự kiện, độ co giãn</dd></dl>
+</article></div>
+  <div class="finding full" style="margin-top:28px"><div class="panel"><h3>Dòng thời gian các nguồn</h3><p class="sub">Các nguồn có ngày thật. CJ bản gốc và Carbo chỉ ghi số thứ tự ngày/tuần (711 ngày, 104 tuần) nên không đặt được lên trục. Không có hai nguồn nào trùng kỳ và trùng địa bàn.</p><div class="chart" id="cTimeline" style="height:260px"></div></div></div>
+  <div class="panel" style="padding:0;overflow:hidden"><div style="padding:20px 20px 8px"><h3>Ma trận trường dữ liệu</h3><p class="sub">Trộn nhiều nguồn có lợi vì mỗi nguồn có những trường nguồn khác không có.</p></div>
+  <div class="tbl" style="border:0;border-radius:0"><table class="matrix"><thead><tr><th>Nhóm trường</th><th>CJ</th><th>BATF</th><th>Carbo</th><th>LGSR</th><th>M5</th><th>Ghi chú</th></tr></thead><tbody><tr><th scope="row">Mã khách / hộ</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--lgsr)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note">Có trong CJ, Carbo; LGSR có nhưng 20% giỏ không thẻ</td></tr>
+<tr><th scope="row">Mã giỏ / hóa đơn</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--lgsr)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note"></td></tr>
+<tr><th scope="row">Giờ giao dịch</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--lgsr)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note">LGSR theo khung giờ</td></tr>
+<tr><th scope="row">Giá kệ / giá cơ sở</th><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--batf)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note">Chỉ BATF tách giá thực và giá cơ sở</td></tr>
+<tr><th scope="row">Giá bán thực tế</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--batf)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--m5)" title="có"></span></td><td class="note">CJ, Carbo phải tự suy ra = tiền/đơn vị</td></tr>
+<tr><th scope="row">Giảm giá thẻ thành viên</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note"></td></tr>
+<tr><th scope="row">Coupon</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note">Carbo: cờ 0/1; CJ: số tiền + chiến dịch</td></tr>
+<tr><th scope="row">Tờ rơi / quảng cáo</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--batf)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note">Carbo chỉ từ tuần 43</td></tr>
+<tr><th scope="row">Trưng bày tại cửa hàng</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--batf)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note"></td></tr>
+<tr><th scope="row">Chiến dịch marketing trực tiếp</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note"></td></tr>
+<tr><th scope="row">Nhân khẩu học hộ</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note">801/2.500 hộ</td></tr>
+<tr><th scope="row">Phân khúc khách / độ nhạy giá</th><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--lgsr)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note">Nhãn có sẵn, dữ liệu mô phỏng</td></tr>
+<tr><th scope="row">Thuộc tính cửa hàng</th><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--batf)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--lgsr)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--m5)" title="có"></span></td><td class="note">BATF: diện tích, phân khúc; LGSR: định dạng, vùng; M5: bang</td></tr>
+<tr><th scope="row">Thương hiệu / nhãn riêng</th><td class="dot-cell"><span class=dot style="--src:var(--cj)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--batf)" title="có"></span></td><td class="dot-cell"><span class=dot style="--src:var(--carbo)" title="có"></span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="note"></td></tr>
+<tr><th scope="row">Lịch lễ & sự kiện</th><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--m5)" title="có"></span></td><td class="note"></td></tr>
+<tr><th scope="row">Trợ cấp thực phẩm (SNAP)</th><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--m5)" title="có"></span></td><td class="note">Biến chính sách duy nhất</td></tr>
+<tr><th scope="row">Ngày không bán (zero)</th><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=nodot>·</span></td><td class="dot-cell"><span class=dot style="--src:var(--m5)" title="có"></span></td><td class="note">Chỉ M5 ghi nhận lượng 0 tường minh</td></tr></tbody></table></div></div>
+</div></section>
+
+<section class="ch" id="du-lieu"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 2 · Góc dữ liệu</div><h2>Trước khi tin con số, cần biết mỗi nguồn sai ở đâu</h2>
+  <p>Mỗi nguồn có một điểm mù. Bảng dưới ghi nguồn gốc sai lệch và cách xử lý trong báo cáo này.</p></div>
+  <p class="callout">Nguyên tắc trộn: <b>hài hòa ở mức chỉ số, không nối ở mức dòng</b>. Cùng một chỉ số (độ co giãn, mức tăng do trưng bày, tỷ trọng top 20%) được ước lượng riêng trong từng nguồn bằng cùng phương pháp. Kết luận nào lặp lại ở nhiều nguồn độc lập thì đáng tin hơn kết luận chỉ có ở một nguồn.</p>
+  <div class="tbl"><table class="quality"><thead><tr><th>Nguồn</th><th>Giới hạn chính</th><th>Bằng chứng trong dữ liệu</th><th>Cách xử lý</th></tr></thead><tbody><tr><td><span class="chip c-cj">CJ</span></td><td><b>Panel 2.500 hộ, không phải toàn bộ doanh thu cửa hàng</b></td><td>Nhân khẩu học chỉ có 801 hộ (32%) nhưng chiếm 56% doanh thu → hộ có hồ sơ là hộ chi nhiều. SALES_VALUE là tiền nhà bán lẻ nhận, không phải giá khách trả; 18.850 dòng có giá trị ≤ 0.</td><td>Không dùng tổng theo cửa hàng làm doanh thu cửa hàng. Kết luận nhân khẩu học chỉ đại diện nhóm có hồ sơ.</td></tr>
+<tr><td><span class="chip c-batf">BATF</span></td><td><b>Chỉ 55 SKU, 4 ngành, toàn top brand</b></td><td>5.070 dòng có giá bán cao hơn giá cơ sở; 185 dòng thiếu giá cơ sở. Dữ liệu chỉ có tuần có bán.</td><td>Ước lượng co giãn tốt nhất trong 5 nguồn vì có giá cơ sở và biến khuyến mãi tách riêng, nhưng không suy rộng ra toàn cửa hàng.</td></tr>
+<tr><td><span class="chip c-carbo">Carbo</span></td><td><b>Vũ trụ chỉ gồm 4 ngành</b></td><td>Mọi giỏ đều chứa ít nhất một trong 4 ngành, nên lift mì Ý + sốt chỉ 0,90 dù 53% giỏ có sốt cũng có mì. Tờ rơi/trưng bày chỉ có từ tuần 43.</td><td>Lift trong dữ liệu đã lọc ngành bị kéo về 1; cần mẫu giỏ đầy đủ mới đo đúng mức bổ trợ.</td></tr>
+<tr><td><span class="chip c-lgsr">LGSR</span></td><td><b>Dữ liệu mô phỏng</b></td><td>Nhà phát hành ghi rõ đây là dummy data mô phỏng. 20% dòng không có mã khách (giỏ không thẻ); có 115 tuần thay vì 117 như mô tả.</td><td>Dùng để thử quy trình và phương pháp, không dùng làm bằng chứng kinh tế.</td></tr>
+<tr><td><span class="chip c-m5">M5</span></td><td><b>68% ô ngày-SKU bằng 0</b></td><td>Ngày 25/12 cả năm gần như không bán (cửa hàng đóng). Không có tồn kho nên không phân biệt được 'không có cầu' với 'hết hàng'. 91% chuỗi là nhu cầu gián đoạn hoặc cục.</td><td>Mô hình dự báo phải xử lý nhu cầu gián đoạn; doanh thu phải tự tính = lượng × giá tuần.</td></tr></tbody></table></div>
+  <div class="finding" style="margin-top:28px">
+    <div class="panel"><h3>Nhu cầu ở cấp SKU-cửa hàng phần lớn là gián đoạn</h3><p class="sub">M5 · phân loại Syntetos–Boylan (ADI 1,32; CV² 0,49) cho 30.490 chuỗi</p><div class="chart" id="cDemand"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><span class="big">91%</span><p>chuỗi SKU-cửa hàng có nhu cầu gián đoạn hoặc cục. Ở ngành Thực phẩm chỉ 8% chuỗi bán đều. Tỷ lệ ngày bằng 0: Thực phẩm 62%, Gia dụng 72%, Sở thích 77%.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Lượng bán bằng 0 có thể là không có cầu hoặc hết hàng. Nếu không có dữ liệu tồn kho, mô hình sẽ đánh giá thấp nhu cầu thật của mặt hàng hay hết hàng, và chuỗi sẽ tiếp tục nhập thiếu. Chuỗi Việt Nam cần ghi tồn kho đầu ngày để phân biệt hai trường hợp này.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="tap-trung"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 3 · Tập trung doanh thu</div><h2>Quy luật 20/60 xuất hiện ở cả khách hàng lẫn mặt hàng</h2>
+  <p>Đường Lorenz của năm góc nhìn gần như chồng lên nhau. Đây là phát hiện ổn định nhất của báo cáo.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>Tỷ trọng doanh thu tích lũy</h3><p class="sub">Xếp khách hoặc mặt hàng từ chi nhiều đến chi ít. Đường chéo là phân bổ đều.</p><div class="chart" id="cLorenz"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><span class="big">53% – 66%</span><p>doanh thu đến từ 20% khách (CJ, Carbo 66%, LGSR). Với mặt hàng, top 20% SKU của M5 tạo 59% doanh thu. Panel CJ chỉ chọn hộ mua thường xuyên nên mức tập trung thật của cửa hàng còn cao hơn.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Doanh thu tập trung nên giá trị kinh tế nằm ở việc giữ nhóm đầu, không phải kéo thêm khách lẻ. Mất 1% hộ đầu của CJ tương đương mất 6% doanh thu. Ngân sách CRM nên chia theo giá trị vòng đời. Danh mục hàng nên được rà theo đuôi dài: 10% doanh thu M5 đến từ 40% SKU bán chậm nhất, chiếm kệ và vốn tồn kho.</p></div>
+    </div>
+  </div>
+</div></section>
+
+
+<section class="ch" id="khach-hang"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 4 · Khách hàng theo thời gian</div><h2>Doanh thu panel tăng 25% chủ yếu nhờ giỏ lớn hơn</h2>
+  <p>Complete Journey theo dõi cùng 2.500 hộ trong 102 tuần. Tăng trưởng được tách thành ba thành phần nhân với nhau: số hộ hoạt động × số chuyến mỗi hộ × giá trị mỗi giỏ.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>Ba động lực của doanh thu theo chu kỳ 4 tuần</h3><p class="sub">Chỉ số = 100 ở kỳ 3 (tuần 9–12)</p><div class="chart" id="cPeriods"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Hai kỳ đầu thấp do hộ được đưa vào panel dần dần, nên báo cáo so kỳ 3–8 với kỳ 20–25. Phân rã theo log: tổng tăng 22,1 điểm log = số hộ 7,4 + chuyến/hộ 2,9 + giá trị giỏ 12,7 (sai lệch nhỏ do lấy trung bình).</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Hơn một nửa mức tăng đến từ giá trị giỏ, nghĩa là hộ dồn thêm chi tiêu vào cửa hàng (tăng thị phần ví), không phải đến thường xuyên hơn. Giá trị giỏ cũng chứa yếu tố giá: phần lạm phát giá bán lẻ thực phẩm ở Mỹ khoảng 2–3%/năm cần được trừ trước khi gọi đây là tăng trưởng thực.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Quỹ đạo của từng hộ: nửa đầu so với nửa sau</h3><p class="sub">2.491 hộ có mặt từ 120 ngày đầu; cột là số hộ, đường là chênh doanh thu (USD)</p><div class="chart" id="cTraj"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>1.263 hộ tăng chi hơn 20%, 466 hộ giảm, 274 hộ không mua trong 8 tuần cuối. Số hộ tăng chi nhiều bất thường có thể do hộ dùng thẻ thành viên đều hơn theo thời gian, không hẳn là chi tiêu thật tăng.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Nhóm giảm chi và rời bỏ mất 392.805 USD giữa hai nửa, bằng 29% phần tăng của nhóm tăng chi. Giữ chân rẻ hơn thu hút: phát hiện sớm hộ bắt đầu giảm chi (chương rủi ro rời bỏ trong dashboard cũ) có giá trị kinh tế trực tiếp.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Phân khúc RFM tại cuối kỳ</h3><p class="sub">R = số ngày từ lần mua cuối, F = số giỏ, M = tổng chi; chấm điểm theo nhóm 20%</p><div class="chart" id="cRfm"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>RFM chỉ dùng ba trường có sẵn ở mọi hệ thống POS có mã khách, nên chuyển sang chuỗi Việt Nam ngay được. Ngưỡng theo nhóm 20% là tương đối: cùng một hộ có thể đổi phân khúc khi tập khách thay đổi.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>"Nhà vô địch" chiếm 22% số hộ nhưng 48% doanh thu. Nhóm "có nguy cơ mất" chỉ 5% số hộ nhưng mỗi hộ chi bình quân 5.010 USD, cao hơn nhóm trung thành. Đây là nơi chi phí giữ chân mang lại lợi ích lớn nhất.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="gia"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 5 · Giá</div><h2>Hàng tùy ý co giãn mạnh, hàng thiết yếu thì gần như không</h2>
+  <p>Độ co giãn được ước lượng bằng hồi quy log–log với hiệu ứng cố định SKU×cửa hàng và tuần. BATF và Carbo đã giữ cố định tờ rơi, trưng bày và giảm giá tạm thời. Thanh ngang là khoảng tin cậy 95%.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>Độ co giãn của lượng bán theo giá</h3><p class="sub">Giá trị −2 nghĩa là giá tăng 1% thì lượng bán giảm khoảng 2%</p><div class="chart tall" id="cElastic"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>BATF đo trên giá kệ thực tế so với giá cơ sở, nên ước lượng sạch nhất. Carbo và M5 phải suy giá từ doanh thu/đơn vị hoặc giá tuần. Biến động giá của hai nguồn này nhỏ hơn và lẫn sai số đo, khiến hệ số bị kéo về 0. Vì vậy cần so sánh theo thứ hạng, không so trị tuyệt đối giữa các nguồn.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><span class="big">-2,99</span><p>là độ co giãn của pizza đông lạnh, ngành nhạy giá nhất: có nhiều sản phẩm thay thế và dễ tích trữ. Ngũ cốc -1,77, snack -1,36. Bốn ngành của Carbo (-0,54 đến -0,27) và các ngành của M5 đều nằm trong khoảng từ −1 đến 0. Với nhóm ít co giãn, tăng giá nhẹ làm tăng doanh thu. Với nhóm co giãn hơn 1, giảm giá có thể tăng doanh thu nhưng phải so với biên lợi nhuận.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Co giãn theo phân khúc cửa hàng</h3><p class="sub">BATF · cửa hàng Value / Mainstream / Upscale do nhà bán lẻ tự phân loại</p><div class="chart" id="cSeg"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Khoảng tin cậy giữa ba phân khúc chồng lên nhau ở hầu hết ngành. Chỉ có 17 cửa hàng Upscale và 19 cửa hàng Value, nên mẫu chưa đủ để chứng minh khác biệt.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Giả thuyết "cửa hàng bình dân nhạy giá hơn" không được dữ liệu ủng hộ rõ. Snack ở cửa hàng Value thậm chí ít co giãn hơn (-1,16). Độ nhạy giá phụ thuộc ngành hàng nhiều hơn phụ thuộc vị trí cửa hàng. Nên định giá theo ngành trước, rồi mới tinh chỉnh theo cụm cửa hàng.</p></div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="panel"><h3>Biên lợi nhuận ngụ ý theo quy tắc Lerner</h3><p class="sub">BATF · (P − MC)/P = 1/|e| nếu nhà bán lẻ định giá tối ưu cho từng SKU; vạch là biên hòa vốn khi giảm giá 20%</p><div class="chart" id="cLerner"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Độ co giãn ở đây là của từng SKU, đã gồm phần khách chuyển từ SKU khác sang. Co giãn của cả ngành sẽ thấp hơn, nên biên ngụ ý cho cả ngành cao hơn con số trên. Không có giá vốn để kiểm tra trực tiếp.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Pizza đông lạnh co giãn mạnh nhất nên biên tối ưu chỉ 33%; nước súc miệng 78%. Giảm giá 20% chỉ có lãi khi biên hiện tại thấp hơn 41% (pizza) hoặc 61% (ngũ cốc). Đây là cách nối độ co giãn với quyết định giá khi có giá vốn thật.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Giá thay đổi thưa và theo bước lớn</h3><p class="sub">M5 · 6.841.121 quan sát giá tuần; phân bố mức thay đổi khi giá đổi</p><div class="chart" id="cPch"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Chỉ 1,6% tuần SKU-cửa hàng Thực phẩm có đổi giá (Gia dụng 0,8%, Sở thích 0,7%). Khi đổi, trung vị thay đổi là 10,1%. Biến động giá ít nên ước lượng co giãn từ M5 kém chính xác hơn BATF.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Giá cứng là dấu hiệu của chi phí thay đổi giá (menu cost: in nhãn, cập nhật hệ thống, rủi ro làm khách khó chịu). Giá giữ nguyên trung bình khoảng 62 tuần ở Thực phẩm. Lạm phát giá bình quân năm của cùng SKU-cửa hàng: Thực phẩm 0,9%, Gia dụng 0,3%, Sở thích 0,3%.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="khuyen-mai"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 6 · Khuyến mãi</div><h2>Vị trí trên kệ và tờ rơi hiệu quả hơn giảm giá đơn thuần</h2>
+  <p>Ba nguồn có biến trưng bày và tờ rơi. Sau khi đã kiểm soát giá, phần còn lại là hiệu ứng của sự chú ý.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>Mức tăng lượng bán khi có hoạt động</h3><p class="sub">Feature = tờ rơi/quảng cáo; Display = trưng bày; TPR = giảm giá tạm thời không kèm quảng bá</p><div class="chart xtall" id="cPromo"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>CJ chỉ quan sát những tuần có hộ trong panel mua, nên mức tăng (6% trưng bày, 14% tờ rơi, 18% cả hai) là cận dưới. BATF và Carbo đo ở cấp cửa hàng nên ghi được toàn bộ lượng bán. Hiệu ứng tờ rơi bột bánh 92% tính trên mẫu nhỏ.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Trưng bày tăng 28–69% lượng bán ở BATF và 33–47% ở Carbo khi giá không đổi. Ngược lại, cờ TPR (chỉ giảm giá) có hệ số ≈ 0 hoặc âm khi đã tính giá: giảm giá chỉ tác động qua mức giá, không có hiệu ứng phụ. Khách mua theo sự chú ý nhiều hơn theo phép tính. Ngân sách trade marketing nên ưu tiên vị trí kệ và tờ rơi, không chỉ đổ vào mức giảm.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Giảm sâu thì bán nhiều, nhưng hiếm</h3><p class="sub">BATF · đơn vị bán trung bình mỗi SKU-cửa hàng-tuần theo độ sâu giảm giá</p><div class="chart" id="cDepth"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>74% quan sát bán đúng giá cơ sở. Nhóm giảm ≥ 40% chỉ có 8.222 quan sát, nhưng bán 60,3 đơn vị/tuần so với 15,8 khi không giảm.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Phần lượng bán tăng thêm trong tuần giảm giá gồm ba phần: khách mới, khách chuyển từ thương hiệu khác, và khách mua trước rồi bớt mua tuần sau. Chỉ phần đầu là tăng trưởng thật. Cần đo lượng bán 2–4 tuần sau khuyến mãi để trừ phần mua dồn trước khi tính ROI.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Chiến dịch coupon: chọn đúng người hay tạo thêm chi tiêu?</h3><p class="sub">CJ · 29 chiến dịch. Trục ngang: hộ nhận coupon đã chi nhiều hơn bao nhiêu trước chiến dịch. Trục dọc: chênh tăng trưởng trong chiến dịch so với hộ không nhận (DiD)</p><div class="chart" id="cCampaign"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><span class="big">×2,8</span><p>là mức chi của hộ nhận chiến dịch TypeA so với hộ không nhận, ngay cả trước khi chiến dịch bắt đầu. Hộ nhận không được chọn ngẫu nhiên, nên so sánh thô sẽ gán nhầm thành tích cho chiến dịch.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Khi so tốc độ tăng chi tiêu, chênh lệch trung vị chỉ 0,2% (TypeA), -0,4% (TypeB), 0,3% (TypeC). Tỷ lệ đổi coupon cao nhất ở TypeA (16,0%) vì coupon được cá nhân hóa. Phần lớn coupon có thể đang trợ giá cho chi tiêu vốn sẽ xảy ra. Chuỗi cần nhóm đối chứng ngẫu nhiên (holdout) trước khi mở rộng ngân sách.</p></div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="panel"><h3>Khuyến mãi của đối thủ và tuần sau khuyến mãi</h3><p class="sub">BATF · hệ số trong cùng mô hình hiệu ứng cố định; rival = tỷ lệ SKU khác cùng ngành đang khuyến mãi</p><div class="chart" id="cDyn"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Mô hình chỉ dùng chuỗi tuần liên tiếp và thêm biến trễ khuyến mãi 1–2 tuần. Nếu khách tích trữ, hệ số trễ sẽ âm. Kết quả: trễ 1 tuần dương nhẹ (+1 đến +4%), trễ 2 tuần gần 0. BATF không cho thấy mua dồn rõ ràng, có thể do khuyến mãi thường kéo dài nhiều tuần liên tiếp.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Khi tất cả SKU khác cùng ngành khuyến mãi, lượng bán của một SKU giảm 5%–22% (mạnh nhất ở ngũ cốc). Đây là ăn mòn lẫn nhau (cannibalization): một phần lượng tăng của SKU khuyến mãi lấy từ SKU khác trong cùng cửa hàng. Đánh giá khuyến mãi phải tính ở cấp ngành, không chỉ ở SKU được giảm giá.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Mô phỏng lợi nhuận khi giảm giá</h3><p class="sub">Dùng độ co giãn và hiệu ứng trưng bày đã ước lượng; biên gộp là giả định vì dữ liệu không có giá vốn</p>
+      <div class="sim-ctl"><div class="seg-toggle" role="group" aria-label="Biên gộp"><span class="lbl">Biên gộp</span><button id="simM20" data-m="0.2" aria-pressed="false">20%</button><button id="simM30" data-m="0.3" aria-pressed="true">30%</button><button id="simM40" data-m="0.4" aria-pressed="false">40%</button></div>
+      <div class="seg-toggle" role="group" aria-label="Mức giảm giá"><span class="lbl">Giảm giá</span><button id="simC10" data-c="0.1" aria-pressed="true">10%</button><button id="simC20" data-c="0.2" aria-pressed="false">20%</button><button id="simC30" data-c="0.3" aria-pressed="false">30%</button></div></div>
+      <div class="chart" id="cSim"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Lượng bán mới = (1 − mức giảm)^e; trường hợp có trưng bày nhân thêm hiệu ứng trưng bày. Lợi nhuận = (biên − mức giảm) × lượng bán, so với lợi nhuận khi không giảm. Mô phỏng chưa trừ ăn mòn SKU khác, nên là cận trên.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Ở biên 30%, giảm giá 10% đơn thuần làm giảm lợi nhuận ở cả bốn ngành; chỉ khi kèm trưng bày thì ngũ cốc, pizza, snack mới có lãi. Giảm 20% chỉ có lãi ở biên 40%, có trưng bày, và chỉ với ngũ cốc và pizza (hai ngành co giãn mạnh nhất). Tiền khuyến mãi nên đi kèm vị trí kệ, và mức giảm phải nhỏ hơn biên một khoảng đủ lớn.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="chinh-sach"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 7 · Lịch và chính sách</div><h2>Ngày nhận trợ cấp thực phẩm làm giỏ thực phẩm tăng tới 30%</h2>
+  <p>M5 ghi những ngày bang chi trả SNAP (tem phiếu thực phẩm cho hộ thu nhập thấp). Đây là biến chính sách duy nhất trong 5 nguồn, và là thí nghiệm tự nhiên tốt về ràng buộc thanh khoản.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>Mức tăng lượng bán vào ngày SNAP</h3><p class="sub">Hồi quy log lượng bán theo ngày, có hiệu ứng cố định năm-tháng và thứ trong tuần, loại ngày lễ; sai số HAC</p><div class="chart" id="cSnap"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Lịch SNAP khác nhau giữa các bang. CA chi trả ngày 1–10, TX và WI xen kẽ trong 15 ngày đầu. Nhờ khác biệt này có thể tách hiệu ứng SNAP khỏi hiệu ứng nhận lương đầu tháng. Hiệu ứng tập trung ở Thực phẩm (CA 10%, TX 15%, WI 30%), còn Gia dụng và Sở thích chỉ 1,5–3%.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Nếu hộ làm mượt tiêu dùng theo lý thuyết thu nhập thường xuyên, ngày nhận tiền không làm thay đổi lượng mua. Dữ liệu cho thấy điều ngược lại: hộ có ràng buộc thanh khoản chi ngay khi có tiền. Hiệu ứng lan rất ít sang ngành không được trợ cấp, phù hợp với việc SNAP chỉ dùng được cho thực phẩm. Ở Việt Nam, tương tự là ngày nhận lương và ngày chi trả lương hưu, trợ cấp. Chuỗi nên đặt lịch nhập hàng thiết yếu và khuyến mãi theo các ngày này.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Nhịp chi tiêu theo ngày trong tháng</h3><p class="sub">Tổng lượng bán theo bang, chuẩn hóa theo trung bình tháng (1,0 = mức trung bình)</p><div class="chart" id="cDom"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>WI có răng cưa rõ nhất: các ngày 2, 3, 5, 6, 8, 9, 11, 12, 14, 15 (đúng lịch SNAP của WI) cao hơn hẳn các ngày xen giữa. Đường CA cao đều trong 10 ngày đầu rồi giảm dần.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Nửa cuối tháng thấp hơn đầu tháng cho thấy nhu cầu bị giới hạn bởi dòng tiền của hộ. Chương trình giữ khách cuối tháng (gói tiết kiệm, nhãn riêng giá thấp) có thể bù phần thiếu hụt này.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Ngày lễ: nhiều ngày làm giảm doanh số</h3><p class="sub">M5 · lượng bán ngày lễ so với cùng thứ tuần trước và tuần sau. Ngày 25/12 cửa hàng đóng cửa nên bị loại.</p><div class="chart tall" id="cEvents"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Lượng bán đo trong đúng ngày lễ. Phần mua sắm trước lễ (ví dụ trước Lễ Tạ ơn) nằm ở ngày trước đó, nên ngày lễ trông như giảm. Mô hình dự báo cần biến "ngày trước lễ" chứ không chỉ biến "ngày lễ".</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Lễ Tạ ơn -28% và Năm mới -23%: hộ đã mua trước và ở nhà nấu ăn hoặc đi thăm gia đình. Lễ Lao động 28%: kỳ nghỉ cuối hè gắn với tiệc ngoài trời. Với Tết Nguyên đán, chuỗi Việt Nam cần mô hình riêng cho 2–3 tuần trước Tết và tuần đóng cửa.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="thu-nhap"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 8 · Thu nhập và nhãn riêng</div><h2>Thu nhập tăng một bậc, chi tiêu tăng 6,5% và nhãn riêng giảm 0,78 điểm %</h2>
+  <p>CJ là nguồn duy nhất có nhân khẩu học. Thu nhập được mã hóa thứ bậc từ Level1 đến Level12, không có số tiền cụ thể.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>Chi tiêu tuần và tỷ trọng nhãn riêng theo bậc thu nhập</h3><p class="sub">CJ · 801 hộ có hồ sơ; hồi quy có kiểm soát quy mô hộ</p><div class="chart" id="cIncome"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Các bậc 10–12 chỉ có 5–11 hộ, nên con số ở đầu cao rất nhiễu. Hệ số hồi quy (sai số chuẩn 0,011) đáng tin hơn từng cột. R² chỉ 0,06: thu nhập giải thích rất ít phần chênh lệch chi tiêu giữa các hộ, còn lại là thói quen và lòng trung thành với cửa hàng.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Mỗi bậc thu nhập chỉ làm chi tiêu tạp hóa tăng 6,5%, trong khi khoảng cách thu nhập giữa hai bậc thường lớn hơn nhiều. Chi tiêu thực phẩm tăng chậm hơn thu nhập, phù hợp quy luật Engel. Nhãn riêng hành xử như hàng cấp thấp (inferior good): hộ thu nhập cao mua ít hơn. Khi kinh tế đi xuống, tỷ trọng nhãn riêng là chỉ báo sớm cho việc khách hạ cấp chi tiêu.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Chênh giá nhãn riêng và thương hiệu quốc gia</h3><p class="sub">BATF · giá bán bình quân (USD/đơn vị)</p><div class="chart" id="cPL"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Giá bình quân tính bằng doanh thu chia đơn vị, nên chịu ảnh hưởng của cỡ gói. BATF có 1–2 SKU nhãn riêng mỗi ngành với cỡ gói tương đương, nên so sánh ở đây tương đối công bằng.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Nhãn riêng rẻ hơn 30–62%. Ở ngũ cốc nhãn riêng khuyến mãi nhiều hơn thương hiệu (TPR 18% so với 9% số tuần). Nhà bán lẻ dùng nhãn riêng làm công cụ cạnh tranh giá và để có thêm sức mặc cả với nhà sản xuất.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Trung thành thương hiệu trong 4 ngành</h3><p class="sub">Carbo · hộ có ≥ 5 lần mua trong ngành; trung thành = ≥ 80% số lần mua cùng một thương hiệu</p><div class="chart" id="cLoyal"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Chỉ số HHI của ngành: bột bánh 2.388, sốt 2.080, mì Ý 1.778, siro 1.165. Theo ngưỡng 1.500–2.500, ba ngành đầu tập trung ở mức vừa; siro phân tán hơn.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Bột bánh có 56% hộ trung thành, mì Ý chỉ 22%. Mì Ý gần như hàng đồng nhất, cạnh tranh bằng giá; nhãn riêng chiếm 44% doanh thu mì Ý so với 10% ở sốt. Ngành đồng nhất nên đẩy nhãn riêng. Ngành trung thành cao nên hợp tác với nhãn dẫn đầu.</p></div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="panel"><h3>Ma trận chuyển đổi thương hiệu</h3><p class="sub">Carbo · xác suất lần mua kế tiếp của cùng hộ thuộc thương hiệu ở cột, cho biết lần trước là thương hiệu ở hàng</p>
+      <div class="seg-toggle" role="group" aria-label="Chọn ngành"><button id="swSauce" data-s="pasta sauce" aria-pressed="true">Sốt mì Ý</button><button id="swPasta" data-s="pasta" aria-pressed="false">Mì Ý</button></div>
+      <div class="chart" id="cSwitch"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Đường chéo là tỷ lệ mua lặp lại. Thị phần dừng tính từ ma trận (vector riêng) gần bằng thị phần hiện tại, nghĩa là thị trường đang ở trạng thái cân bằng trong 2 năm quan sát: không thương hiệu nào đang tăng hay giảm thị phần một cách hệ thống.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Ragu giữ lại 69% khách sốt, nhãn riêng giữ 64% khách mì Ý: ở ngành đồng nhất, khách quen mua hàng rẻ nhất trên kệ. Các thương hiệu nhỏ giữ chân kém (30–45%), nên khuyến mãi của họ chủ yếu tạo lượt mua thử rồi khách quay về thương hiệu cũ.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="hanh-vi"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 9 · Hành vi giỏ hàng</div><h2>Phần lớn số lần ghé là chuyến nhỏ, phần lớn doanh thu đến từ chuyến lớn</h2>
+  <p>LGSR có nhãn sẵn cho loại chuyến và độ nhạy giá của giỏ. Đây là dữ liệu mô phỏng, nên được dùng để thử phương pháp và đặt giả thuyết.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>Số giỏ và doanh thu theo loại chuyến và độ nhạy giá</h3><p class="sub">LGSR · 482.636 giỏ</p>
+      <div class="seg-toggle" role="group" aria-label="Chọn chiều"><button id="btBasket" aria-pressed="true" data-k="basket_type">Loại chuyến</button><button id="btPs" aria-pressed="false" data-k="price_sens">Độ nhạy giá</button><button id="btMission" aria-pressed="false" data-k="mission">Nhiệm vụ giỏ</button><button id="btFmt" aria-pressed="false" data-k="fmt">Định dạng cửa hàng</button></div>
+      <div class="chart" id="cBasket"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Small Shop chiếm 55% số giỏ nhưng chỉ 19% doanh thu. Full Shop chỉ 11% số giỏ nhưng tạo 35%. Giỏ không thẻ thành viên chiếm 27% ở cửa hàng nhỏ (SS), cao hơn mức 19% ở cửa hàng lớn.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Giá trị giỏ Full Shop (40,2) gấp khoảng 9 lần Small Shop (4,3). Chuyến mua lớn là nơi chuỗi cạnh tranh về giá với đại siêu thị. Chuyến nhỏ là nơi cạnh tranh về sự tiện lợi với cửa hàng tiện lợi. Hai loại chuyến cần hai chiến lược giá khác nhau.</p></div>
+    </div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Bản đồ nhiệt thứ × giờ</h3><p class="sub">LGSR · số giỏ</p><div class="chart" id="cHeat"></div></div>
+    <div class="panel"><h3>Nhịp giờ ở ba nguồn</h3><p class="sub">Tỷ lệ số giỏ theo giờ</p><div class="chart" id="cHours"></div></div>
+  </div>
+  <div class="finding">
+    <div class="panel"><h3>Bổ trợ trong giỏ: lift phụ thuộc vào vũ trụ dữ liệu</h3><p class="sub">Carbo · lift = P(A và B) / (P(A)·P(B)); confidence = P(B|A)</p><div class="chart" id="cComp"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Bột bánh + siro có lift 2,05. Mì Ý + sốt chỉ 0,90 dù 53% giỏ có sốt cũng có mì. Lý do là Carbo chỉ giữ giỏ có ít nhất một trong bốn ngành, nên P(A) và P(B) bị thổi phồng. Chạy luật kết hợp trên dữ liệu đã lọc ngành sẽ cho kết quả sai.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Hàng bổ trợ có độ co giãn chéo âm: giảm giá mì Ý kéo theo lượng bán sốt. Chiến lược "hàng mồi" là giảm giá mặt hàng có cầu bổ trợ cao để thu lợi nhuận từ mặt hàng đi kèm có biên tốt hơn (sốt có giá 1,74 so với mì 0,99 USD/đơn vị).</p></div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="panel"><h3>Luật kết hợp trên giỏ đầy đủ</h3><p class="sub">CJ · 250.965 giỏ, 60 nhóm hàng phổ biến nhất, cặp xuất hiện ≥ 1.000 giỏ; 15 cặp có lift cao nhất</p><div class="chart tall" id="cRules"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><span class="big">9,8 so với 0,90</span><p>là lift của mì Ý + sốt trên giỏ đầy đủ (CJ) so với trên dữ liệu đã lọc 4 ngành (Carbo). Cùng một cặp hàng, kết luận ngược nhau. Đây là ví dụ rõ nhất cho việc phạm vi dữ liệu quyết định kết quả.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Các cặp lift cao là bữa ăn hoàn chỉnh: mì + sốt, phô mai + thịt nguội, cà chua + rau salad, xúc xích + bánh mì. Khách mua giải pháp cho một bữa ăn, không mua từng món. Trưng bày theo bữa ăn và khuyến mãi gói tận dụng độ co giãn chéo âm giữa các món bổ trợ.</p></div>
+    </div>
+  </div>
+</div></section>
+
+
+<section class="ch" id="du-bao"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 10 · Dự báo</div><h2>Học máy giảm sai số 22% so với lặp lại tuần trước, nhưng mô hình đơn giản đã gần bằng</h2>
+  <p>Bài toán M5: dự báo 28 ngày cuối (23/04–22/05/2016) cho 30.490 chuỗi SKU-cửa hàng. Đánh giá bằng RMSSE có trọng số doanh thu (WRMSSE cấp SKU, cách M5 chấm điểm) và WAPE.</p></div>
+  <div class="finding">
+    <div class="panel"><h3>So sánh mô hình</h3><p class="sub">Thấp hơn là tốt hơn. GBM huấn luyện trên 2.499.530 quan sát lấy mẫu từ 420 ngày trước kỳ kiểm tra</p><div class="chart" id="cFc"></div></div>
+    <div class="lens">
+      <div class="d"><div class="tag">Góc dữ liệu</div><p>Mô hình chỉ dùng thông tin có trước ngày dự báo ít nhất 28 ngày (độ trễ ≥ 28), nên không rò rỉ tương lai và dự báo được cả 28 ngày một lần. Biến quan trọng nhất: rm28, rm91, rm7. Sai số theo ngành cao nhất ở Sở thích, nơi 77% ngày bằng 0.</p></div>
+      <div class="e"><div class="tag">Góc kinh tế</div><p>Tốt nhất là GBM toàn cục (Poisson) (WRMSSE 0,858, WAPE 74%), nhưng trung bình 28 ngày đơn giản chỉ kém 1,1% ở cấp SKU. Khác biệt lớn nằm ở cấp tổng: sai số ngày của GBM là 3.442 đơn vị so với 6.857 của trung bình 28 ngày, vì GBM bắt được nhịp cuối tuần. Với cùng mức phục vụ, tồn kho an toàn tỷ lệ với độ lệch chuẩn sai số, nên chuỗi nên bắt đầu bằng mô hình đơn giản cho từng SKU và dùng học máy cho kế hoạch tổng (nhân sự, vận tải, nhập hàng theo ngành).</p></div>
+    </div>
+  </div>
+  <div class="finding full">
+    <div class="panel"><h3>Tổng lượng bán 28 ngày: thực tế và dự báo</h3><p class="sub">Tổng toàn bộ 30.490 chuỗi theo ngày</p><div class="chart" id="cFcLine"></div></div>
+  </div>
+</div></section>
+
+<section class="ch" id="tong-hop"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 11 · Tổng hợp</div><h2>Điều gì lặp lại ở nhiều nguồn độc lập</h2>
+  <p>Mức tin cậy tăng theo số nguồn độc lập cùng cho một kết quả. Mỗi thẻ ghi rõ nguồn nào ủng hộ.</p></div>
+  <div class="synth">
+    <article><div class="who"><span class="chip c-cj">CJ</span><span class="chip c-carbo">Carbo</span><span class="chip c-lgsr">LGSR</span><span class="chip c-m5">M5</span></div><h3>Doanh thu tập trung mạnh</h3><p>20% khách hoặc SKU tạo <b>53–66%</b> doanh thu. Hệ số Gini từ 0,50 đến 0,65. Độ tin cậy cao.</p></article>
+    <article><div class="who"><span class="chip c-cj">CJ</span><span class="chip c-batf">BATF</span><span class="chip c-carbo">Carbo</span></div><h3>Trưng bày và tờ rơi tạo lượng bán khi giá không đổi</h3><p>Trưng bày tăng <b>6%–69%</b>, tờ rơi tăng <b>14%–92%</b> tùy nguồn và ngành. Giảm giá tạm thời không có tác dụng thêm ngoài mức giá. Độ tin cậy cao.</p></article>
+    <article><div class="who"><span class="chip c-batf">BATF</span><span class="chip c-carbo">Carbo</span><span class="chip c-m5">M5</span></div><h3>Độ co giãn giá khác nhau theo ngành</h3><p>Hàng tùy ý, dễ thay thế: <b>−1,3 đến −3,0</b>. Hàng thiết yếu: <b>−0,3 đến −0,5</b>. Giá trị tuyệt đối phụ thuộc cách đo giá. Độ tin cậy trung bình.</p></article>
+    <article><div class="who"><span class="chip c-m5">M5</span></div><h3>Dòng tiền của hộ quyết định thời điểm mua</h3><p>Ngày SNAP tăng Thực phẩm <b>10%–30%</b>. Đầu tháng cao hơn cuối tháng. Chỉ có một nguồn nhưng thiết kế gần với thí nghiệm tự nhiên.</p></article>
+    <article><div class="who"><span class="chip c-cj">CJ</span><span class="chip c-batf">BATF</span><span class="chip c-carbo">Carbo</span></div><h3>Nhãn riêng là công cụ cạnh tranh giá</h3><p>Rẻ hơn 30–62%. Thu nhập càng cao tỷ trọng càng giảm. Chiếm phần lớn ở ngành đồng nhất (mì Ý 44%). Độ tin cậy trung bình đến cao.</p></article>
+    <article><div class="who"><span class="chip c-cj">CJ</span></div><h3>Đo coupon dễ bị nhầm do chọn mẫu</h3><p>Hộ nhận coupon đã chi gấp <b>2,3–2,8 lần</b> từ trước. Chênh lệch tăng trưởng ≈ 0. Cần thử nghiệm có nhóm đối chứng.</p></article>
+  
+    <article><div class="who"><span class="chip c-batf">BATF</span></div><h3>Khuyến mãi ăn mòn SKU cùng ngành</h3><p>Đối thủ cùng ngành khuyến mãi làm lượng bán giảm <b>5%–22%</b>. Đo hiệu quả ở cấp ngành. Độ tin cậy trung bình.</p></article>
+    <article><div class="who"><span class="chip c-m5">M5</span></div><h3>Học máy cải thiện dự báo rõ rệt</h3><p>GBM toàn cục (Poisson) giảm WRMSSE <b>22%</b> so với naive mùa vụ; trung bình 28 ngày chỉ kém 1,1%. Một kỳ kiểm tra 28 ngày, cần thêm kỳ để khẳng định.</p></article>
+    <article><div class="who"><span class="chip c-cj">CJ</span><span class="chip c-carbo">Carbo</span></div><h3>Phạm vi dữ liệu quyết định kết luận giỏ hàng</h3><p>Lift mì Ý + sốt <b>9,8</b> trên giỏ đầy đủ, <b>0,90</b> trên dữ liệu lọc ngành. Độ tin cậy cao.</p></article>
+</div>
+</div></section>
+
+<section class="ch" id="hanh-dong"><div class="wrap">
+  <div class="ch-head"><div class="eyebrow">Chương 12 · Hành động cho chuỗi</div><h2>Từ dữ liệu công khai đến thử nghiệm tại chuỗi siêu thị Việt Nam</h2>
+  <p>Kết quả trên đến từ thị trường Mỹ và Anh giai đoạn 2006–2016. Chúng dùng để đặt giả thuyết và chọn phương pháp. Mỗi hành động cần được kiểm chứng lại bằng dữ liệu của chính chuỗi.</p></div>
+  <ol class="actions">
+    <li><div><h3>Ghi đủ trường mà các nguồn công khai thiếu</h3><p>Hóa đơn có mã khách, giá kệ và giá cơ sở theo ngày, cờ tờ rơi/trưng bày theo cửa hàng-SKU-tuần, tồn kho đầu ngày, giá vốn. Thiếu tồn kho thì không phân biệt được hết hàng với không có cầu; thiếu giá vốn thì không tính được ROI khuyến mãi.</p></div></li>
+    <li><div><h3>Ước lượng độ co giãn theo ngành trước khi đổi giá</h3><p>Áp dụng mô hình hiệu ứng cố định như BATF cho 20 ngành hàng đầu. Tăng giá nhẹ ở ngành ít co giãn, dùng nhãn riêng để cạnh tranh ở ngành co giãn mạnh.</p></div></li>
+    <li><div><h3>Chuyển ngân sách từ giảm giá sang vị trí kệ và tờ rơi</h3><p>Thử theo cặp cửa hàng: một cửa hàng có trưng bày đầu kệ, một cửa hàng không, cùng mức giá. Đo lượng bán 4 tuần sau để trừ phần mua dồn trước.</p></div></li>
+    <li><div><h3>Đặt lịch hàng thiết yếu theo ngày nhận lương</h3><p>Lập lịch theo ngày trả lương phổ biến và ngày chi trả lương hưu, trợ cấp. Thêm biến "ngày trước lễ" và cửa sổ Tết vào mô hình dự báo.</p></div></li>
+    <li><div><h3>Mọi chiến dịch CRM phải có nhóm đối chứng</h3><p>Giữ ngẫu nhiên 10% khách đủ điều kiện không nhận ưu đãi. Chỉ tính phần chênh lệch với nhóm đối chứng là hiệu quả của chiến dịch.</p></div></li>
+    <li><div><h3>Dự báo theo kiểu nhu cầu</h3><p>SKU bán đều dùng mô hình chuỗi thời gian. SKU gián đoạn dùng Croston/TSB hoặc mô hình phân phối. Đánh giá bằng sai số có trọng số doanh thu (WRMSSE như M5) thay vì MAPE.</p></div></li>
+  </ol>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Nguồn và giấy phép</b>
+  <p>dunnhumby Source Files (The Complete Journey, Breakfast at the Frat, Carbo-Loading, Let’s Get Sort-of-Real mẫu 5K khách), tải ngày 07/11/2026 tại dunnhumby.com/source-files. M5 Forecasting Accuracy (Walmart, Kaggle), bản lưu Zenodo DOI 10.5281/zenodo.12636070, CC BY 4.0. Let’s Get Sort-of-Real là dữ liệu mô phỏng. Không bộ nào đại diện trực tiếp cho thị trường Việt Nam.</p>
+  <p>Phương pháp: độ co giãn và hiệu ứng khuyến mãi dùng hồi quy log–log với hiệu ứng cố định hai chiều (khử trung bình lặp), sai số chuẩn cụm theo SKU×cửa hàng. Hiệu ứng SNAP dùng hiệu ứng cố định năm-tháng và thứ, sai số HAC. Mã nguồn: research/multisource/. Số liệu: outputs/multisource/results.json.</p>
+  <p>Dashboard vận hành chi tiết cho Complete Journey 2017 vẫn ở outputs/FINAL/Retail_Intelligence_Dashboard.html.</p>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+const D = {"lorenz":[{"name":"CJ · hộ","src":"cj","p":{"curve":[{"pop":0.01,"share":0.0601},{"pop":0.05,"share":0.2107},{"pop":0.1,"share":0.3429},{"pop":0.2,"share":0.5305},{"pop":0.3,"share":0.6673},{"pop":0.4,"share":0.7672},{"pop":0.5,"share":0.8434},{"pop":0.6,"share":0.9023},{"pop":0.7,"share":0.9453},{"pop":0.8,"share":0.9753},{"pop":0.9,"share":0.993},{"pop":1.0,"share":1.0}],"top20":0.5305,"top1":0.0601,"gini":0.5028,"n":2500}},{"name":"CJ · sản phẩm","src":"cj2","p":{"curve":[{"pop":0.01,"share":0.3771},{"pop":0.05,"share":0.6181},{"pop":0.1,"share":0.7517},{"pop":0.2,"share":0.875},{"pop":0.3,"share":0.9305},{"pop":0.4,"share":0.9591},{"pop":0.5,"share":0.9756},{"pop":0.6,"share":0.9855},{"pop":0.7,"share":0.9919},{"pop":0.8,"share":0.996},{"pop":0.9,"share":0.9987},{"pop":1.0,"share":1.0}],"top20":0.875,"top1":0.3771,"gini":0.8372,"n":91908}},{"name":"Carbo · hộ","src":"carbo","p":{"curve":[{"pop":0.01,"share":0.1044},{"pop":0.05,"share":0.3094},{"pop":0.1,"share":0.4643},{"pop":0.2,"share":0.6558},{"pop":0.3,"share":0.7723},{"pop":0.4,"share":0.8495},{"pop":0.5,"share":0.9024},{"pop":0.6,"share":0.9393},{"pop":0.7,"share":0.965},{"pop":0.8,"share":0.9826},{"pop":0.9,"share":0.9941},{"pop":1.0,"share":1.0}],"top20":0.6558,"top1":0.1044,"gini":0.6206,"n":509933}},{"name":"LGSR · khách","src":"lgsr","p":{"curve":[{"pop":0.01,"share":0.0737},{"pop":0.05,"share":0.2614},{"pop":0.1,"share":0.4287},{"pop":0.2,"share":0.659},{"pop":0.3,"share":0.8033},{"pop":0.4,"share":0.8935},{"pop":0.5,"share":0.9466},{"pop":0.6,"share":0.9759},{"pop":0.7,"share":0.9906},{"pop":0.8,"share":0.9969},{"pop":0.9,"share":0.9994},{"pop":1.0,"share":1.0}],"top20":0.659,"top1":0.0737,"gini":0.6502,"n":4983}},{"name":"M5 · mặt hàng","src":"m5","p":{"curve":[{"pop":0.01,"share":0.1124},{"pop":0.05,"share":0.2967},{"pop":0.1,"share":0.4277},{"pop":0.2,"share":0.5939},{"pop":0.3,"share":0.7056},{"pop":0.4,"share":0.7887},{"pop":0.5,"share":0.8532},{"pop":0.6,"share":0.904},{"pop":0.7,"share":0.9438},{"pop":0.8,"share":0.9726},{"pop":0.9,"share":0.9916},{"pop":1.0,"share":1.0}],"top20":0.5939,"top1":0.1124,"gini":0.552,"n":3049}}],"elasticity":[{"name":"BATF · Bag Snacks","src":"batf","v":-1.359,"lo":-1.4772,"hi":-1.2409},{"name":"BATF · Cold Cereal","src":"batf","v":-1.7738,"lo":-1.8551,"hi":-1.6925},{"name":"BATF · Frozen Pizza","src":"batf","v":-2.9864,"lo":-3.2574,"hi":-2.7155},{"name":"BATF · Oral Hygiene Products","src":"batf","v":-1.2815,"lo":-1.3397,"hi":-1.2234},{"name":"Carbo · Pancake Mixes","src":"carbo","v":-0.2713,"lo":-0.299,"hi":-0.2436},{"name":"Carbo · Pasta","src":"carbo","v":-0.5369,"lo":-0.5473,"hi":-0.5264},{"name":"Carbo · Pasta Sauce","src":"carbo","v":-0.4062,"lo":-0.4184,"hi":-0.394},{"name":"Carbo · Syrups","src":"carbo","v":-0.4471,"lo":-0.4667,"hi":-0.4276},{"name":"M5 · Foods","src":"m5","v":-0.4795,"lo":-0.543,"hi":-0.4159},{"name":"M5 · Hobbies","src":"m5","v":-0.4392,"lo":-0.5248,"hi":-0.3537},{"name":"M5 · Household","src":"m5","v":-0.3349,"lo":-0.3979,"hi":-0.2719}],"seg":[{"category":"BAG SNACKS","segment":"MAINSTREAM","elasticity":-1.4202,"se":0.0778,"n":74586},{"category":"BAG SNACKS","segment":"UPSCALE","elasticity":-1.4779,"se":0.1011,"n":29202},{"category":"BAG SNACKS","segment":"VALUE","elasticity":-1.1628,"se":0.1314,"n":26317},{"category":"COLD CEREAL","segment":"MAINSTREAM","elasticity":-1.8399,"se":0.0576,"n":95213},{"category":"COLD CEREAL","segment":"UPSCALE","elasticity":-1.646,"se":0.0779,"n":37344},{"category":"COLD CEREAL","segment":"VALUE","elasticity":-1.7462,"se":0.0839,"n":41571},{"category":"FROZEN PIZZA","segment":"MAINSTREAM","elasticity":-2.9678,"se":0.2344,"n":64028},{"category":"FROZEN PIZZA","segment":"UPSCALE","elasticity":-3.1405,"se":0.0758,"n":26667},{"category":"FROZEN PIZZA","segment":"VALUE","elasticity":-2.9069,"se":0.0943,"n":23626},{"category":"ORAL HYGIENE PRODUCTS","segment":"MAINSTREAM","elasticity":-1.309,"se":0.038,"n":67869},{"category":"ORAL HYGIENE PRODUCTS","segment":"UPSCALE","elasticity":-1.2538,"se":0.0613,"n":28595},{"category":"ORAL HYGIENE PRODUCTS","segment":"VALUE","elasticity":-1.2391,"se":0.062,"n":23416}],"promo":[{"name":"CJ · Trưng bày","src":"cj","v":0.0604},{"name":"CJ · Tờ rơi","src":"cj","v":0.1409},{"name":"CJ · Cả hai","src":"cj","v":0.1842},{"name":"BATF · Bag Snacks · Feature","src":"batf","v":0.4316},{"name":"BATF · Bag Snacks · Display","src":"batf","v":0.4485},{"name":"BATF · Bag Snacks · TPR","src":"batf2","v":-0.0508},{"name":"BATF · Cold Cereal · Feature","src":"batf","v":0.5287},{"name":"BATF · Cold Cereal · Display","src":"batf","v":0.6856},{"name":"BATF · Cold Cereal · TPR","src":"batf2","v":-0.0921},{"name":"BATF · Frozen Pizza · Feature","src":"batf","v":0.2893},{"name":"BATF · Frozen Pizza · Display","src":"batf","v":0.4479},{"name":"BATF · Frozen Pizza · TPR","src":"batf2","v":-0.0936},{"name":"BATF · Oral Hygiene Products · Feature","src":"batf","v":0.6011},{"name":"BATF · Oral Hygiene Products · Display","src":"batf","v":0.2843},{"name":"BATF · Oral Hygiene Products · TPR","src":"batf2","v":-0.0109},{"name":"Carbo · Pancake Mixes · Feature","src":"carbo","v":0.9209},{"name":"Carbo · Pancake Mixes · Display","src":"carbo2","v":0.3324},{"name":"Carbo · Pasta · Feature","src":"carbo","v":0.1564},{"name":"Carbo · Pasta · Display","src":"carbo2","v":0.472},{"name":"Carbo · Pasta Sauce · Feature","src":"carbo","v":0.2443},{"name":"Carbo · Pasta Sauce · Display","src":"carbo2","v":0.4049},{"name":"Carbo · Syrups · Feature","src":"carbo","v":0.228},{"name":"Carbo · Syrups · Display","src":"carbo2","v":0.3685}],"depth":[{"bin":"0%","rows":400493,"units":6308395,"spend":18113567.17,"units_per_row":15.752},{"bin":"0–10%","rows":9352,"units":339248,"spend":871969.41,"units_per_row":36.275},{"bin":"10–20%","rows":57598,"units":1475754,"spend":3461445.32,"units_per_row":25.622},{"bin":"20–30%","rows":36874,"units":1084651,"spend":2993320.87,"units_per_row":29.415},{"bin":"30–40%","rows":25895,"units":863495,"spend":2352507.35,"units_per_row":33.346},{"bin":"≥40%","rows":8222,"units":495991,"spend":894597.43,"units_per_row":60.325}],"snap":[{"state":"CA","cat":"FOODS","lift":0.1025,"se":0.0047,"ci_low":0.0924,"ci_high":0.1128},{"state":"CA","cat":"HOUSEHOLD","lift":0.0311,"se":0.0054,"ci_low":0.0203,"ci_high":0.0421},{"state":"CA","cat":"HOBBIES","lift":0.0242,"se":0.0079,"ci_low":0.0085,"ci_high":0.0402},{"state":"TX","cat":"FOODS","lift":0.1549,"se":0.0045,"ci_low":0.1448,"ci_high":0.1651},{"state":"TX","cat":"HOUSEHOLD","lift":0.0236,"se":0.0052,"ci_low":0.0132,"ci_high":0.0341},{"state":"TX","cat":"HOBBIES","lift":0.0157,"se":0.0065,"ci_low":0.0028,"ci_high":0.0287},{"state":"WI","cat":"FOODS","lift":0.2977,"se":0.0056,"ci_low":0.2835,"ci_high":0.312},{"state":"WI","cat":"HOUSEHOLD","lift":0.0315,"se":0.0065,"ci_low":0.0184,"ci_high":0.0447},{"state":"WI","cat":"HOBBIES","lift":0.0158,"se":0.0069,"ci_low":0.0022,"ci_high":0.0296}],"dom":[{"dom":1,"CA_idx":1.0481,"TX_idx":1.0846,"WI_idx":0.9975},{"dom":2,"CA_idx":1.0644,"TX_idx":0.9917,"WI_idx":1.1443},{"dom":3,"CA_idx":1.0843,"TX_idx":1.0888,"WI_idx":1.2163},{"dom":4,"CA_idx":1.0298,"TX_idx":0.9655,"WI_idx":0.9981},{"dom":5,"CA_idx":1.0332,"TX_idx":1.04,"WI_idx":1.1069},{"dom":6,"CA_idx":1.0429,"TX_idx":1.0579,"WI_idx":1.12},{"dom":7,"CA_idx":1.0445,"TX_idx":1.0839,"WI_idx":0.9809},{"dom":8,"CA_idx":1.0408,"TX_idx":0.9801,"WI_idx":1.0726},{"dom":9,"CA_idx":1.0479,"TX_idx":1.0366,"WI_idx":1.1334},{"dom":10,"CA_idx":1.0556,"TX_idx":0.9824,"WI_idx":0.988},{"dom":11,"CA_idx":1.0098,"TX_idx":1.0454,"WI_idx":1.0923},{"dom":12,"CA_idx":1.0016,"TX_idx":1.072,"WI_idx":1.1522},{"dom":13,"CA_idx":1.0035,"TX_idx":1.0999,"WI_idx":1.0105},{"dom":14,"CA_idx":0.9786,"TX_idx":1.0081,"WI_idx":1.1072},{"dom":15,"CA_idx":0.9974,"TX_idx":1.1073,"WI_idx":1.1609},{"dom":16,"CA_idx":0.9875,"TX_idx":1.0071,"WI_idx":1.0238},{"dom":17,"CA_idx":0.9769,"TX_idx":0.9859,"WI_idx":0.9495},{"dom":18,"CA_idx":0.9774,"TX_idx":0.9719,"WI_idx":0.9322},{"dom":19,"CA_idx":0.9779,"TX_idx":0.9737,"WI_idx":0.9345},{"dom":20,"CA_idx":0.9869,"TX_idx":0.9796,"WI_idx":0.9167},{"dom":21,"CA_idx":0.9922,"TX_idx":0.9719,"WI_idx":0.9151},{"dom":22,"CA_idx":0.985,"TX_idx":0.9687,"WI_idx":0.8922},{"dom":23,"CA_idx":0.9827,"TX_idx":0.9716,"WI_idx":0.9063},{"dom":24,"CA_idx":0.9447,"TX_idx":0.9472,"WI_idx":0.8824},{"dom":25,"CA_idx":0.9621,"TX_idx":0.939,"WI_idx":0.8903},{"dom":26,"CA_idx":0.9535,"TX_idx":0.9472,"WI_idx":0.891},{"dom":27,"CA_idx":0.9508,"TX_idx":0.9334,"WI_idx":0.8757},{"dom":28,"CA_idx":0.9325,"TX_idx":0.9171,"WI_idx":0.866},{"dom":29,"CA_idx":0.9345,"TX_idx":0.9062,"WI_idx":0.8852},{"dom":30,"CA_idx":0.9724,"TX_idx":0.9349,"WI_idx":0.9223},{"dom":31,"CA_idx":0.9769,"TX_idx":0.9621,"WI_idx":1.0035}],"events":[{"event":"Thanksgiving","type":"National","lift":-0.2824,"n":5},{"event":"NewYear","type":"National","lift":-0.2323,"n":5},{"event":"Mother's day","type":"Cultural","lift":-0.1708,"n":6},{"event":"Easter","type":"Cultural","lift":-0.1198,"n":5},{"event":"Father's day","type":"Cultural","lift":-0.1072,"n":4},{"event":"Halloween","type":"Cultural","lift":-0.0837,"n":5},{"event":"ValentinesDay","type":"Cultural","lift":-0.0522,"n":6},{"event":"Eid al-Fitr","type":"Religious","lift":-0.0425,"n":5},{"event":"Pesach End","type":"Religious","lift":-0.0371,"n":6},{"event":"OrthodoxChristmas","type":"Religious","lift":-0.0318,"n":5},{"event":"SuperBowl","type":"Sporting","lift":-0.0254,"n":6},{"event":"NBAFinalsEnd","type":"Sporting","lift":-0.025,"n":5},{"event":"Purim End","type":"Religious","lift":-0.0226,"n":6},{"event":"IndependenceDay","type":"National","lift":-0.0101,"n":5},{"event":"StPatricksDay","type":"Cultural","lift":-0.0038,"n":6},{"event":"MemorialDay","type":"National","lift":0.0031,"n":5},{"event":"LentWeek2","type":"Religious","lift":0.0095,"n":6},{"event":"Ramadan starts","type":"Religious","lift":0.0179,"n":5},{"event":"LentStart","type":"Religious","lift":0.0195,"n":6},{"event":"ColumbusDay","type":"National","lift":0.0229,"n":5},{"event":"EidAlAdha","type":"Religious","lift":0.0302,"n":5},{"event":"OrthodoxEaster","type":"Religious","lift":0.0438,"n":5},{"event":"NBAFinalsStart","type":"Sporting","lift":0.0481,"n":5},{"event":"Cinco De Mayo","type":"Cultural","lift":0.0536,"n":5},{"event":"Chanukah End","type":"Religious","lift":0.0563,"n":5},{"event":"MartinLutherKingDay","type":"National","lift":0.0683,"n":5},{"event":"VeteransDay","type":"National","lift":0.0818,"n":5},{"event":"PresidentsDay","type":"National","lift":0.0847,"n":6},{"event":"LaborDay","type":"National","lift":0.2769,"n":5}],"monthly":[{"date":"2011-01","FOODS":63110.0,"HOUSEHOLD":15250.0,"HOBBIES":9803.0},{"date":"2011-02","FOODS":520250.0,"HOUSEHOLD":128763.0,"HOBBIES":77362.0},{"date":"2011-03","FOODS":534914.0,"HOUSEHOLD":144962.0,"HOBBIES":83691.0},{"date":"2011-04","FOODS":509568.0,"HOUSEHOLD":141946.0,"HOBBIES":86199.0},{"date":"2011-05","FOODS":491753.0,"HOUSEHOLD":140396.0,"HOBBIES":87413.0},{"date":"2011-06","FOODS":525861.0,"HOUSEHOLD":142999.0,"HOBBIES":84520.0},{"date":"2011-07","FOODS":574495.0,"HOUSEHOLD":155554.0,"HOBBIES":89771.0},{"date":"2011-08","FOODS":580152.0,"HOUSEHOLD":160564.0,"HOBBIES":84978.0},{"date":"2011-09","FOODS":574927.0,"HOUSEHOLD":159399.0,"HOBBIES":79357.0},{"date":"2011-10","FOODS":642127.0,"HOUSEHOLD":167779.0,"HOBBIES":88337.0},{"date":"2011-11","FOODS":591297.0,"HOUSEHOLD":151466.0,"HOBBIES":80324.0},{"date":"2011-12","FOODS":650410.0,"HOUSEHOLD":149492.0,"HOBBIES":87396.0},{"date":"2012-01","FOODS":653360.0,"HOUSEHOLD":157128.0,"HOBBIES":82887.0},{"date":"2012-02","FOODS":647943.0,"HOUSEHOLD":167829.0,"HOBBIES":82218.0},{"date":"2012-03","FOODS":713326.0,"HOUSEHOLD":185062.0,"HOBBIES":88506.0},{"date":"2012-04","FOODS":690974.0,"HOUSEHOLD":169385.0,"HOBBIES":84499.0},{"date":"2012-05","FOODS":750398.0,"HOUSEHOLD":169462.0,"HOBBIES":77886.0},{"date":"2012-06","FOODS":790613.0,"HOUSEHOLD":213930.0,"HOBBIES":91066.0},{"date":"2012-07","FOODS":779599.0,"HOUSEHOLD":217138.0,"HOBBIES":84040.0},{"date":"2012-08","FOODS":789020.0,"HOUSEHOLD":239209.0,"HOBBIES":74551.0},{"date":"2012-09","FOODS":735178.0,"HOUSEHOLD":254832.0,"HOBBIES":74354.0},{"date":"2012-10","FOODS":698890.0,"HOUSEHOLD":232269.0,"HOBBIES":75149.0},{"date":"2012-11","FOODS":675351.0,"HOUSEHOLD":214981.0,"HOBBIES":70352.0},{"date":"2012-12","FOODS":735616.0,"HOUSEHOLD":220507.0,"HOBBIES":74329.0},{"date":"2013-01","FOODS":716285.0,"HOUSEHOLD":212679.0,"HOBBIES":79596.0},{"date":"2013-02","FOODS":685611.0,"HOUSEHOLD":233625.0,"HOBBIES":91424.0},{"date":"2013-03","FOODS":759324.0,"HOUSEHOLD":261712.0,"HOBBIES":96534.0},{"date":"2013-04","FOODS":681137.0,"HOUSEHOLD":250401.0,"HOBBIES":102498.0},{"date":"2013-05","FOODS":718366.0,"HOUSEHOLD":251929.0,"HOBBIES":104388.0},{"date":"2013-06","FOODS":772864.0,"HOUSEHOLD":252491.0,"HOBBIES":110238.0},{"date":"2013-07","FOODS":800588.0,"HOUSEHOLD":255736.0,"HOBBIES":103143.0},{"date":"2013-08","FOODS":835727.0,"HOUSEHOLD":265517.0,"HOBBIES":103569.0},{"date":"2013-09","FOODS":815622.0,"HOUSEHOLD":256243.0,"HOBBIES":94650.0},{"date":"2013-10","FOODS":764008.0,"HOUSEHOLD":249808.0,"HOBBIES":110707.0},{"date":"2013-11","FOODS":709657.0,"HOUSEHOLD":230265.0,"HOBBIES":104877.0},{"date":"2013-12","FOODS":732293.0,"HOUSEHOLD":215806.0,"HOBBIES":106435.0},{"date":"2014-01","FOODS":737475.0,"HOUSEHOLD":216730.0,"HOBBIES":102807.0},{"date":"2014-02","FOODS":681348.0,"HOUSEHOLD":236428.0,"HOBBIES":91984.0},{"date":"2014-03","FOODS":765733.0,"HOUSEHOLD":257408.0,"HOBBIES":100565.0},{"date":"2014-04","FOODS":769819.0,"HOUSEHOLD":239658.0,"HOBBIES":94810.0},{"date":"2014-05","FOODS":755795.0,"HOUSEHOLD":237479.0,"HOBBIES":99818.0},{"date":"2014-06","FOODS":773507.0,"HOUSEHOLD":237509.0,"HOBBIES":99015.0},{"date":"2014-07","FOODS":801572.0,"HOUSEHOLD":252126.0,"HOBBIES":98066.0},{"date":"2014-08","FOODS":813061.0,"HOUSEHOLD":272406.0,"HOBBIES":98635.0},{"date":"2014-09","FOODS":750486.0,"HOUSEHOLD":246836.0,"HOBBIES":91092.0},{"date":"2014-10","FOODS":745506.0,"HOUSEHOLD":252325.0,"HOBBIES":105247.0},{"date":"2014-11","FOODS":714904.0,"HOUSEHOLD":236478.0,"HOBBIES":99696.0},{"date":"2014-12","FOODS":686319.0,"HOUSEHOLD":225022.0,"HOBBIES":102111.0},{"date":"2015-01","FOODS":736030.0,"HOUSEHOLD":243940.0,"HOBBIES":103145.0},{"date":"2015-02","FOODS":671961.0,"HOUSEHOLD":256697.0,"HOBBIES":103219.0},{"date":"2015-03","FOODS":724905.0,"HOUSEHOLD":281421.0,"HOBBIES":113401.0},{"date":"2015-04","FOODS":710301.0,"HOUSEHOLD":271757.0,"HOBBIES":111371.0},{"date":"2015-05","FOODS":741404.0,"HOUSEHOLD":291617.0,"HOBBIES":119993.0},{"date":"2015-06","FOODS":763726.0,"HOUSEHOLD":280030.0,"HOBBIES":111843.0},{"date":"2015-07","FOODS":809505.0,"HOUSEHOLD":303699.0,"HOBBIES":118943.0},{"date":"2015-08","FOODS":811161.0,"HOUSEHOLD":321877.0,"HOBBIES":121303.0},{"date":"2015-09","FOODS":780594.0,"HOUSEHOLD":293785.0,"HOBBIES":114534.0},{"date":"2015-10","FOODS":819910.0,"HOUSEHOLD":300297.0,"HOBBIES":128230.0},{"date":"2015-11","FOODS":719316.0,"HOUSEHOLD":275016.0,"HOBBIES":119644.0},{"date":"2015-12","FOODS":725042.0,"HOUSEHOLD":276665.0,"HOBBIES":124529.0},{"date":"2016-01","FOODS":807440.0,"HOUSEHOLD":290293.0,"HOBBIES":117553.0},{"date":"2016-02","FOODS":804739.0,"HOUSEHOLD":295249.0,"HOBBIES":112939.0},{"date":"2016-03","FOODS":855454.0,"HOUSEHOLD":304051.0,"HOBBIES":116241.0},{"date":"2016-04","FOODS":857962.0,"HOUSEHOLD":304291.0,"HOBBIES":121217.0}],"weekday":[{"wd":"Friday","FOODS":23348.0,"HOUSEHOLD":7676.0,"HOBBIES":3334.0},{"wd":"Monday","FOODS":22830.0,"HOUSEHOLD":7172.0,"HOBBIES":2992.0},{"wd":"Saturday","FOODS":28176.0,"HOUSEHOLD":9583.0,"HOBBIES":3947.0},{"wd":"Sunday","FOODS":28459.0,"HOUSEHOLD":9263.0,"HOBBIES":3582.0},{"wd":"Thursday","FOODS":20895.0,"HOUSEHOLD":6535.0,"HOBBIES":2891.0},{"wd":"Tuesday","FOODS":21095.0,"HOUSEHOLD":6542.0,"HOBBIES":2863.0},{"wd":"Wednesday","FOODS":20777.0,"HOUSEHOLD":6460.0,"HOBBIES":2893.0}],"income":[{"level":"Level1","households":61,"weekly_spend":49.4073,"basket_value":29.196,"pl_share":0.2878,"disc_rate":0.2,"trips_per_week":1.6828},{"level":"Level2","households":74,"weekly_spend":40.0897,"basket_value":23.4952,"pl_share":0.292,"disc_rate":0.1959,"trips_per_week":1.6032},{"level":"Level3","households":77,"weekly_spend":48.7128,"basket_value":26.6102,"pl_share":0.285,"disc_rate":0.202,"trips_per_week":1.492},{"level":"Level4","households":172,"weekly_spend":43.1584,"basket_value":29.2845,"pl_share":0.2894,"disc_rate":0.1992,"trips_per_week":1.4937},{"level":"Level5","households":192,"weekly_spend":54.3546,"basket_value":34.5303,"pl_share":0.2778,"disc_rate":0.1852,"trips_per_week":1.5292},{"level":"Level6","households":96,"weekly_spend":55.709,"basket_value":37.5179,"pl_share":0.2601,"disc_rate":0.1846,"trips_per_week":1.3717},{"level":"Level7","households":34,"weekly_spend":64.2648,"basket_value":33.5215,"pl_share":0.3018,"disc_rate":0.1641,"trips_per_week":1.7291},{"level":"Level8","households":38,"weekly_spend":61.1379,"basket_value":43.2372,"pl_share":0.2679,"disc_rate":0.1639,"trips_per_week":1.6506},{"level":"Level9","households":30,"weekly_spend":88.472,"basket_value":53.3883,"pl_share":0.2269,"disc_rate":0.1499,"trips_per_week":1.6691},{"level":"Level10","households":11,"weekly_spend":77.5233,"basket_value":42.9761,"pl_share":0.2203,"disc_rate":0.1366,"trips_per_week":1.3183},{"level":"Level11","households":5,"weekly_spend":59.8061,"basket_value":46.8113,"pl_share":0.1632,"disc_rate":0.1212,"trips_per_week":1.3954},{"level":"Level12","households":11,"weekly_spend":126.154,"basket_value":53.8431,"pl_share":0.1656,"disc_rate":0.1267,"trips_per_week":2.0057}],"kids":[{"level":"None/Unknown","households":558,"weekly_spend":50.4161,"basket_value":31.2292,"pl_share":0.2761,"disc_rate":0.1833,"trips_per_week":1.5469},{"level":"1","households":114,"weekly_spend":50.4422,"basket_value":32.2746,"pl_share":0.2645,"disc_rate":0.1859,"trips_per_week":1.566},{"level":"2","households":60,"weekly_spend":67.8292,"basket_value":38.4176,"pl_share":0.2919,"disc_rate":0.2017,"trips_per_week":1.5919},{"level":"3+","households":69,"weekly_spend":58.5111,"basket_value":39.1846,"pl_share":0.2868,"disc_rate":0.2028,"trips_per_week":1.4627}],"size":[{"level":"1","households":255,"weekly_spend":47.7349,"basket_value":28.7648,"pl_share":0.2863,"disc_rate":0.1816,"trips_per_week":1.6084},{"level":"2","households":318,"weekly_spend":53.4947,"basket_value":33.1091,"pl_share":0.2679,"disc_rate":0.1853,"trips_per_week":1.522},{"level":"3","households":109,"weekly_spend":53.576,"basket_value":32.4509,"pl_share":0.2627,"disc_rate":0.1866,"trips_per_week":1.54},{"level":"4","households":53,"weekly_spend":65.3874,"basket_value":38.1521,"pl_share":0.3033,"disc_rate":0.2022,"trips_per_week":1.5661},{"level":"5+","households":66,"weekly_spend":57.9567,"basket_value":41.9618,"pl_share":0.2819,"disc_rate":0.2012,"trips_per_week":1.42}],"heat":[{"wd":1,"hr":8,"baskets":4272,"spend":38635.19},{"wd":1,"hr":9,"baskets":2766,"spend":28874.18},{"wd":1,"hr":10,"baskets":3831,"spend":41793.04},{"wd":1,"hr":11,"baskets":4702,"spend":53544.12},{"wd":1,"hr":12,"baskets":5461,"spend":68149.82},{"wd":1,"hr":13,"baskets":6193,"spend":78986.44},{"wd":1,"hr":14,"baskets":6291,"spend":80436.61},{"wd":1,"hr":15,"baskets":6183,"spend":78743.78},{"wd":1,"hr":16,"baskets":5900,"spend":76371.3},{"wd":1,"hr":17,"baskets":5204,"spend":64816.06},{"wd":1,"hr":18,"baskets":4771,"spend":57462.13},{"wd":1,"hr":19,"baskets":4025,"spend":50704.68},{"wd":1,"hr":20,"baskets":3284,"spend":42004.5},{"wd":1,"hr":21,"baskets":5990,"spend":83444.23},{"wd":2,"hr":8,"baskets":4083,"spend":36467.86},{"wd":2,"hr":9,"baskets":2984,"spend":29811.24},{"wd":2,"hr":10,"baskets":3878,"spend":43371.68},{"wd":2,"hr":11,"baskets":4938,"spend":58363.94},{"wd":2,"hr":12,"baskets":5658,"spend":67719.13},{"wd":2,"hr":13,"baskets":6188,"spend":80866.84},{"wd":2,"hr":14,"baskets":6284,"spend":81896.19},{"wd":2,"hr":15,"baskets":6064,"spend":77681.57},{"wd":2,"hr":16,"baskets":5777,"spend":73329.56},{"wd":2,"hr":17,"baskets":5364,"spend":66981.19},{"wd":2,"hr":18,"baskets":4748,"spend":60502.74},{"wd":2,"hr":19,"baskets":3981,"spend":50973.53},{"wd":2,"hr":20,"baskets":3162,"spend":41497.51},{"wd":2,"hr":21,"baskets":5949,"spend":84722.09},{"wd":2,"hr":22,"baskets":1,"spend":5.69},{"wd":3,"hr":8,"baskets":4097,"spend":36539.46},{"wd":3,"hr":9,"baskets":2812,"spend":30364.54},{"wd":3,"hr":10,"baskets":3830,"spend":41949.35},{"wd":3,"hr":11,"baskets":4907,"spend":57944.7},{"wd":3,"hr":12,"baskets":5652,"spend":68037.61},{"wd":3,"hr":13,"baskets":6151,"spend":75955.21},{"wd":3,"hr":14,"baskets":6185,"spend":80115.84},{"wd":3,"hr":15,"baskets":6113,"spend":77671.17},{"wd":3,"hr":16,"baskets":5745,"spend":72277.7},{"wd":3,"hr":17,"baskets":5238,"spend":69100.7},{"wd":3,"hr":18,"baskets":4731,"spend":58981.48},{"wd":3,"hr":19,"baskets":4108,"spend":51159.22},{"wd":3,"hr":20,"baskets":3359,"spend":44535.73},{"wd":3,"hr":21,"baskets":6062,"spend":83950.69},{"wd":4,"hr":8,"baskets":4140,"spend":34723.81},{"wd":4,"hr":9,"baskets":2781,"spend":27708.18},{"wd":4,"hr":10,"baskets":3759,"spend":42385.89},{"wd":4,"hr":11,"baskets":4754,"spend":56127.3},{"wd":4,"hr":12,"baskets":5622,"spend":72430.84},{"wd":4,"hr":13,"baskets":6245,"spend":78945.77},{"wd":4,"hr":14,"baskets":6312,"spend":80411.66},{"wd":4,"hr":15,"baskets":6192,"spend":80249.99},{"wd":4,"hr":16,"baskets":5830,"spend":72386.94},{"wd":4,"hr":17,"baskets":5361,"spend":67234.51},{"wd":4,"hr":18,"baskets":4739,"spend":58894.49},{"wd":4,"hr":19,"baskets":4059,"spend":51994.41},{"wd":4,"hr":20,"baskets":3311,"spend":44204.95},{"wd":4,"hr":21,"baskets":5894,"spend":81666.3},{"wd":5,"hr":8,"baskets":4076,"spend":39385.85},{"wd":5,"hr":9,"baskets":2776,"spend":28259.12},{"wd":5,"hr":10,"baskets":3705,"spend":40985.26},{"wd":5,"hr":11,"baskets":4792,"spend":55347.95},{"wd":5,"hr":12,"baskets":5562,"spend":66907.42},{"wd":5,"hr":13,"baskets":6124,"spend":76717.3},{"wd":5,"hr":14,"baskets":6275,"spend":79661.66},{"wd":5,"hr":15,"baskets":6077,"spend":74856.41},{"wd":5,"hr":16,"baskets":6019,"spend":76014.08},{"wd":5,"hr":17,"baskets":5411,"spend":69016.26},{"wd":5,"hr":18,"baskets":4908,"spend":62645.34},{"wd":5,"hr":19,"baskets":4036,"spend":51127.05},{"wd":5,"hr":20,"baskets":3282,"spend":45006.74},{"wd":5,"hr":21,"baskets":5891,"spend":81949.96},{"wd":6,"hr":8,"baskets":4069,"spend":36212.12},{"wd":6,"hr":9,"baskets":2831,"spend":28487.3},{"wd":6,"hr":10,"baskets":3846,"spend":42206.8},{"wd":6,"hr":11,"baskets":4888,"spend":58936.64},{"wd":6,"hr":12,"baskets":5616,"spend":70740.79},{"wd":6,"hr":13,"baskets":6152,"spend":76980.18},{"wd":6,"hr":14,"baskets":6286,"spend":82992.17},{"wd":6,"hr":15,"baskets":6095,"spend":75310.55},{"wd":6,"hr":16,"baskets":5823,"spend":73150.27},{"wd":6,"hr":17,"baskets":5335,"spend":68158.37},{"wd":6,"hr":18,"baskets":4754,"spend":58942.15},{"wd":6,"hr":19,"baskets":4064,"spend":50954.24},{"wd":6,"hr":20,"baskets":3329,"spend":44451.01},{"wd":6,"hr":21,"baskets":5895,"spend":82096.66},{"wd":7,"hr":8,"baskets":4187,"spend":36649.63},{"wd":7,"hr":9,"baskets":2864,"spend":29135.77},{"wd":7,"hr":10,"baskets":3795,"spend":40615.74},{"wd":7,"hr":11,"baskets":4949,"spend":55716.79},{"wd":7,"hr":12,"baskets":5614,"spend":70947.13},{"wd":7,"hr":13,"baskets":6237,"spend":78607.48},{"wd":7,"hr":14,"baskets":6211,"spend":78652.17},{"wd":7,"hr":15,"baskets":6043,"spend":76552.7},{"wd":7,"hr":16,"baskets":5703,"spend":72199.69},{"wd":7,"hr":17,"baskets":5284,"spend":66017.74},{"wd":7,"hr":18,"baskets":4793,"spend":58307.89},{"wd":7,"hr":19,"baskets":3993,"spend":52390.96},{"wd":7,"hr":20,"baskets":3298,"spend":42841.58},{"wd":7,"hr":21,"baskets":5827,"spend":81471.87}],"basket_type":[{"level":"Top Up","baskets":158439,"spend":2672368.56,"aov":16.8669,"items":13.5329,"no_card":0.2304},{"level":"Full Shop","baskets":52053,"spend":2093083.66,"aov":40.2106,"items":31.2569,"no_card":0.1753},{"level":"Small Shop","baskets":265908,"spend":1140554.58,"aov":4.2893,"items":3.3248,"no_card":0.1951},{"level":"XX","baskets":6236,"spend":27705.27,"aov":4.4428,"items":2.3491,"no_card":0.2375}],"price_sens":[{"level":"MM","baskets":247286,"spend":3156986.11,"aov":12.7665,"items":9.843,"no_card":0.2135},{"level":"UM","baskets":116048,"spend":1536818.91,"aov":13.243,"items":9.5366,"no_card":0.1665},{"level":"LA","baskets":110336,"spend":1197989.0,"aov":10.8576,"items":10.0581,"no_card":0.2263},{"level":"XX","baskets":8966,"spend":41918.05,"aov":4.6752,"items":2.1618,"no_card":0.2137}],"mission":[{"level":"Fresh","baskets":244430,"spend":2866286.71,"aov":11.7264,"items":9.3203,"no_card":0.1881},{"level":"Mixed","baskets":115405,"spend":2135346.79,"aov":18.5031,"items":14.8766,"no_card":0.2018},{"level":"Grocery","baskets":91648,"spend":779305.8,"aov":8.5032,"items":6.4035,"no_card":0.2626},{"level":"Nonfood","baskets":24917,"spend":125067.5,"aov":5.0194,"items":2.9447,"no_card":0.1686},{"level":"XX","baskets":6236,"spend":27705.27,"aov":4.4428,"items":2.3491,"no_card":0.2375}],"fmt":[{"level":"LS","baskets":279824,"spend":3835619.63,"aov":13.7073,"items":10.6587,"no_card":0.1868},{"level":"MS","baskets":121244,"spend":1241073.02,"aov":10.2362,"items":8.2492,"no_card":0.2276},{"level":"XLS","baskets":34437,"spend":475053.22,"aov":13.7948,"items":10.7459,"no_card":0.1797},{"level":"SS","baskets":47131,"spend":381966.2,"aov":8.1044,"items":6.7281,"no_card":0.2743}],"hours":{"cj":[{"hr_":0,"sales":48879.16,"baskets":2052},{"hr_":1,"sales":23202.82,"baskets":998},{"hr_":2,"sales":14917.69,"baskets":1118},{"hr_":3,"sales":10506.56,"baskets":491},{"hr_":4,"sales":8081.67,"baskets":372},{"hr_":5,"sales":13261.02,"baskets":639},{"hr_":6,"sales":29231.36,"baskets":1850},{"hr_":7,"sales":68341.06,"baskets":3782},{"hr_":8,"sales":122445.66,"baskets":5659},{"hr_":9,"sales":217064.62,"baskets":8227},{"hr_":10,"sales":360824.11,"baskets":12033},{"hr_":11,"sales":500864.69,"baskets":16031},{"hr_":12,"sales":589936.7,"baskets":18517},{"hr_":13,"sales":633224.11,"baskets":19319},{"hr_":14,"sales":639385.85,"baskets":19847},{"hr_":15,"sales":669489.02,"baskets":21627},{"hr_":16,"sales":748463.13,"baskets":24876},{"hr_":17,"sales":828978.16,"baskets":27446},{"hr_":18,"sales":764198.99,"baskets":25732},{"hr_":19,"sales":643770.51,"baskets":21987},{"hr_":20,"sales":494052.47,"baskets":17797},{"hr_":21,"sales":341635.79,"baskets":13387},{"hr_":22,"sales":197543.33,"baskets":8466},{"hr_":23,"sales":89164.6,"baskets":4231}],"carbo":[{"hr_":0,"sales":52242.03,"baskets":17626},{"hr_":1,"sales":27184.41,"baskets":9200},{"hr_":2,"sales":14773.24,"baskets":4860},{"hr_":3,"sales":9535.19,"baskets":3181},{"hr_":4,"sales":7365.96,"baskets":2546},{"hr_":5,"sales":9571.89,"baskets":3386},{"hr_":6,"sales":22776.4,"baskets":7819},{"hr_":7,"sales":58531.5,"baskets":20858},{"hr_":8,"sales":148038.74,"baskets":53273},{"hr_":9,"sales":274802.09,"baskets":100350},{"hr_":10,"sales":434299.31,"baskets":161182},{"hr_":11,"sales":589445.2,"baskets":220304},{"hr_":12,"sales":668641.28,"baskets":246671},{"hr_":13,"sales":690479.56,"baskets":255074},{"hr_":14,"sales":730227.5,"baskets":270206},{"hr_":15,"sales":786665.66,"baskets":291236},{"hr_":16,"sales":905061.38,"baskets":332335},{"hr_":17,"sales":988152.25,"baskets":360123},{"hr_":18,"sales":913985.68,"baskets":327284},{"hr_":19,"sales":704963.24,"baskets":248611},{"hr_":20,"sales":495021.57,"baskets":173088},{"hr_":21,"sales":317039.5,"baskets":110188},{"hr_":22,"sales":181471.01,"baskets":62655},{"hr_":23,"sales":99805.3,"baskets":34293}]},"complement":[{"a":"pancake mixes","b":"syrups","n":107682,"support":0.0325,"lift":2.0541,"conf_a_b":0.408,"conf_b_a":0.1635},{"a":"pasta","b":"pasta sauce","n":819841,"support":0.2472,"lift":0.898,"conf_a_b":0.4181,"conf_b_a":0.531},{"a":"pancake mixes","b":"pasta sauce","n":43584,"support":0.0131,"lift":0.3547,"conf_a_b":0.1651,"conf_b_a":0.0282},{"a":"pancake mixes","b":"pasta","n":49986,"support":0.0151,"lift":0.3203,"conf_a_b":0.1894,"conf_b_a":0.0255},{"a":"pasta sauce","b":"syrups","n":94342,"support":0.0284,"lift":0.3076,"conf_a_b":0.0611,"conf_b_a":0.1432},{"a":"pasta","b":"syrups","n":109716,"support":0.0331,"lift":0.2817,"conf_a_b":0.0559,"conf_b_a":0.1665}],"loyalty":[{"commodity":"pancake mixes","households":10510,"median_sow":0.8,"share_loyal_80":0.5606,"share_switcher_50":0.1046,"median_brands":2.0},{"commodity":"pasta","households":133750,"median_sow":0.6,"share_loyal_80":0.2217,"share_switcher_50":0.3122,"median_brands":3.0},{"commodity":"pasta sauce","households":105690,"median_sow":0.6429,"share_loyal_80":0.3468,"share_switcher_50":0.2286,"median_brands":3.0},{"commodity":"syrups","households":36037,"median_sow":0.6667,"share_loyal_80":0.3754,"share_switcher_50":0.2294,"median_brands":3.0}],"brands":[{"commodity":"pancake mixes","brand":"Aunt Jemima","sales":206698.12,"hh":56103,"share":0.4039},{"commodity":"pancake mixes","brand":"Hungry Jack","sales":111435.32,"hh":35557,"share":0.2177},{"commodity":"pancake mixes","brand":"Private Label","sales":73616.82,"hh":32199,"share":0.1438},{"commodity":"pancake mixes","brand":"Krusteaz","sales":30528.77,"hh":9241,"share":0.0596},{"commodity":"pancake mixes","brand":"Bisquick","sales":18437.72,"hh":7021,"share":0.036},{"commodity":"pancake mixes","brand":"White Lily","sales":14571.18,"hh":7161,"share":0.0285},{"commodity":"pasta","brand":"Private Label","sales":995201.26,"hh":267358,"share":0.349},{"commodity":"pasta","brand":"Barilla","sales":433764.78,"hh":125579,"share":0.1521},{"commodity":"pasta","brand":"Creamette","sales":271543.31,"hh":86672,"share":0.0952},{"commodity":"pasta","brand":"Mueller","sales":270701.24,"hh":91128,"share":0.0949},{"commodity":"pasta","brand":"Ronzoni","sales":213566.48,"hh":68901,"share":0.0749},{"commodity":"pasta","brand":"Private Label Premium","sales":208815.78,"hh":76558,"share":0.0732},{"commodity":"pasta sauce","brand":"Ragu","sales":1500754.58,"hh":207237,"share":0.3729},{"commodity":"pasta sauce","brand":"Prego","sales":799932.23,"hh":118132,"share":0.1987},{"commodity":"pasta sauce","brand":"Classico","sales":438178.47,"hh":58865,"share":0.1089},{"commodity":"pasta sauce","brand":"Private Label","sales":331062.38,"hh":90754,"share":0.0823},{"commodity":"pasta sauce","brand":"Bertolli","sales":258090.84,"hh":40187,"share":0.0641},{"commodity":"pasta sauce","brand":"Hunt's","sales":236304.77,"hh":69509,"share":0.0587},{"commodity":"syrups","brand":"Aunt Jemima","sales":359668.92,"hh":65654,"share":0.2066},{"commodity":"syrups","brand":"Private Label","sales":352930.86,"hh":106181,"share":0.2027},{"commodity":"syrups","brand":"Mrs Butterworth","sales":159165.47,"hh":31809,"share":0.0914},{"commodity":"syrups","brand":"Log Cabin","sales":130904.45,"hh":23590,"share":0.0752},{"commodity":"syrups","brand":"Karo","sales":120430.98,"hh":30713,"share":0.0692},{"commodity":"syrups","brand":"Hungry Jack","sales":113414.69,"hh":18766,"share":0.0651}],"campaign_did":[{"campaign":1,"type":"TypeB","n_t":13.0,"n_c":2461.0,"pre_t":7.3928,"pre_c":5.0479,"growth_t":0.0277,"growth_c":-0.0077,"did_pp":0.0354,"level_gap":0.4645},{"campaign":2,"type":"TypeB","n_t":48.0,"n_c":2426.0,"pre_t":7.371,"pre_c":4.9011,"growth_t":-0.0069,"growth_c":0.0085,"did_pp":-0.0154,"level_gap":0.504},{"campaign":3,"type":"TypeC","n_t":12.0,"n_c":2456.0,"pre_t":12.4506,"pre_c":4.9991,"growth_t":0.0048,"growth_c":-0.0018,"did_pp":0.0066,"level_gap":1.4905},{"campaign":4,"type":"TypeB","n_t":81.0,"n_c":2389.0,"pre_t":9.4445,"pre_c":4.8114,"growth_t":0.0506,"growth_c":-0.0005,"did_pp":0.051,"level_gap":0.9629},{"campaign":5,"type":"TypeB","n_t":166.0,"n_c":2302.0,"pre_t":12.1124,"pre_c":4.5334,"growth_t":0.0222,"growth_c":0.0041,"did_pp":0.0181,"level_gap":1.6718},{"campaign":6,"type":"TypeC","n_t":65.0,"n_c":2399.0,"pre_t":14.5219,"pre_c":4.734,"growth_t":0.0143,"growth_c":0.0416,"did_pp":-0.0273,"level_gap":2.0676},{"campaign":7,"type":"TypeB","n_t":198.0,"n_c":2265.0,"pre_t":10.615,"pre_c":4.5914,"growth_t":0.0055,"growth_c":0.0323,"did_pp":-0.0268,"level_gap":1.3119},{"campaign":8,"type":"TypeA","n_t":1074.0,"n_c":1380.0,"pre_t":8.2199,"pre_c":2.8152,"growth_t":-0.0233,"growth_c":0.0248,"did_pp":-0.0481,"level_gap":1.9198},{"campaign":9,"type":"TypeB","n_t":176.0,"n_c":2276.0,"pre_t":9.2013,"pre_c":5.0043,"growth_t":-0.1071,"growth_c":-0.0234,"did_pp":-0.0837,"level_gap":0.8387},{"campaign":10,"type":"TypeB","n_t":123.0,"n_c":2323.0,"pre_t":11.3466,"pre_c":4.7214,"growth_t":-0.0334,"growth_c":0.0423,"did_pp":-0.0756,"level_gap":1.4032},{"campaign":11,"type":"TypeB","n_t":214.0,"n_c":2218.0,"pre_t":10.9071,"pre_c":4.6154,"growth_t":-0.0357,"growth_c":-0.0067,"did_pp":-0.029,"level_gap":1.3632},{"campaign":12,"type":"TypeB","n_t":169.0,"n_c":2268.0,"pre_t":11.2978,"pre_c":4.7065,"growth_t":0.0287,"growth_c":-0.0043,"did_pp":0.0331,"level_gap":1.4005},{"campaign":13,"type":"TypeA","n_t":1071.0,"n_c":1347.0,"pre_t":8.4224,"pre_c":2.7407,"growth_t":-0.0392,"growth_c":-0.0424,"did_pp":0.0032,"level_gap":2.0731},{"campaign":14,"type":"TypeC","n_t":223.0,"n_c":2147.0,"pre_t":11.5614,"pre_c":4.6202,"growth_t":-0.0031,"growth_c":-0.0183,"did_pp":0.0152,"level_gap":1.5023},{"campaign":15,"type":"TypeC","n_t":10.0,"n_c":970.0,"pre_t":7.4735,"pre_c":7.385,"growth_t":0.0729,"growth_c":0.073,"did_pp":-0.0002,"level_gap":0.012},{"campaign":16,"type":"TypeB","n_t":186.0,"n_c":2188.0,"pre_t":11.7902,"pre_c":4.4804,"growth_t":0.0105,"growth_c":0.0664,"did_pp":-0.0559,"level_gap":1.6315},{"campaign":17,"type":"TypeB","n_t":200.0,"n_c":2152.0,"pre_t":11.2735,"pre_c":4.5602,"growth_t":-0.0063,"growth_c":0.0703,"did_pp":-0.0766,"level_gap":1.4721},{"campaign":18,"type":"TypeA","n_t":1102.0,"n_c":1175.0,"pre_t":8.1067,"pre_c":2.9177,"growth_t":0.0621,"growth_c":0.1077,"did_pp":-0.0456,"level_gap":1.7785},{"campaign":19,"type":"TypeB","n_t":129.0,"n_c":2166.0,"pre_t":10.5202,"pre_c":5.1229,"growth_t":0.0638,"growth_c":0.0323,"did_pp":0.0315,"level_gap":1.0536},{"campaign":20,"type":"TypeC","n_t":232.0,"n_c":1758.0,"pre_t":12.1943,"pre_c":5.5136,"growth_t":0.0596,"growth_c":-0.0066,"did_pp":0.0661,"level_gap":1.2117},{"campaign":21,"type":"TypeB","n_t":62.0,"n_c":2153.0,"pre_t":13.1878,"pre_c":5.4548,"growth_t":0.1083,"growth_c":0.0541,"did_pp":0.0542,"level_gap":1.4177},{"campaign":22,"type":"TypeB","n_t":273.0,"n_c":1942.0,"pre_t":11.1733,"pre_c":4.8978,"growth_t":0.0626,"growth_c":0.056,"did_pp":0.0066,"level_gap":1.2813},{"campaign":23,"type":"TypeB","n_t":178.0,"n_c":1833.0,"pre_t":14.5621,"pre_c":5.4384,"growth_t":-0.04,"growth_c":0.0345,"did_pp":-0.0745,"level_gap":1.6777},{"campaign":25,"type":"TypeB","n_t":181.0,"n_c":1720.0,"pre_t":15.1395,"pre_c":5.6699,"growth_t":-0.0571,"growth_c":0.041,"did_pp":-0.0981,"level_gap":1.6702},{"campaign":26,"type":"TypeA","n_t":332.0,"n_c":2149.0,"pre_t":7.538,"pre_c":4.2685,"growth_t":0.0477,"growth_c":0.0444,"did_pp":0.0033,"level_gap":0.766},{"campaign":27,"type":"TypeC","n_t":12.0,"n_c":2465.0,"pre_t":10.3079,"pre_c":4.6991,"growth_t":0.0086,"growth_c":0.0571,"did_pp":-0.0485,"level_gap":1.1936},{"campaign":28,"type":"TypeB","n_t":17.0,"n_c":2460.0,"pre_t":9.3632,"pre_c":4.911,"growth_t":0.1481,"growth_c":0.0085,"did_pp":0.1396,"level_gap":0.9066},{"campaign":29,"type":"TypeB","n_t":118.0,"n_c":2359.0,"pre_t":7.7539,"pre_c":4.8805,"growth_t":0.0272,"growth_c":-0.0087,"did_pp":0.0359,"level_gap":0.5888},{"campaign":30,"type":"TypeA","n_t":361.0,"n_c":2115.0,"pre_t":7.4863,"pre_c":4.4867,"growth_t":0.0074,"growth_c":0.0056,"did_pp":0.0018,"level_gap":0.6685}],"campaign_types":[{"type":"TypeA","campaigns":5,"targets":3979,"households":1513,"redeeming_pairs":635,"avg_days":48.8736,"redemption_rate":0.1596},{"type":"TypeB","campaigns":19,"targets":2655,"households":1023,"redeeming_pairs":210,"avg_days":36.0143,"redemption_rate":0.0791},{"type":"TypeC","campaigns":6,"targets":574,"households":397,"redeeming_pairs":44,"avg_days":66.0017,"redemption_rate":0.0767}],"cj_weekly":[{"wk_":1,"sales":5211.16,"baskets":142,"households":88,"aov":36.698,"disc_rate":0.203},{"wk_":2,"sales":10821.35,"baskets":324,"households":175,"aov":33.399,"disc_rate":0.201},{"wk_":3,"sales":13498.2,"baskets":482,"households":228,"aov":28.005,"disc_rate":0.196},{"wk_":4,"sales":15965.99,"baskets":545,"households":270,"aov":29.295,"disc_rate":0.186},{"wk_":5,"sales":20139.82,"baskets":757,"households":370,"aov":26.605,"disc_rate":0.202},{"wk_":6,"sales":24923.9,"baskets":861,"households":433,"aov":28.948,"disc_rate":0.212},{"wk_":7,"sales":28073.97,"baskets":999,"households":491,"aov":28.102,"disc_rate":0.174},{"wk_":8,"sales":31793.77,"baskets":1086,"households":530,"aov":29.276,"disc_rate":0.184},{"wk_":9,"sales":31244.17,"baskets":1212,"households":622,"aov":25.779,"disc_rate":0.192},{"wk_":10,"sales":42994.38,"baskets":1553,"households":708,"aov":27.685,"disc_rate":0.206},{"wk_":11,"sales":51011.3,"baskets":1823,"households":846,"aov":27.982,"disc_rate":0.177},{"wk_":12,"sales":53187.3,"baskets":1926,"households":905,"aov":27.615,"disc_rate":0.199},{"wk_":13,"sales":55203.01,"baskets":2203,"households":972,"aov":25.058,"disc_rate":0.194},{"wk_":14,"sales":62875.2,"baskets":2433,"households":1119,"aov":25.843,"disc_rate":0.216},{"wk_":15,"sales":74261.29,"baskets":2743,"households":1156,"aov":27.073,"disc_rate":0.227},{"wk_":16,"sales":79135.01,"baskets":2840,"households":1309,"aov":27.864,"disc_rate":0.193},{"wk_":17,"sales":79556.35,"baskets":3048,"households":1371,"aov":26.101,"disc_rate":0.178},{"wk_":18,"sales":75968.18,"baskets":3080,"households":1313,"aov":24.665,"disc_rate":0.175},{"wk_":19,"sales":72536.88,"baskets":2973,"households":1268,"aov":24.399,"disc_rate":0.176},{"wk_":20,"sales":86108.9,"baskets":3091,"households":1319,"aov":27.858,"disc_rate":0.2},{"wk_":21,"sales":83262.33,"baskets":2999,"households":1312,"aov":27.763,"disc_rate":0.176},{"wk_":22,"sales":79133.82,"baskets":3092,"households":1313,"aov":25.593,"disc_rate":0.17},{"wk_":23,"sales":76069.35,"baskets":2947,"households":1290,"aov":25.812,"disc_rate":0.169},{"wk_":24,"sales":88706.1,"baskets":3112,"households":1335,"aov":28.505,"disc_rate":0.191},{"wk_":25,"sales":88926.82,"baskets":3094,"households":1345,"aov":28.742,"disc_rate":0.176},{"wk_":26,"sales":79208.92,"baskets":2891,"households":1303,"aov":27.398,"disc_rate":0.171},{"wk_":27,"sales":79909.08,"baskets":2845,"households":1266,"aov":28.088,"disc_rate":0.177},{"wk_":28,"sales":78556.2,"baskets":2783,"households":1286,"aov":28.227,"disc_rate":0.161},{"wk_":29,"sales":89026.98,"baskets":2997,"households":1331,"aov":29.705,"disc_rate":0.183},{"wk_":30,"sales":80131.86,"baskets":2894,"households":1285,"aov":27.689,"disc_rate":0.171},{"wk_":31,"sales":77643.88,"baskets":2820,"households":1278,"aov":27.533,"disc_rate":0.197},{"wk_":32,"sales":76723.95,"baskets":2910,"households":1280,"aov":26.366,"disc_rate":0.172},{"wk_":33,"sales":85802.29,"baskets":2957,"households":1305,"aov":29.017,"disc_rate":0.185},{"wk_":34,"sales":81676.13,"baskets":2871,"households":1292,"aov":28.449,"disc_rate":0.192},{"wk_":35,"sales":82983.83,"baskets":2785,"households":1262,"aov":29.797,"disc_rate":0.19},{"wk_":36,"sales":84083.89,"baskets":3022,"households":1325,"aov":27.824,"disc_rate":0.175},{"wk_":37,"sales":87324.25,"baskets":2958,"households":1316,"aov":29.521,"disc_rate":0.175},{"wk_":38,"sales":90906.21,"baskets":2894,"households":1284,"aov":31.412,"disc_rate":0.174},{"wk_":39,"sales":82427.45,"baskets":2883,"households":1295,"aov":28.591,"disc_rate":0.171},{"wk_":40,"sales":89984.76,"baskets":2794,"households":1278,"aov":32.206,"disc_rate":0.16},{"wk_":41,"sales":83638.59,"baskets":2982,"households":1308,"aov":28.048,"disc_rate":0.175},{"wk_":42,"sales":93370.29,"baskets":2919,"households":1318,"aov":31.987,"disc_rate":0.17},{"wk_":43,"sales":83953.87,"baskets":2849,"households":1289,"aov":29.468,"disc_rate":0.177},{"wk_":44,"sales":83093.82,"baskets":3001,"households":1318,"aov":27.689,"disc_rate":0.195},{"wk_":45,"sales":79682.33,"baskets":2861,"households":1290,"aov":27.851,"disc_rate":0.19},{"wk_":46,"sales":95878.08,"baskets":3086,"households":1335,"aov":31.069,"disc_rate":0.168},{"wk_":47,"sales":89835.46,"baskets":2926,"households":1286,"aov":30.702,"disc_rate":0.16},{"wk_":48,"sales":80300.28,"baskets":2866,"households":1300,"aov":28.018,"disc_rate":0.173},{"wk_":49,"sales":85805.5,"baskets":2944,"households":1305,"aov":29.146,"disc_rate":0.177},{"wk_":50,"sales":90219.68,"baskets":2932,"households":1332,"aov":30.771,"disc_rate":0.179},{"wk_":51,"sales":85529.53,"baskets":2982,"households":1302,"aov":28.682,"disc_rate":0.183},{"wk_":52,"sales":84886.49,"baskets":2939,"households":1299,"aov":28.883,"disc_rate":0.191},{"wk_":53,"sales":83239.75,"baskets":2868,"households":1288,"aov":29.024,"disc_rate":0.185},{"wk_":54,"sales":87914.89,"baskets":2932,"households":1315,"aov":29.985,"disc_rate":0.184},{"wk_":55,"sales":87062.48,"baskets":3005,"households":1334,"aov":28.973,"disc_rate":0.2},{"wk_":56,"sales":89058.04,"baskets":2963,"households":1334,"aov":30.057,"disc_rate":0.176},{"wk_":57,"sales":82604.91,"baskets":2957,"households":1291,"aov":27.935,"disc_rate":0.169},{"wk_":58,"sales":83694.69,"baskets":2859,"households":1286,"aov":29.274,"disc_rate":0.169},{"wk_":59,"sales":96701.23,"baskets":3083,"households":1391,"aov":31.366,"disc_rate":0.172},{"wk_":60,"sales":90987.01,"baskets":3142,"households":1386,"aov":28.958,"disc_rate":0.18},{"wk_":61,"sales":90585.63,"baskets":3156,"households":1391,"aov":28.703,"disc_rate":0.19},{"wk_":62,"sales":88184.5,"baskets":3054,"households":1362,"aov":28.875,"disc_rate":0.209},{"wk_":63,"sales":92808.76,"baskets":3107,"households":1361,"aov":29.871,"disc_rate":0.185},{"wk_":64,"sales":91182.23,"baskets":3046,"households":1335,"aov":29.935,"disc_rate":0.179},{"wk_":65,"sales":87397.57,"baskets":3067,"households":1343,"aov":28.496,"disc_rate":0.164},{"wk_":66,"sales":77688.26,"baskets":2965,"households":1283,"aov":26.202,"disc_rate":0.199},{"wk_":67,"sales":90950.73,"baskets":3079,"households":1337,"aov":29.539,"disc_rate":0.231},{"wk_":68,"sales":97967.05,"baskets":3283,"households":1410,"aov":29.841,"disc_rate":0.193},{"wk_":69,"sales":86409.91,"baskets":3033,"households":1318,"aov":28.49,"disc_rate":0.166},{"wk_":70,"sales":84986.99,"baskets":3004,"households":1315,"aov":28.291,"disc_rate":0.169},{"wk_":71,"sales":83873.2,"baskets":2991,"households":1338,"aov":28.042,"disc_rate":0.174},{"wk_":72,"sales":96930.47,"baskets":3209,"households":1407,"aov":30.206,"disc_rate":0.185},{"wk_":73,"sales":87531.26,"baskets":3052,"households":1339,"aov":28.68,"disc_rate":0.181},{"wk_":74,"sales":85641.31,"baskets":2999,"households":1309,"aov":28.557,"disc_rate":0.171},{"wk_":75,"sales":83162.99,"baskets":2978,"households":1328,"aov":27.926,"disc_rate":0.177},{"wk_":76,"sales":88851.4,"baskets":2976,"households":1332,"aov":29.856,"disc_rate":0.2},{"wk_":77,"sales":92161.44,"baskets":3004,"households":1355,"aov":30.68,"disc_rate":0.175},{"wk_":78,"sales":81102.03,"baskets":2825,"households":1295,"aov":28.709,"disc_rate":0.164},{"wk_":79,"sales":82474.62,"baskets":2943,"households":1365,"aov":28.024,"disc_rate":0.192},{"wk_":80,"sales":83203.75,"baskets":3006,"households":1325,"aov":27.679,"disc_rate":0.165},{"wk_":81,"sales":90168.04,"baskets":2988,"households":1348,"aov":30.177,"disc_rate":0.166},{"wk_":82,"sales":86945.12,"baskets":3006,"households":1360,"aov":28.924,"disc_rate":0.155},{"wk_":83,"sales":83200.92,"baskets":2945,"households":1347,"aov":28.252,"disc_rate":0.163},{"wk_":84,"sales":85936.42,"baskets":2923,"households":1293,"aov":29.4,"disc_rate":0.169},{"wk_":85,"sales":97663.46,"baskets":3132,"households":1398,"aov":31.182,"disc_rate":0.191},{"wk_":86,"sales":86445.24,"baskets":2930,"households":1341,"aov":29.503,"disc_rate":0.174},{"wk_":87,"sales":91391.47,"baskets":2909,"households":1355,"aov":31.417,"disc_rate":0.18},{"wk_":88,"sales":92469.59,"baskets":3093,"households":1372,"aov":29.896,"disc_rate":0.176},{"wk_":89,"sales":90544.76,"baskets":2893,"households":1328,"aov":31.298,"disc_rate":0.171},{"wk_":90,"sales":92939.24,"baskets":2915,"households":1356,"aov":31.883,"disc_rate":0.175},{"wk_":91,"sales":86923.35,"baskets":2933,"households":1342,"aov":29.636,"disc_rate":0.174},{"wk_":92,"sales":113192.87,"baskets":3362,"households":1428,"aov":33.668,"disc_rate":0.164},{"wk_":93,"sales":80832.16,"baskets":2547,"households":1244,"aov":31.736,"disc_rate":0.185},{"wk_":94,"sales":96964.24,"baskets":3005,"households":1363,"aov":32.268,"disc_rate":0.177},{"wk_":95,"sales":88895.06,"baskets":2878,"households":1335,"aov":30.888,"disc_rate":0.19},{"wk_":96,"sales":86810.11,"baskets":2824,"households":1309,"aov":30.74,"disc_rate":0.179},{"wk_":97,"sales":88839.26,"baskets":2913,"households":1332,"aov":30.498,"disc_rate":0.201},{"wk_":98,"sales":98949.62,"baskets":3037,"households":1384,"aov":32.581,"disc_rate":0.191},{"wk_":99,"sales":101363.92,"baskets":2851,"households":1325,"aov":35.554,"disc_rate":0.152},{"wk_":100,"sales":93063.1,"baskets":2793,"households":1313,"aov":33.32,"disc_rate":0.151},{"wk_":101,"sales":84407.25,"baskets":2682,"households":1269,"aov":31.472,"disc_rate":0.172},{"wk_":102,"sales":71968.63,"baskets":2383,"households":1205,"aov":30.201,"disc_rate":0.163}],"demand":[{"cat":"FOODS","cls":"Cục (lumpy)","series":3829,"rev":25067985.0},{"cat":"FOODS","cls":"Gián đoạn (intermittent)","series":8706,"rev":40809267.0},{"cat":"FOODS","cls":"Thất thường (erratic)","series":644,"rev":12075021.0},{"cat":"FOODS","cls":"Đều (smooth)","series":1191,"rev":33187752.0},{"cat":"HOBBIES","cls":"Cục (lumpy)","series":1045,"rev":2536813.0},{"cat":"HOBBIES","cls":"Gián đoạn (intermittent)","series":4504,"rev":18688445.0},{"cat":"HOBBIES","cls":"Thất thường (erratic)","series":53,"rev":559942.0},{"cat":"HOBBIES","cls":"Đều (smooth)","series":48,"rev":1536445.0},{"cat":"HOUSEHOLD","cls":"Cục (lumpy)","series":698,"rev":3951506.0},{"cat":"HOUSEHOLD","cls":"Gián đoạn (intermittent)","series":8945,"rev":39211380.0},{"cat":"HOUSEHOLD","cls":"Thất thường (erratic)","series":163,"rev":2083782.0},{"cat":"HOUSEHOLD","cls":"Đều (smooth)","series":664,"rev":11869209.0}],"pl":[{"CATEGORY":"BAG SNACKS","is_pl":false,"spend":2841175.61,"units":1177244,"base":2.684,"disc":0.052,"promo":0.189,"avg_price":2.413},{"CATEGORY":"BAG SNACKS","is_pl":true,"spend":2021229.12,"units":1495106,"base":1.335,"disc":0.029,"promo":0.089,"avg_price":1.352},{"CATEGORY":"COLD CEREAL","is_pl":false,"spend":13264839.0,"units":4856476,"base":3.141,"disc":0.054,"promo":0.089,"avg_price":2.731},{"CATEGORY":"COLD CEREAL","is_pl":true,"spend":2143195.37,"units":1122129,"base":1.95,"disc":0.032,"promo":0.183,"avg_price":1.91},{"CATEGORY":"FROZEN PIZZA","is_pl":false,"spend":4989560.0,"units":901371,"base":6.623,"disc":0.075,"promo":0.075,"avg_price":5.536},{"CATEGORY":"FROZEN PIZZA","is_pl":true,"spend":1655125.43,"units":480697,"base":3.773,"disc":0.043,"promo":0.107,"avg_price":3.443},{"CATEGORY":"ORAL HYGIENE PRODUCTS","is_pl":false,"spend":1467216.5,"units":345179,"base":4.694,"disc":0.057,"promo":0.169,"avg_price":4.251},{"CATEGORY":"ORAL HYGIENE PRODUCTS","is_pl":true,"spend":305066.52,"units":189332,"base":2.236,"disc":0.123,"promo":0.234,"avg_price":1.611}],"timeline":[{"name":"LGSR (mô phỏng)","src":"lgsr","start":"2006-04-10","end":"2008-07-06"},{"name":"BATF","src":"batf","start":"2009-01-14","end":"2012-01-04"},{"name":"UCI Online Retail","src":"uci","start":"2010-12-01","end":"2011-12-09"},{"name":"M5 Walmart","src":"m5","start":"2011-01-29","end":"2016-05-22"},{"name":"Complete Journey (bản R)","src":"cj2","start":"2017-01-01","end":"2017-12-31"}]};
+</script>
+<script>
+(() => {
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const pct = (v, d = 0) => (v * 100).toFixed(d).replace('.', ',') + '%';
+const num = (v, d = 0) => v.toLocaleString('vi-VN', { maximumFractionDigits: d, minimumFractionDigits: d });
+const charts = [];
+const T = () => ({ ink: css('--ink'), muted: css('--muted'), line: css('--line'), surface: css('--surface'), accent: css('--accent'),
+  src: k => css('--' + k), body: css('--body') });
+function base(t) {
+  return { textStyle: { fontFamily: t.body, color: t.ink }, animationDuration: 700,
+    grid: { left: 12, right: 24, top: 36, bottom: 28, containLabel: true },
+    tooltip: { backgroundColor: t.surface, borderColor: t.line, textStyle: { color: t.ink, fontFamily: t.body, fontSize: 12 }, confine: true },
+    legend: { textStyle: { color: t.muted, fontSize: 11 }, top: 0, type: 'scroll', icon: 'circle', itemWidth: 9, itemHeight: 9 } };
+}
+const ax = (t, o = {}) => Object.assign({ axisLine: { lineStyle: { color: t.line } }, axisTick: { show: false },
+  axisLabel: { color: t.muted, fontSize: 11 }, splitLine: { lineStyle: { color: t.line, type: [3, 4] } }, nameTextStyle: { color: t.muted, fontSize: 11 } }, o);
+const defs = {};
+function reg(id, fn) { defs[id] = fn; }
+function renderAll() {
+  const t = T();
+  for (const [id, fn] of Object.entries(defs)) {
+    const el = document.getElementById(id); if (!el) continue;
+    let c = echarts.getInstanceByDom(el); if (c) c.dispose();
+    c = echarts.init(el, null, { renderer: 'canvas' });
+    c.setOption(Object.assign(base(t), fn(t)));
+    charts.push(c);
+  }
+}
+window.addEventListener('resize', () => charts.forEach(c => !c.isDisposed() && c.resize()));
+
+reg('cTimeline', t => {
+  const rows = D.timeline;
+  return { grid: { left: 12, right: 24, top: 10, bottom: 24, containLabel: true },
+    xAxis: ax(t, { type: 'time', min: '2006-01-01', max: '2018-03-01' }), yAxis: ax(t, { type: 'category', data: rows.map(r => r.name), inverse: true, splitLine: { show: false } }),
+    tooltip: { formatter: p => `<b>${p.name}</b><br>${rows[p.dataIndex].start} → ${rows[p.dataIndex].end}` },
+    series: [{ type: 'custom', renderItem: (params, api) => {
+      const s = api.coord([api.value(0), api.value(2)]), e = api.coord([api.value(1), api.value(2)]), h = api.size([0, 1])[1] * 0.5;
+      return { type: 'rect', shape: { x: s[0], y: s[1] - h / 2, width: Math.max(e[0] - s[0], 3), height: h, r: 5 }, style: { fill: t.src(rows[params.dataIndex].src) } };
+    }, encode: { x: [0, 1], y: 2 }, data: rows.map((r, i) => ({ name: r.name, value: [r.start, r.end, i] })) }] };
+});
+
+reg('cDemand', t => {
+  const cls = ['Đều (smooth)', 'Thất thường (erratic)', 'Gián đoạn (intermittent)', 'Cục (lumpy)'];
+  const cats = ['FOODS', 'HOUSEHOLD', 'HOBBIES'];
+  const col = [t.src('cj'), t.src('batf'), t.src('m5'), t.src('carbo')];
+  const tot = c => D.demand.filter(d => d.cat === c).reduce((a, b) => a + b.series, 0);
+  return { legend: { top: 0 }, grid: { left: 12, right: 24, top: 40, bottom: 24, containLabel: true },
+    xAxis: ax(t, { type: 'value', max: 1, axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    yAxis: ax(t, { type: 'category', data: ['Thực phẩm', 'Gia dụng', 'Sở thích'], splitLine: { show: false } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => pct(v, 1) },
+    series: cls.map((k, i) => ({ name: k, type: 'bar', stack: 's', barWidth: '55%', itemStyle: { color: col[i] },
+      data: cats.map(c => { const r = D.demand.find(d => d.cat === c && d.cls === k); return r ? r.series / tot(c) : 0; }) })) };
+});
+
+reg('cLorenz', t => ({
+  xAxis: ax(t, { type: 'value', min: 0, max: 1, name: '% khách / mặt hàng', nameLocation: 'middle', nameGap: 26, axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+  yAxis: ax(t, { type: 'value', min: 0, max: 1, axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+  grid: { left: 12, right: 24, top: 44, bottom: 36, containLabel: true },
+  tooltip: { trigger: 'axis', valueFormatter: v => pct(v, 1), axisPointer: { type: 'line' } },
+  series: [{ name: 'Phân bổ đều', type: 'line', data: [[0, 0], [1, 1]], symbol: 'none', lineStyle: { color: t.muted, type: 'dotted', width: 1 }, tooltip: { show: false } },
+    ...D.lorenz.map(l => ({ name: l.name, type: 'line', smooth: true, symbol: 'none', lineStyle: { width: 2.4, color: t.src(l.src) }, itemStyle: { color: t.src(l.src) },
+      data: [[0, 0], ...l.p.curve.map(c => [c.pop, c.share])],
+      markPoint: l.src === 'cj' ? { symbol: 'circle', symbolSize: 9, data: [{ coord: [0.2, l.p.top20], value: pct(l.p.top20) }], label: { position: 'left', color: t.ink, fontSize: 11, formatter: p => 'top 20%: ' + p.value } } : undefined }))] }));
+
+reg('cElastic', t => {
+  const rows = D.elasticity.slice().reverse();
+  return { grid: { left: 12, right: 50, top: 10, bottom: 30, containLabel: true },
+    xAxis: ax(t, { type: 'value', min: -3.5, max: 0.2, interval: 0.5, axisLabel: { color: t.muted, formatter: v => num(v, 1) } }),
+    yAxis: ax(t, { type: 'category', data: rows.map(r => r.name), splitLine: { show: false }, axisLabel: { color: t.ink, fontSize: 11 } }),
+    tooltip: { formatter: p => { const r = rows[p.dataIndex]; return `<b>${r.name}</b><br>Co giãn: ${num(r.v, 2)}<br>KTC 95%: ${num(r.lo, 2)} → ${num(r.hi, 2)}`; } },
+    series: [{ type: 'custom', renderItem: (params, api) => {
+        const r = rows[params.dataIndex]; const a = api.coord([r.lo, params.dataIndex]), b = api.coord([r.hi, params.dataIndex]), m = api.coord([r.v, params.dataIndex]);
+        const c = t.src(r.src);
+        return { type: 'group', children: [
+          { type: 'line', shape: { x1: a[0], y1: a[1], x2: Math.max(b[0], a[0] + 2), y2: b[1] }, style: { stroke: c, lineWidth: 3, lineCap: 'round' } },
+          { type: 'circle', shape: { cx: m[0], cy: m[1], r: 6 }, style: { fill: c, stroke: t.surface, lineWidth: 2 } },
+          { type: 'text', style: { x: Math.max(b[0], m[0]) + 10, y: m[1], text: num(r.v, 2), fill: t.ink, fontSize: 11, verticalAlign: 'middle', fontFamily: t.body } }] };
+      }, data: rows.map((r, i) => [r.v, i]),
+      markLine: { silent: true, symbol: 'none', lineStyle: { color: t.muted, type: 'dashed' }, label: { color: t.muted, fontSize: 10, formatter: 'co giãn đơn vị' }, data: [{ xAxis: -1 }] } }] };
+});
+
+reg('cSeg', t => {
+  const cats = [...new Set(D.seg.map(s => s.category))];
+  const segs = ['VALUE', 'MAINSTREAM', 'UPSCALE'], cols = [t.src('batf'), t.src('cj'), t.src('lgsr')];
+  return { xAxis: ax(t, { type: 'category', data: cats.map(c => c.charAt(0) + c.slice(1).toLowerCase()), splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', name: 'Co giãn', axisLabel: { color: t.muted, formatter: v => num(v, 1) } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => num(v, 2) },
+    series: segs.map((s, i) => ({ name: s.charAt(0) + s.slice(1).toLowerCase(), type: 'bar', itemStyle: { color: cols[i], borderRadius: [0, 0, 4, 4] },
+      data: cats.map(c => { const r = D.seg.find(x => x.category === c && x.segment === s); return r ? r.elasticity : null; }) })) };
+});
+
+reg('cPromo', t => {
+  const rows = D.promo.slice().reverse();
+  return { grid: { left: 12, right: 50, top: 10, bottom: 30, containLabel: true },
+    xAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    yAxis: ax(t, { type: 'category', data: rows.map(r => r.name), splitLine: { show: false }, axisLabel: { color: t.ink, fontSize: 10.5 } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => pct(v, 1) },
+    series: [{ type: 'bar', barWidth: '62%', data: rows.map(r => ({ value: r.v, itemStyle: { color: t.src(r.src), borderRadius: r.v >= 0 ? [0, 4, 4, 0] : [4, 0, 0, 4] } })),
+      label: { show: true, position: 'right', color: t.ink, fontSize: 10, formatter: p => pct(p.value) } }] };
+});
+
+reg('cDepth', t => ({
+  grid: { left: 12, right: 24, top: 64, bottom: 28, containLabel: true },
+  xAxis: ax(t, { type: 'category', data: D.depth.map(d => d.bin), splitLine: { show: false } }),
+  yAxis: [ax(t, { type: 'value', name: 'Đơn vị/tuần' }), ax(t, { type: 'value', name: '% quan sát', splitLine: { show: false }, axisLabel: { color: t.muted, formatter: v => pct(v) } })],
+  tooltip: { trigger: 'axis' },
+  series: [{ name: 'Đơn vị bán / SKU-cửa hàng-tuần', type: 'bar', data: D.depth.map(d => +d.units_per_row.toFixed(1)), itemStyle: { color: t.src('batf'), borderRadius: [4, 4, 0, 0] }, barWidth: '48%' },
+    { name: '% số quan sát', type: 'line', yAxisIndex: 1, data: D.depth.map(d => d.rows / D.depth.reduce((a, b) => a + b.rows, 0)), itemStyle: { color: t.ink }, lineStyle: { color: t.ink }, tooltip: { valueFormatter: v => pct(v, 1) } }] }));
+
+reg('cCampaign', t => {
+  const types = ['TypeA', 'TypeB', 'TypeC'], cols = [t.src('cj'), t.src('batf'), t.src('m5')];
+  return { xAxis: ax(t, { type: 'value', name: 'Chênh chi tiêu trước chiến dịch', nameLocation: 'middle', nameGap: 26, axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    yAxis: ax(t, { type: 'value', name: 'DiD', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    grid: { left: 12, right: 24, top: 44, bottom: 36, containLabel: true },
+    tooltip: { formatter: p => `Chiến dịch ${p.data[2]} (${p.seriesName})<br>Chênh trước: ${pct(p.data[0])}<br>DiD: ${pct(p.data[1], 1)}` },
+    series: types.map((k, i) => ({ name: k, type: 'scatter', symbolSize: 12, itemStyle: { color: cols[i], opacity: 0.85 },
+      data: D.campaign_did.filter(d => d.type === k).map(d => [d.level_gap, d.did_pp, d.campaign]),
+      markLine: i === 0 ? { silent: true, symbol: 'none', lineStyle: { color: t.muted }, label: { show: false }, data: [{ yAxis: 0 }] } : undefined })) };
+});
+
+reg('cSnap', t => {
+  const st = ['CA', 'TX', 'WI'], cats = ['FOODS', 'HOUSEHOLD', 'HOBBIES'], lab = ['Thực phẩm', 'Gia dụng', 'Sở thích'], cols = [t.src('cj'), t.src('m5'), t.src('batf')];
+  return { xAxis: ax(t, { type: 'category', data: st, splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => pct(v, 1) },
+    series: cats.map((c, i) => ({ name: lab[i], type: 'bar', itemStyle: { color: cols[i], borderRadius: [4, 4, 0, 0] },
+      label: { show: true, position: 'top', color: t.ink, fontSize: 10, formatter: p => pct(p.value, 1) },
+      data: st.map(s => D.snap.find(x => x.state === s && x.cat === c).lift) })) };
+});
+
+reg('cDom', t => {
+  const cols = [t.src('cj'), t.src('batf'), t.src('m5')];
+  return { xAxis: ax(t, { type: 'category', data: D.dom.map(d => d.dom), name: 'Ngày', splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', min: 0.85, axisLabel: { color: t.muted, formatter: v => num(v, 2) } }),
+    tooltip: { trigger: 'axis', valueFormatter: v => num(v, 3) },
+    series: ['CA', 'TX', 'WI'].map((s, i) => ({ name: s, type: 'line', symbol: 'none', smooth: 0.2, lineStyle: { width: 2, color: cols[i] }, itemStyle: { color: cols[i] },
+      data: D.dom.map(d => d[s + '_idx']),
+      markLine: i === 0 ? { silent: true, symbol: 'none', lineStyle: { color: t.muted, type: 'dashed' }, label: { show: false }, data: [{ yAxis: 1 }] } : undefined })) };
+});
+
+reg('cEvents', t => {
+  const rows = D.events.slice();
+  const col = { National: t.src('cj'), Religious: t.src('lgsr'), Cultural: t.src('batf'), Sporting: t.src('m5') };
+  return { grid: { left: 12, right: 50, top: 10, bottom: 30, containLabel: true },
+    xAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    yAxis: ax(t, { type: 'category', data: rows.map(r => r.event), splitLine: { show: false }, axisLabel: { color: t.ink, fontSize: 10.5 } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => `<b>${rows[p[0].dataIndex].event}</b> (${rows[p[0].dataIndex].type})<br>${pct(p[0].value, 1)} · ${rows[p[0].dataIndex].n} năm` },
+    series: [{ type: 'bar', barWidth: '64%', data: rows.map(r => ({ value: r.lift, itemStyle: { color: col[r.type], borderRadius: r.lift >= 0 ? [0, 3, 3, 0] : [3, 0, 0, 3] } })),
+      label: { show: true, position: 'right', color: t.muted, fontSize: 9.5, formatter: p => pct(p.value) } }] };
+});
+
+reg('cIncome', t => {
+  const d = D.income.filter(x => x.level.startsWith('Level'));
+  return { xAxis: ax(t, { type: 'category', data: d.map(x => x.level.replace('Level', 'L')), splitLine: { show: false } }),
+    yAxis: [ax(t, { type: 'value', name: 'USD/tuần' }), ax(t, { type: 'value', name: 'Nhãn riêng', min: 0.1, max: 0.35, splitLine: { show: false }, axisLabel: { color: t.muted, formatter: v => pct(v) } })],
+    tooltip: { trigger: 'axis', formatter: p => { const r = d[p[0].dataIndex]; return `<b>${r.level}</b> · ${r.households} hộ<br>Chi tiêu/tuần: ${num(r.weekly_spend, 1)} USD<br>Giá trị giỏ: ${num(r.basket_value, 1)} USD<br>Nhãn riêng: ${pct(r.pl_share, 1)}<br>Tỷ lệ giảm giá: ${pct(r.disc_rate, 1)}`; } },
+    series: [{ name: 'Chi tiêu/tuần (trung vị)', type: 'bar', data: d.map(x => x.weekly_spend), itemStyle: { color: t.src('cj'), borderRadius: [4, 4, 0, 0] }, barWidth: '56%' },
+      { name: 'Tỷ trọng nhãn riêng', type: 'line', yAxisIndex: 1, data: d.map(x => x.pl_share), itemStyle: { color: t.accent }, lineStyle: { width: 2.4, color: t.accent }, symbolSize: 7 }] };
+});
+
+reg('cPL', t => {
+  const cats = [...new Set(D.pl.map(x => x.CATEGORY))];
+  const g = (c, b) => D.pl.find(x => x.CATEGORY === c && x.is_pl === b);
+  return { xAxis: ax(t, { type: 'category', data: cats.map(c => c.charAt(0) + c.slice(1).toLowerCase()), splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', name: 'USD/đơn vị' }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => num(v, 2) + ' USD' },
+    series: [{ name: 'Thương hiệu quốc gia', type: 'bar', data: cats.map(c => g(c, false).avg_price), itemStyle: { color: t.src('m5'), borderRadius: [4, 4, 0, 0] } },
+      { name: 'Nhãn riêng', type: 'bar', data: cats.map(c => g(c, true).avg_price), itemStyle: { color: t.src('batf'), borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: 'top', color: t.ink, fontSize: 10, formatter: p => '−' + pct(1 - p.value / g(cats[p.dataIndex], false).avg_price) } }] };
+});
+
+reg('cLoyal', t => {
+  const d = D.loyalty, lab = { 'pancake mixes': 'Bột bánh', 'pasta': 'Mì Ý', 'pasta sauce': 'Sốt mì', 'syrups': 'Siro' };
+  return { xAxis: ax(t, { type: 'category', data: d.map(x => lab[x.commodity]), splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', max: 1, axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => pct(v, 1) },
+    series: [{ name: 'Trung thành (≥80%)', type: 'bar', stack: 's', data: d.map(x => x.share_loyal_80), itemStyle: { color: t.src('cj') } },
+      { name: 'Ở giữa', type: 'bar', stack: 's', data: d.map(x => 1 - x.share_loyal_80 - x.share_switcher_50), itemStyle: { color: t.line } },
+      { name: 'Hay đổi (<50%)', type: 'bar', stack: 's', data: d.map(x => x.share_switcher_50), itemStyle: { color: t.src('carbo') } }] };
+});
+
+let basketKey = 'basket_type';
+reg('cBasket', t => {
+  const d = D[basketKey].filter(x => x.level !== 'XX' && x.level !== '(trống)');
+  const tb = d.reduce((a, b) => a + b.baskets, 0), ts = d.reduce((a, b) => a + b.spend, 0);
+  return { xAxis: ax(t, { type: 'category', data: d.map(x => x.level), splitLine: { show: false } }),
+    yAxis: [ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }), ax(t, { type: 'value', name: 'Giá trị giỏ', splitLine: { show: false } })],
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    series: [{ name: '% số giỏ', type: 'bar', data: d.map(x => x.baskets / tb), itemStyle: { color: t.src('lgsr'), borderRadius: [4, 4, 0, 0] }, tooltip: { valueFormatter: v => pct(v, 1) } },
+      { name: '% doanh thu', type: 'bar', data: d.map(x => x.spend / ts), itemStyle: { color: t.accent, borderRadius: [4, 4, 0, 0] }, tooltip: { valueFormatter: v => pct(v, 1) } },
+      { name: 'Giá trị giỏ TB', type: 'line', yAxisIndex: 1, data: d.map(x => x.aov), itemStyle: { color: t.ink }, lineStyle: { color: t.ink }, tooltip: { valueFormatter: v => num(v, 2) } }] };
+});
+document.querySelectorAll('.seg-toggle button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.seg-toggle button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  basketKey = b.dataset.k; const el = document.getElementById('cBasket'); const c = echarts.getInstanceByDom(el); const t = T();
+  c.setOption(Object.assign(base(t), defs.cBasket(t)), true);
+}));
+
+reg('cHeat', t => {
+  const days = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  const hrs = [...new Set(D.heat.map(h => h.hr))].sort((a, b) => a - b);
+  const max = Math.max(...D.heat.map(h => h.baskets));
+  return { grid: { left: 12, right: 24, top: 10, bottom: 56, containLabel: true },
+    xAxis: ax(t, { type: 'category', data: hrs, splitLine: { show: false }, name: 'Giờ', nameLocation: 'middle', nameGap: 24 }),
+    yAxis: ax(t, { type: 'category', data: days, splitLine: { show: false }, inverse: true }),
+    visualMap: { min: 0, max, calculable: false, orient: 'horizontal', left: 'center', bottom: 0, itemHeight: 140, itemWidth: 10, textStyle: { color: t.muted, fontSize: 10 },
+      inRange: { color: [t.surface, t.src('cj2'), t.src('cj')] } },
+    tooltip: { formatter: p => `${days[p.data[1]]} ${hrs[p.data[0]]}h: ${num(p.data[2])} giỏ` },
+    series: [{ type: 'heatmap', data: D.heat.map(h => [hrs.indexOf(h.hr), h.wd - 1, h.baskets]), itemStyle: { borderColor: t.surface, borderWidth: 1 } }] };
+});
+
+reg('cHours', t => {
+  const norm = arr => { const s = arr.reduce((a, b) => a + b.baskets, 0); return arr.map(x => [x.hr_ ?? x.hr, x.baskets / s]); };
+  const lg = {}; D.heat.forEach(h => lg[h.hr] = (lg[h.hr] || 0) + h.baskets);
+  const lgArr = Object.entries(lg).map(([h, b]) => ({ hr: +h, baskets: b }));
+  return { xAxis: ax(t, { type: 'value', min: 0, max: 23, interval: 3, name: 'Giờ', nameLocation: 'middle', nameGap: 24 }),
+    yAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    grid: { left: 12, right: 24, top: 40, bottom: 36, containLabel: true },
+    tooltip: { trigger: 'axis', valueFormatter: v => pct(v, 1) },
+    series: [['Complete Journey', norm(D.hours.cj), 'cj'], ['Carbo-Loading', norm(D.hours.carbo), 'carbo'], ['LGSR (mô phỏng)', norm(lgArr), 'lgsr']].map(([n, d, k]) => ({
+      name: n, type: 'line', smooth: true, symbol: 'none', data: d.sort((a, b) => a[0] - b[0]), lineStyle: { width: 2.2, color: t.src(k), type: k === 'lgsr' ? 'dashed' : 'solid' }, itemStyle: { color: t.src(k) } })) };
+});
+
+reg('cComp', t => {
+  const lab = { 'pancake mixes': 'Bột bánh', 'pasta': 'Mì Ý', 'pasta sauce': 'Sốt', 'syrups': 'Siro' };
+  const d = D.complement.slice().sort((a, b) => a.lift - b.lift);
+  return { grid: { left: 12, right: 40, top: 36, bottom: 24, containLabel: true },
+    xAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => num(v, 1) } }),
+    yAxis: ax(t, { type: 'category', data: d.map(x => lab[x.a] + ' + ' + lab[x.b]), splitLine: { show: false }, axisLabel: { color: t.ink } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => { const r = d[p[0].dataIndex]; return `<b>${lab[r.a]} + ${lab[r.b]}</b><br>Lift: ${num(r.lift, 2)}<br>Support: ${pct(r.support, 1)}<br>P(${lab[r.b]}|${lab[r.a]}): ${pct(r.conf_a_b, 1)}<br>P(${lab[r.a]}|${lab[r.b]}): ${pct(r.conf_b_a, 1)}`; } },
+    series: [{ name: 'Lift', type: 'bar', barWidth: '55%', data: d.map(x => ({ value: x.lift, itemStyle: { color: x.lift > 1 ? t.src('carbo') : t.src('carbo2'), borderRadius: [0, 4, 4, 0] } })),
+      label: { show: true, position: 'right', color: t.ink, fontSize: 10, formatter: p => num(p.value, 2) },
+      markLine: { silent: true, symbol: 'none', lineStyle: { color: t.muted, type: 'dashed' }, label: { color: t.muted, formatter: 'độc lập = 1' }, data: [{ xAxis: 1 }] } }] };
+});
+
+
+const D2 = {"periods":[{"p4":1,"sales":45496.7,"hh":448,"baskets":1493,"trips_per_hh":3.333,"aov":30.473,"active_rate":0.179},{"p4":2,"sales":104931.46,"hh":877,"baskets":3703,"trips_per_hh":4.222,"aov":28.337,"active_rate":0.351},{"p4":3,"sales":178437.15,"hh":1391,"baskets":6514,"trips_per_hh":4.683,"aov":27.393,"active_rate":0.556},{"p4":4,"sales":271474.51,"hh":1963,"baskets":10219,"trips_per_hh":5.206,"aov":26.566,"active_rate":0.785},{"p4":5,"sales":314170.31,"hh":2012,"baskets":12192,"trips_per_hh":6.06,"aov":25.769,"active_rate":0.805},{"p4":6,"sales":327171.6,"hh":1985,"baskets":12150,"trips_per_hh":6.121,"aov":26.928,"active_rate":0.794},{"p4":7,"sales":326601.02,"hh":1959,"baskets":11613,"trips_per_hh":5.928,"aov":28.124,"active_rate":0.784},{"p4":8,"sales":323526.67,"hh":1971,"baskets":11621,"trips_per_hh":5.896,"aov":27.84,"active_rate":0.788},{"p4":9,"sales":334546.14,"hh":1992,"baskets":11635,"trips_per_hh":5.841,"aov":28.753,"active_rate":0.797},{"p4":10,"sales":350642.67,"hh":1975,"baskets":11529,"trips_per_hh":5.837,"aov":30.414,"active_rate":0.79},{"p4":11,"sales":344056.57,"hh":1981,"baskets":11751,"trips_per_hh":5.932,"aov":29.279,"active_rate":0.792},{"p4":12,"sales":345696.15,"hh":1961,"baskets":11739,"trips_per_hh":5.986,"aov":29.449,"active_rate":0.784},{"p4":13,"sales":346441.2,"hh":1967,"baskets":11797,"trips_per_hh":5.997,"aov":29.367,"active_rate":0.787},{"p4":14,"sales":347275.16,"hh":1983,"baskets":11768,"trips_per_hh":5.934,"aov":29.51,"active_rate":0.793},{"p4":15,"sales":353987.84,"hh":1993,"baskets":12041,"trips_per_hh":6.042,"aov":29.399,"active_rate":0.797},{"p4":16,"sales":362761.12,"hh":2010,"baskets":12363,"trips_per_hh":6.151,"aov":29.342,"active_rate":0.804},{"p4":17,"sales":354003.61,"hh":2039,"baskets":12394,"trips_per_hh":6.078,"aov":28.562,"active_rate":0.816},{"p4":18,"sales":352200.57,"hh":2020,"baskets":12237,"trips_per_hh":6.058,"aov":28.782,"active_rate":0.808},{"p4":19,"sales":345186.96,"hh":1996,"baskets":12005,"trips_per_hh":6.015,"aov":28.754,"active_rate":0.798},{"p4":20,"sales":338941.84,"hh":1999,"baskets":11778,"trips_per_hh":5.892,"aov":28.778,"active_rate":0.8},{"p4":21,"sales":346250.5,"hh":2027,"baskets":11862,"trips_per_hh":5.852,"aov":29.19,"active_rate":0.811},{"p4":22,"sales":367969.76,"hh":2052,"baskets":12064,"trips_per_hh":5.879,"aov":30.501,"active_rate":0.821},{"p4":23,"sales":383600.22,"hh":2023,"baskets":12103,"trips_per_hh":5.983,"aov":31.695,"active_rate":0.809},{"p4":24,"sales":353501.57,"hh":2017,"baskets":11254,"trips_per_hh":5.58,"aov":31.411,"active_rate":0.807},{"p4":25,"sales":382215.9,"hh":2029,"baskets":11594,"trips_per_hh":5.714,"aov":32.967,"active_rate":0.812},{"p4":26,"sales":156375.88,"hh":1633,"baskets":5065,"trips_per_hh":3.102,"aov":30.874,"active_rate":0.653}],"traj":[{"traj":"Giảm chi (<−20%)","households":466,"h1":722468.0,"h2":393806.0,"total":1116275.0,"delta":-328662.0},{"traj":"Rời bỏ (≥8 tuần không mua)","households":274,"h1":181489.0,"h2":117345.0,"total":298834.0,"delta":-64143.0},{"traj":"Tăng chi (>+20%)","households":1263,"h1":1639848.0,"h2":3018073.0,"total":4657921.0,"delta":1378225.0},{"traj":"Ổn định (±20%)","households":488,"h1":982922.0,"h2":991933.0,"total":1974855.0,"delta":9012.0}],"trajDept":[{"traj":"Tăng chi (>+20%)","dept":"DRUG GM","h1":211252.0,"h2":392696.0,"delta":181445.0},{"traj":"Giảm chi (<−20%)","dept":"PRODUCE","h1":43064.0,"h2":23689.0,"delta":-19374.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"PASTRY","h1":3037.0,"h2":2358.0,"delta":-679.0},{"traj":"Ổn định (±20%)","dept":"MEAT-PCKGD","h1":48831.0,"h2":48952.0,"delta":121.0},{"traj":"Tăng chi (>+20%)","dept":"PRODUCE","h1":115103.0,"h2":210759.0,"delta":95657.0},{"traj":"Ổn định (±20%)","dept":"KIOSK-GAS","h1":61820.0,"h2":68002.0,"delta":6182.0},{"traj":"Giảm chi (<−20%)","dept":"DRUG GM","h1":104596.0,"h2":58352.0,"delta":-46243.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"GROCERY","h1":95161.0,"h2":58529.0,"delta":-36632.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"DELI","h1":5998.0,"h2":3903.0,"delta":-2095.0},{"traj":"Tăng chi (>+20%)","dept":"MEAT-PCKGD","h1":83669.0,"h2":149584.0,"delta":65915.0},{"traj":"Ổn định (±20%)","dept":"DRUG GM","h1":129835.0,"h2":122109.0,"delta":-7726.0},{"traj":"Giảm chi (<−20%)","dept":"KIOSK-GAS","h1":43641.0,"h2":23008.0,"delta":-20633.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"MEAT","h1":13064.0,"h2":8334.0,"delta":-4730.0},{"traj":"Ổn định (±20%)","dept":"PRODUCE","h1":70073.0,"h2":73620.0,"delta":3546.0},{"traj":"Giảm chi (<−20%)","dept":"MEAT-PCKGD","h1":41437.0,"h2":21213.0,"delta":-20224.0},{"traj":"Tăng chi (>+20%)","dept":"KIOSK-GAS","h1":100242.0,"h2":225907.0,"delta":125665.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"DRUG GM","h1":21275.0,"h2":14268.0,"delta":-7007.0},{"traj":"Ổn định (±20%)","dept":"GROCERY","h1":497754.0,"h2":501498.0,"delta":3744.0},{"traj":"Tăng chi (>+20%)","dept":"PASTRY","h1":25147.0,"h2":43059.0,"delta":17911.0},{"traj":"Ổn định (±20%)","dept":"DELI","h1":32225.0,"h2":33215.0,"delta":990.0},{"traj":"Tăng chi (>+20%)","dept":"GROCERY","h1":844837.0,"h2":1516584.0,"delta":671747.0},{"traj":"Tăng chi (>+20%)","dept":"DELI","h1":52736.0,"h2":97787.0,"delta":45051.0},{"traj":"Giảm chi (<−20%)","dept":"MEAT","h1":50601.0,"h2":25852.0,"delta":-24749.0},{"traj":"Ổn định (±20%)","dept":"PASTRY","h1":15031.0,"h2":15640.0,"delta":608.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"MEAT-PCKGD","h1":11350.0,"h2":7084.0,"delta":-4266.0},{"traj":"Giảm chi (<−20%)","dept":"GROCERY","h1":372990.0,"h2":201995.0,"delta":-170995.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"KIOSK-GAS","h1":11809.0,"h2":9230.0,"delta":-2578.0},{"traj":"Tăng chi (>+20%)","dept":"MEAT","h1":114223.0,"h2":199560.0,"delta":85338.0},{"traj":"Giảm chi (<−20%)","dept":"DELI","h1":22751.0,"h2":12079.0,"delta":-10673.0},{"traj":"Rời bỏ (≥8 tuần không mua)","dept":"PRODUCE","h1":11642.0,"h2":8060.0,"delta":-3582.0},{"traj":"Giảm chi (<−20%)","dept":"PASTRY","h1":10651.0,"h2":6677.0,"delta":-3974.0},{"traj":"Ổn định (±20%)","dept":"MEAT","h1":70331.0,"h2":65983.0,"delta":-4348.0}],"rfm":[{"segment":"Nhà vô địch","households":554,"monetary":3844383.52,"recency":1.0,"frequency":196.0,"avg_m":6939.3204,"hh_share":0.2216,"rev_share":0.4771},{"segment":"Trung thành","households":541,"monetary":2042701.98,"recency":4.0,"frequency":108.0,"avg_m":3775.7892,"hh_share":0.2164,"rev_share":0.2535},{"segment":"Có nguy cơ mất (giá trị cao)","households":137,"monetary":686306.23,"recency":18.0,"frequency":148.0,"avg_m":5009.5345,"hh_share":0.0548,"rev_share":0.0852},{"segment":"Cần chăm sóc","households":281,"monetary":648749.2,"recency":19.0,"frequency":72.0,"avg_m":2308.716,"hh_share":0.1124,"rev_share":0.0805},{"segment":"Đã ngủ đông","households":582,"monetary":390988.21,"recency":38.5,"frequency":26.0,"avg_m":671.801,"hh_share":0.2328,"rev_share":0.0485},{"segment":"Mới / tiềm năng","households":219,"monetary":235843.9,"recency":1.0,"frequency":43.0,"avg_m":1076.9128,"hh_share":0.0876,"rev_share":0.0293},{"segment":"Ngủ đông nhẹ","households":186,"monetary":208490.04,"recency":6.0,"frequency":44.0,"avg_m":1120.9142,"hh_share":0.0744,"rev_share":0.0259}],"rules":[{"a":"DRY NOODLES/PASTA","b":"PASTA SAUCE","n":6423,"support":0.0256,"conf_a_b":0.4582,"conf_b_a":0.5479,"lift":9.8106},{"a":"CHEESES","b":"DELI MEATS","n":7132,"support":0.0284,"conf_a_b":0.63,"conf_b_a":0.4167,"lift":9.239},{"a":"TOMATOES","b":"VEGETABLES SALAD","n":4112,"support":0.0164,"conf_a_b":0.2695,"conf_b_a":0.384,"lift":6.3171},{"a":"DINNER MXS:DRY","b":"MEAT - SHELF STABLE","n":4103,"support":0.0163,"conf_a_b":0.3084,"conf_b_a":0.2974,"lift":5.6106},{"a":"BACON","b":"BREAKFAST SAUSAGE/SANDWICHES","n":2659,"support":0.0106,"conf_a_b":0.2448,"conf_b_a":0.2424,"lift":5.5988},{"a":"BAKING MIXES","b":"BAKING NEEDS","n":2587,"support":0.0103,"conf_a_b":0.2293,"conf_b_a":0.2489,"lift":5.5376},{"a":"DINNER MXS:DRY","b":"DRY BN/VEG/POTATO/RICE","n":3725,"support":0.0148,"conf_a_b":0.28,"conf_b_a":0.2809,"lift":5.2996},{"a":"DINNER MXS:DRY","b":"PASTA SAUCE","n":3095,"support":0.0123,"conf_a_b":0.2327,"conf_b_a":0.264,"lift":4.9814},{"a":"HOT DOGS","b":"MEAT - SHELF STABLE","n":2882,"support":0.0115,"conf_a_b":0.2639,"conf_b_a":0.2089,"lift":4.8002},{"a":"DRY BN/VEG/POTATO/RICE","b":"PASTA SAUCE","n":2896,"support":0.0115,"conf_a_b":0.2184,"conf_b_a":0.2471,"lift":4.6756},{"a":"BREAKFAST SAUSAGE/SANDWICHES","b":"REFRGRATD DOUGH PRODUCTS","n":2874,"support":0.0115,"conf_a_b":0.262,"conf_b_a":0.2036,"lift":4.6567},{"a":"ONIONS","b":"VEGETABLES - ALL OTHERS","n":4712,"support":0.0188,"conf_a_b":0.303,"conf_b_a":0.2883,"lift":4.6518},{"a":"ONIONS","b":"POTATOES","n":4370,"support":0.0174,"conf_a_b":0.281,"conf_b_a":0.2859,"lift":4.6136},{"a":"VEGETABLES - ALL OTHERS","b":"VEGETABLES SALAD","n":3168,"support":0.0126,"conf_a_b":0.1938,"conf_b_a":0.2959,"lift":4.5426},{"a":"DINNER MXS:DRY","b":"FRUIT - SHELF STABLE","n":3198,"support":0.0127,"conf_a_b":0.2404,"conf_b_a":0.2405,"lift":4.5382}],"dyn":[{"category":"BAG SNACKS","n":119030,"lp":-1.3199,"promo_l1":0.0395,"promo_l2":-0.016,"rival_promo":-0.1328,"promo_l1_se":0.0044,"promo_l2_se":0.0046,"rival_promo_se":0.0161},{"category":"COLD CEREAL","n":166156,"lp":-1.7966,"promo_l1":0.0132,"promo_l2":-0.0074,"rival_promo":-0.2234,"promo_l1_se":0.0034,"promo_l2_se":0.0033,"rival_promo_se":0.0186},{"category":"FROZEN PIZZA","n":100967,"lp":-2.9655,"promo_l1":0.0251,"promo_l2":0.0121,"rival_promo":-0.0821,"promo_l1_se":0.0067,"promo_l2_se":0.0056,"rival_promo_se":0.0212},{"category":"ORAL HYGIENE PRODUCTS","n":88781,"lp":-1.3178,"promo_l1":0.0202,"promo_l2":-0.0383,"rival_promo":-0.053,"promo_l1_se":0.0068,"promo_l2_se":0.0061,"rival_promo_se":0.0221}],"sim":[{"category":"BAG SNACKS","margin":0.2,"cut":0.1,"units_mult":1.1539,"profit_change_price_only":-0.423,"profit_change_with_display":-0.1643,"post_dip_weeks":0.0244,"profit_change_net_dip":-0.1398},{"category":"BAG SNACKS","margin":0.2,"cut":0.2,"units_mult":1.3543,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":0.0244,"profit_change_net_dip":-0.9756},{"category":"BAG SNACKS","margin":0.2,"cut":0.3,"units_mult":1.6237,"profit_change_price_only":-1.8119,"profit_change_with_display":-2.176,"post_dip_weeks":0.0244,"profit_change_net_dip":-2.1516},{"category":"BAG SNACKS","margin":0.3,"cut":0.1,"units_mult":1.1539,"profit_change_price_only":-0.2307,"profit_change_with_display":0.1143,"post_dip_weeks":0.0244,"profit_change_net_dip":0.1387},{"category":"BAG SNACKS","margin":0.3,"cut":0.2,"units_mult":1.3543,"profit_change_price_only":-0.5486,"profit_change_with_display":-0.3461,"post_dip_weeks":0.0244,"profit_change_net_dip":-0.3217},{"category":"BAG SNACKS","margin":0.3,"cut":0.3,"units_mult":1.6237,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":0.0244,"profit_change_net_dip":-0.9756},{"category":"BAG SNACKS","margin":0.4,"cut":0.1,"units_mult":1.1539,"profit_change_price_only":-0.1345,"profit_change_with_display":0.2536,"post_dip_weeks":0.0244,"profit_change_net_dip":0.278},{"category":"BAG SNACKS","margin":0.4,"cut":0.2,"units_mult":1.3543,"profit_change_price_only":-0.3229,"profit_change_with_display":-0.0192,"post_dip_weeks":0.0244,"profit_change_net_dip":0.0052},{"category":"BAG SNACKS","margin":0.4,"cut":0.3,"units_mult":1.6237,"profit_change_price_only":-0.5941,"profit_change_with_display":-0.412,"post_dip_weeks":0.0244,"profit_change_net_dip":-0.3876},{"category":"COLD CEREAL","margin":0.2,"cut":0.1,"units_mult":1.2055,"profit_change_price_only":-0.3973,"profit_change_with_display":0.016,"post_dip_weeks":0.0059,"profit_change_net_dip":0.0219},{"category":"COLD CEREAL","margin":0.2,"cut":0.2,"units_mult":1.4856,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":0.0059,"profit_change_net_dip":-0.9941},{"category":"COLD CEREAL","margin":0.2,"cut":0.3,"units_mult":1.8826,"profit_change_price_only":-1.9413,"profit_change_with_display":-2.5867,"post_dip_weeks":0.0059,"profit_change_net_dip":-2.5808},{"category":"COLD CEREAL","margin":0.3,"cut":0.1,"units_mult":1.2055,"profit_change_price_only":-0.1963,"profit_change_with_display":0.3547,"post_dip_weeks":0.0059,"profit_change_net_dip":0.3606},{"category":"COLD CEREAL","margin":0.3,"cut":0.2,"units_mult":1.4856,"profit_change_price_only":-0.5048,"profit_change_with_display":-0.1653,"post_dip_weeks":0.0059,"profit_change_net_dip":-0.1594},{"category":"COLD CEREAL","margin":0.3,"cut":0.3,"units_mult":1.8826,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":0.0059,"profit_change_net_dip":-0.9941},{"category":"COLD CEREAL","margin":0.4,"cut":0.1,"units_mult":1.2055,"profit_change_price_only":-0.0959,"profit_change_with_display":0.524,"post_dip_weeks":0.0059,"profit_change_net_dip":0.5299},{"category":"COLD CEREAL","margin":0.4,"cut":0.2,"units_mult":1.4856,"profit_change_price_only":-0.2572,"profit_change_with_display":0.2521,"post_dip_weeks":0.0059,"profit_change_net_dip":0.258},{"category":"COLD CEREAL","margin":0.4,"cut":0.3,"units_mult":1.8826,"profit_change_price_only":-0.5293,"profit_change_with_display":-0.2067,"post_dip_weeks":0.0059,"profit_change_net_dip":-0.2007},{"category":"FROZEN PIZZA","margin":0.2,"cut":0.1,"units_mult":1.3698,"profit_change_price_only":-0.3151,"profit_change_with_display":-0.0083,"post_dip_weeks":0.0376,"profit_change_net_dip":0.0292},{"category":"FROZEN PIZZA","margin":0.2,"cut":0.2,"units_mult":1.9472,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":0.0376,"profit_change_net_dip":-0.9624},{"category":"FROZEN PIZZA","margin":0.2,"cut":0.3,"units_mult":2.9013,"profit_change_price_only":-2.4507,"profit_change_with_display":-3.1004,"post_dip_weeks":0.0376,"profit_change_net_dip":-3.0628},{"category":"FROZEN PIZZA","margin":0.3,"cut":0.1,"units_mult":1.3698,"profit_change_price_only":-0.0868,"profit_change_with_display":0.3222,"post_dip_weeks":0.0376,"profit_change_net_dip":0.3598},{"category":"FROZEN PIZZA","margin":0.3,"cut":0.2,"units_mult":1.9472,"profit_change_price_only":-0.3509,"profit_change_with_display":-0.0602,"post_dip_weeks":0.0376,"profit_change_net_dip":-0.0226},{"category":"FROZEN PIZZA","margin":0.3,"cut":0.3,"units_mult":2.9013,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":0.0376,"profit_change_net_dip":-0.9624},{"category":"FROZEN PIZZA","margin":0.4,"cut":0.1,"units_mult":1.3698,"profit_change_price_only":0.0273,"profit_change_with_display":0.4875,"post_dip_weeks":0.0376,"profit_change_net_dip":0.5251},{"category":"FROZEN PIZZA","margin":0.4,"cut":0.2,"units_mult":1.9472,"profit_change_price_only":-0.0264,"profit_change_with_display":0.4097,"post_dip_weeks":0.0376,"profit_change_net_dip":0.4473},{"category":"FROZEN PIZZA","margin":0.4,"cut":0.3,"units_mult":2.9013,"profit_change_price_only":-0.2747,"profit_change_with_display":0.0502,"post_dip_weeks":0.0376,"profit_change_net_dip":0.0878},{"category":"ORAL HYGIENE PRODUCTS","margin":0.2,"cut":0.1,"units_mult":1.1446,"profit_change_price_only":-0.4277,"profit_change_with_display":-0.265,"post_dip_weeks":-0.0172,"profit_change_net_dip":-0.2822},{"category":"ORAL HYGIENE PRODUCTS","margin":0.2,"cut":0.2,"units_mult":1.331,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":-0.0172,"profit_change_net_dip":-1.0172},{"category":"ORAL HYGIENE PRODUCTS","margin":0.2,"cut":0.3,"units_mult":1.5795,"profit_change_price_only":-1.7897,"profit_change_with_display":-2.0142,"post_dip_weeks":-0.0172,"profit_change_net_dip":-2.0314},{"category":"ORAL HYGIENE PRODUCTS","margin":0.3,"cut":0.1,"units_mult":1.1446,"profit_change_price_only":-0.237,"profit_change_with_display":-0.02,"post_dip_weeks":-0.0172,"profit_change_net_dip":-0.0372},{"category":"ORAL HYGIENE PRODUCTS","margin":0.3,"cut":0.2,"units_mult":1.331,"profit_change_price_only":-0.5563,"profit_change_with_display":-0.4302,"post_dip_weeks":-0.0172,"profit_change_net_dip":-0.4474},{"category":"ORAL HYGIENE PRODUCTS","margin":0.3,"cut":0.3,"units_mult":1.5795,"profit_change_price_only":-1.0,"profit_change_with_display":-1.0,"post_dip_weeks":-0.0172,"profit_change_net_dip":-1.0172},{"category":"ORAL HYGIENE PRODUCTS","margin":0.4,"cut":0.1,"units_mult":1.1446,"profit_change_price_only":-0.1416,"profit_change_with_display":0.1025,"post_dip_weeks":-0.0172,"profit_change_net_dip":0.0853},{"category":"ORAL HYGIENE PRODUCTS","margin":0.4,"cut":0.2,"units_mult":1.331,"profit_change_price_only":-0.3345,"profit_change_with_display":-0.1453,"post_dip_weeks":-0.0172,"profit_change_net_dip":-0.1624},{"category":"ORAL HYGIENE PRODUCTS","margin":0.4,"cut":0.3,"units_mult":1.5795,"profit_change_price_only":-0.6051,"profit_change_with_display":-0.4929,"post_dip_weeks":-0.0172,"profit_change_net_dip":-0.51}],"lerner":[{"category":"BAG SNACKS","elasticity":-1.359,"implied_margin":0.7358,"breakeven_margin_20pct_cut":0.7646},{"category":"COLD CEREAL","elasticity":-1.7738,"implied_margin":0.5638,"breakeven_margin_20pct_cut":0.6119},{"category":"FROZEN PIZZA","elasticity":-2.9864,"implied_margin":0.3349,"breakeven_margin_20pct_cut":0.4111},{"category":"ORAL HYGIENE PRODUCTS","elasticity":-1.2815,"implied_margin":0.7803,"breakeven_margin_20pct_cut":0.8042}],"pcf":[{"cat":"FOODS","freq":0.0162,"up":0.0096,"down":0.0064},{"cat":"HOBBIES","freq":0.0074,"up":0.0042,"down":0.0031},{"cat":"HOUSEHOLD","freq":0.0076,"up":0.0036,"down":0.0036}],"pch":[{"bin":"≤−30%","n":5693},{"bin":"−30…−20%","n":3343},{"bin":"−20…−10%","n":7992},{"bin":"−10…−5%","n":8140},{"bin":"−5…0%","n":7421},{"bin":"0…5%","n":11989},{"bin":"5…10%","n":11514},{"bin":"10…20%","n":10100},{"bin":"20…30%","n":3064},{"bin":">30%","n":7595}],"infl":[{"year":2012,"FOODS":0.0226,"HOBBIES":0.0123,"HOUSEHOLD":0.0051},{"year":2013,"FOODS":-0.0011,"HOBBIES":0.0141,"HOUSEHOLD":0.001},{"year":2014,"FOODS":0.0053,"HOBBIES":-0.0041,"HOUSEHOLD":0.0039},{"year":2015,"FOODS":0.0131,"HOBBIES":-0.0038,"HOUSEHOLD":0.0024},{"year":2016,"FOODS":0.003,"HOBBIES":-0.0023,"HOUSEHOLD":0.0013}],"fc":[{"model":"Naive (ngày cuối)","wrmsse_item":1.1645,"wape":0.9516,"bias":0.1319,"rmse_total_daily":8817.2},{"model":"Naive mùa vụ 7 ngày","wrmsse_item":1.1004,"wape":0.8622,"bias":-0.0736,"rmse_total_daily":4453.0},{"model":"Trung bình 28 ngày","wrmsse_item":0.8681,"wape":0.7386,"bias":-0.0391,"rmse_total_daily":6857.0},{"model":"TB theo thứ, 8 tuần","wrmsse_item":0.8805,"wape":0.7506,"bias":-0.0421,"rmse_total_daily":3567.8},{"model":"GBM toàn cục (Poisson)","wrmsse_item":0.8583,"wape":0.7387,"bias":-0.0619,"rmse_total_daily":3441.8}],"fcTotal":{"actual":[38793.0,35487.0,34445.0,34732.0,42896.0,50429.0,53032.0,43181.0,44314.0,39601.0,40763.0,43805.0,54239.0,45609.0,46400.0,39379.0,42248.0,40503.0,44073.0,54308.0,59921.0,42362.0,38777.0,37096.0,36963.0,42552.0,51518.0,54338.0],"dates":["2016-04-25","2016-04-26","2016-04-27","2016-04-28","2016-04-29","2016-04-30","2016-05-01","2016-05-02","2016-05-03","2016-05-04","2016-05-05","2016-05-06","2016-05-07","2016-05-08","2016-05-09","2016-05-10","2016-05-11","2016-05-12","2016-05-13","2016-05-14","2016-05-15","2016-05-16","2016-05-17","2016-05-18","2016-05-19","2016-05-20","2016-05-21","2016-05-22"],"Naive (ngày cuối)":[49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0,49795.0],"Naive mùa vụ 7 ngày":[38059.0,37570.0,35343.0,35033.0,40517.0,48962.0,49795.0,38059.0,37570.0,35343.0,35033.0,40517.0,48962.0,49795.0,38059.0,37570.0,35343.0,35033.0,40517.0,48962.0,49795.0,38059.0,37570.0,35343.0,35033.0,40517.0,48962.0,49795.0],"Trung bình 28 ngày":[42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0,42272.0],"TB theo thứ, 8 tuần":[39270.0,37504.0,36114.0,36762.0,42067.0,51427.0,51818.0,39270.0,37504.0,36114.0,36762.0,42067.0,51427.0,51818.0,39270.0,37504.0,36114.0,36762.0,42067.0,51427.0,51818.0,39270.0,37504.0,36114.0,36762.0,42067.0,51427.0,51818.0],"GBM toàn cục (Poisson)":[37721.0,34410.0,33310.0,33450.0,38672.0,46494.0,46174.0,42388.0,41046.0,37034.0,38257.0,43665.0,52386.0,49007.0,43388.0,37577.0,38065.0,38085.0,40913.0,50908.0,52290.0,39448.0,35794.0,35344.0,34810.0,39433.0,47349.0,48073.0]},"fcImp":[{"feature":"rm28","importance":42.1575},{"feature":"rm91","importance":2.4241},{"feature":"rm7","importance":0.7967},{"feature":"lag28","importance":0.4536},{"feature":"price","importance":0.1982},{"feature":"lag364","importance":0.1937},{"feature":"price_rel","importance":0.1346},{"feature":"store","importance":0.0623},{"feature":"dept","importance":0.0586},{"feature":"lag35","importance":0.0401},{"feature":"price_chg","importance":0.0114},{"feature":"wday","importance":0.0},{"feature":"month","importance":0.0},{"feature":"event","importance":0.0},{"feature":"snap","importance":0.0},{"feature":"dom","importance":0.0},{"feature":"lag42","importance":-0.0624}],"fcCat":[{"cat":"FOODS","model":"Naive mùa vụ 7 ngày","wape":0.7867},{"cat":"FOODS","model":"TB theo thứ, 8 tuần","wape":0.6868},{"cat":"FOODS","model":"GBM toàn cục (Poisson)","wape":0.6739},{"cat":"HOUSEHOLD","model":"Naive mùa vụ 7 ngày","wape":0.9515},{"cat":"HOUSEHOLD","model":"TB theo thứ, 8 tuần","wape":0.8271},{"cat":"HOUSEHOLD","model":"GBM toàn cục (Poisson)","wape":0.817},{"cat":"HOBBIES","model":"Naive mùa vụ 7 ngày","wape":1.1865},{"cat":"HOBBIES","model":"TB theo thứ, 8 tuần","wape":1.0221},{"cat":"HOBBIES","model":"GBM toàn cục (Poisson)","wape":1.0122}],"switch":{"pasta sauce":{"brands":["Ragu","Khác","Prego","Private Label","Classico","Bertolli"],"matrix":[[0.6882,0.0852,0.0955,0.0741,0.0355,0.0214],[0.1809,0.5402,0.0838,0.0922,0.0604,0.0425],[0.2057,0.0826,0.5922,0.0565,0.0385,0.0246],[0.2348,0.1329,0.0845,0.5025,0.0294,0.0159],[0.1791,0.148,0.093,0.0446,0.4528,0.0824],[0.1774,0.1621,0.1006,0.0413,0.1365,0.3821]],"repeat":{"Ragu":0.6882,"Khác":0.5402,"Prego":0.5922,"Private Label":0.5025,"Classico":0.4528,"Bertolli":0.3821},"steady_share":{"Ragu":0.3893,"Khác":0.1816,"Prego":0.183,"Private Label":0.1231,"Classico":0.0764,"Bertolli":0.0466},"current_share":{"Ragu":0.3806,"Khác":0.1867,"Prego":0.1857,"Private Label":0.1233,"Classico":0.0771,"Bertolli":0.0465}},"pasta":{"brands":["Private Label","Khác","Barilla","Mueller","Creamette","Ronzoni"],"matrix":[[0.6429,0.1229,0.0783,0.0456,0.0724,0.0379],[0.2975,0.4095,0.1192,0.0485,0.0763,0.049],[0.2628,0.1662,0.3676,0.0605,0.0683,0.0748],[0.2547,0.1039,0.0982,0.439,0.0166,0.0877],[0.3488,0.1438,0.1002,0.0178,0.386,0.0033],[0.2697,0.1386,0.1656,0.1205,0.0035,0.3022]],"repeat":{"Private Label":0.6429,"Khác":0.4095,"Barilla":0.3676,"Mueller":0.439,"Creamette":0.386,"Ronzoni":0.3022},"steady_share":{"Private Label":0.4466,"Khác":0.1823,"Barilla":0.1335,"Mueller":0.0827,"Creamette":0.0928,"Ronzoni":0.0622},"current_share":{"Private Label":0.4303,"Khác":0.1867,"Barilla":0.1332,"Mueller":0.0901,"Creamette":0.0947,"Ronzoni":0.065}}}};
+reg('cPeriods', t => {
+  const p = D2.periods, b = p[2];
+  const idx = k => p.map(x => +(100 * x[k] / b[k]).toFixed(1));
+  const ser = [['Doanh thu', 'sales', t.ink], ['Hộ hoạt động', 'hh', t.src('cj')], ['Chuyến/hộ', 'trips_per_hh', t.src('m5')], ['Giá trị giỏ', 'aov', t.accent]];
+  return { xAxis: ax(t, { type: 'category', data: p.map(x => 'K' + x.p4), splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', min: 40 }), tooltip: { trigger: 'axis' },
+    series: ser.map(([n, k, c]) => ({ name: n, type: 'line', smooth: true, symbol: 'none', data: idx(k), lineStyle: { width: k === 'sales' ? 3 : 2, color: c }, itemStyle: { color: c } })) };
+});
+reg('cTraj', t => {
+  const order = ['Tăng chi (>+20%)', 'Ổn định (±20%)', 'Giảm chi (<−20%)', 'Rời bỏ (≥8 tuần không mua)'];
+  const d = order.map(k => D2.traj.find(x => x.traj === k));
+  const col = [t.src('cj'), t.line, t.src('batf'), t.src('carbo')];
+  return { xAxis: ax(t, { type: 'category', data: order.map(s => s.split(' (')[0]), splitLine: { show: false } }),
+    yAxis: [ax(t, { type: 'value', name: 'Số hộ' }), ax(t, { type: 'value', name: 'Chênh USD', splitLine: { show: false }, axisLabel: { color: t.muted, formatter: v => num(v / 1000) + 'k' } })],
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    series: [{ name: 'Số hộ', type: 'bar', barWidth: '46%', data: d.map((x, i) => ({ value: x.households, itemStyle: { color: col[i], borderRadius: [4, 4, 0, 0] } })) },
+      { name: 'Chênh doanh thu nửa sau − nửa đầu', type: 'line', yAxisIndex: 1, data: d.map(x => x.delta), itemStyle: { color: t.ink }, lineStyle: { color: t.ink }, symbolSize: 8, tooltip: { valueFormatter: v => num(v) + ' USD' } }] };
+});
+reg('cRfm', t => {
+  const d = D2.rfm.slice().sort((a, b) => b.rev_share - a.rev_share);
+  return { xAxis: ax(t, { type: 'category', data: d.map(x => x.segment), splitLine: { show: false }, axisLabel: { color: t.muted, interval: 0, rotate: 24, fontSize: 10 } }),
+    yAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    grid: { left: 12, right: 24, top: 40, bottom: 10, containLabel: true },
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => { const r = d[p[0].dataIndex]; return `<b>${r.segment}</b><br>${num(r.households)} hộ (${pct(r.hh_share, 1)})<br>Doanh thu: ${pct(r.rev_share, 1)}<br>Chi TB/hộ: ${num(r.avg_m)} USD<br>Recency trung vị: ${num(r.recency)} ngày`; } },
+    series: [{ name: '% số hộ', type: 'bar', data: d.map(x => x.hh_share), itemStyle: { color: t.src('cj2'), borderRadius: [4, 4, 0, 0] } },
+      { name: '% doanh thu', type: 'bar', data: d.map(x => x.rev_share), itemStyle: { color: t.src('cj'), borderRadius: [4, 4, 0, 0] } }] };
+});
+reg('cLerner', t => {
+  const d = D2.lerner, lab = c => c.charAt(0) + c.slice(1).toLowerCase();
+  return { xAxis: ax(t, { type: 'category', data: d.map(x => lab(x.category)), splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', max: 1, axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => pct(v, 1) },
+    series: [{ name: 'Biên tối ưu ngụ ý 1/|e|', type: 'bar', barWidth: '42%', data: d.map(x => x.implied_margin), itemStyle: { color: t.src('batf'), borderRadius: [4, 4, 0, 0] },
+      label: { show: true, position: 'insideTop', color: '#fff', fontSize: 11, formatter: p => pct(p.value) } },
+      { name: 'Biên hòa vốn khi giảm 20%', type: 'scatter', symbol: 'rect', symbolSize: [46, 4], data: d.map(x => x.breakeven_margin_20pct_cut), itemStyle: { color: t.ink } }] };
+});
+reg('cPch', t => ({
+  xAxis: ax(t, { type: 'category', data: D2.pch.map(x => x.bin), splitLine: { show: false }, axisLabel: { color: t.muted, fontSize: 10, rotate: 30 } }),
+  yAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => num(v / 1000) + 'k' } }),
+  tooltip: { trigger: 'axis', valueFormatter: v => num(v) + ' lần đổi giá' },
+  series: [{ type: 'bar', data: D2.pch.map(x => ({ value: x.n, itemStyle: { color: x.bin.startsWith('−') || x.bin.startsWith('≤') ? t.src('carbo') : t.src('m5'), borderRadius: [3, 3, 0, 0] } })) }] }));
+reg('cDyn', t => {
+  const d = D2.dyn, lab = c => c.charAt(0) + c.slice(1).toLowerCase(), ex = v => Math.exp(v) - 1;
+  return { xAxis: ax(t, { type: 'category', data: d.map(x => lab(x.category)), splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: v => pct(v, 1) },
+    series: [['Tuần sau khuyến mãi (trễ 1)', 'promo_l1', t.src('m5')], ['Trễ 2 tuần', 'promo_l2', t.src('cj2')], ['Toàn bộ đối thủ khuyến mãi', 'rival_promo', t.src('carbo')]].map(([n, k, c]) => ({
+      name: n, type: 'bar', data: d.map(x => ex(x[k])), itemStyle: { color: c, borderRadius: 3 } })) };
+});
+let simM = 0.3, simC = 0.1;
+reg('cSim', t => {
+  const d = D2.sim.filter(x => Math.abs(x.margin - simM) < 1e-6 && Math.abs(x.cut - simC) < 1e-6);
+  const lab = c => c.charAt(0) + c.slice(1).toLowerCase();
+  return { xAxis: ax(t, { type: 'category', data: d.map(x => lab(x.category)), splitLine: { show: false } }),
+    yAxis: ax(t, { type: 'value', axisLabel: { color: t.muted, formatter: v => pct(v) } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => { const r = d[p[0].dataIndex]; return `<b>${lab(r.category)}</b><br>Lượng bán ×${num(r.units_mult, 2)} (chỉ giá)<br>Lợi nhuận, chỉ giảm giá: ${pct(r.profit_change_price_only, 1)}<br>Lợi nhuận, có trưng bày: ${pct(r.profit_change_with_display, 1)}`; } },
+    series: [{ name: 'Chỉ giảm giá', type: 'bar', data: d.map(x => x.profit_change_price_only), itemStyle: { color: t.src('batf2'), borderRadius: 3 }, label: { show: true, position: 'top', color: t.ink, fontSize: 10, formatter: p => pct(p.value) } },
+      { name: 'Giảm giá + trưng bày', type: 'bar', data: d.map(x => x.profit_change_with_display), itemStyle: { color: t.src('batf'), borderRadius: 3 }, label: { show: true, position: 'top', color: t.ink, fontSize: 10, formatter: p => pct(p.value) } }],
+    markLine: undefined };
+});
+function rerender(id) { const el = document.getElementById(id); const c = echarts.getInstanceByDom(el); const t = T(); c.setOption(Object.assign(base(t), defs[id](t)), true); }
+document.querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('[data-m]').forEach(x => x.setAttribute('aria-pressed', x === b)); simM = +b.dataset.m; window.echarts && rerender('cSim'); }));
+document.querySelectorAll('[data-c]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('[data-c]').forEach(x => x.setAttribute('aria-pressed', x === b)); simC = +b.dataset.c; window.echarts && rerender('cSim'); }));
+let swKey = 'pasta sauce';
+reg('cSwitch', t => {
+  const s = D2.switch[swKey], b = s.brands, data = [];
+  s.matrix.forEach((row, i) => row.forEach((v, j) => data.push([j, i, v])));
+  return { grid: { left: 12, right: 24, top: 10, bottom: 56, containLabel: true },
+    xAxis: ax(t, { type: 'category', data: b, splitLine: { show: false }, name: 'Lần mua sau', nameLocation: 'middle', nameGap: 28, axisLabel: { color: t.muted, fontSize: 10, interval: 0 } }),
+    yAxis: ax(t, { type: 'category', data: b, splitLine: { show: false }, inverse: true, axisLabel: { color: t.muted, fontSize: 10 } }),
+    visualMap: { min: 0, max: 0.7, show: false, inRange: { color: [t.surface, t.src('carbo2'), t.src('carbo')] } },
+    tooltip: { formatter: p => `${b[p.data[1]]} → ${b[p.data[0]]}: ${pct(p.data[2], 1)}` },
+    series: [{ type: 'heatmap', data, label: { show: true, color: t.ink, fontSize: 10, formatter: p => pct(p.data[2]) }, itemStyle: { borderColor: t.surface, borderWidth: 2 } }] };
+});
+document.querySelectorAll('[data-s]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('[data-s]').forEach(x => x.setAttribute('aria-pressed', x === b)); swKey = b.dataset.s; window.echarts && rerender('cSwitch'); }));
+reg('cRules', t => {
+  const d = D2.rules.slice().reverse(), lab = s => s.toLowerCase().replace(/(^|[\s/-])\w/g, m => m.toUpperCase());
+  return { grid: { left: 12, right: 50, top: 10, bottom: 24, containLabel: true },
+    xAxis: ax(t, { type: 'value' }), yAxis: ax(t, { type: 'category', data: d.map(x => lab(x.a) + ' + ' + lab(x.b)), splitLine: { show: false }, axisLabel: { color: t.ink, fontSize: 10 } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => { const r = d[p[0].dataIndex]; return `<b>${lab(r.a)} + ${lab(r.b)}</b><br>Lift ${num(r.lift, 2)} · ${num(r.n)} giỏ<br>P(B|A) ${pct(r.conf_a_b, 1)} · P(A|B) ${pct(r.conf_b_a, 1)}`; } },
+    series: [{ type: 'bar', barWidth: '62%', data: d.map(x => x.lift), itemStyle: { color: t.src('cj'), borderRadius: [0, 4, 4, 0] }, label: { show: true, position: 'right', color: t.ink, fontSize: 10, formatter: p => num(p.value, 1) } }] };
+});
+reg('cFc', t => {
+  const d = D2.fc.slice().sort((a, b) => b.wrmsse_item - a.wrmsse_item);
+  return { grid: { left: 12, right: 60, top: 36, bottom: 24, containLabel: true },
+    xAxis: ax(t, { type: 'value' }), yAxis: ax(t, { type: 'category', data: d.map(x => x.model), splitLine: { show: false }, axisLabel: { color: t.ink } }),
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => { const r = d[p[0].dataIndex]; return `<b>${r.model}</b><br>WRMSSE ${num(r.wrmsse_item, 3)}<br>WAPE ${pct(r.wape, 1)}<br>Lệch tổng ${pct(r.bias, 1)}`; } },
+    series: [{ name: 'WRMSSE', type: 'bar', barWidth: '55%', data: d.map((x, i) => ({ value: x.wrmsse_item, itemStyle: { color: i === d.length - 1 ? t.src('m5') : t.line, borderRadius: [0, 4, 4, 0] } })),
+      label: { show: true, position: 'right', color: t.ink, fontSize: 11, formatter: p => num(p.value, 3) } }] };
+});
+reg('cFcLine', t => {
+  const f = D2.fcTotal, keys = ['Naive mùa vụ 7 ngày', 'TB theo thứ, 8 tuần', 'GBM toàn cục (Poisson)'], cols = [t.src('batf'), t.src('lgsr'), t.src('m5')];
+  return { xAxis: ax(t, { type: 'category', data: f.dates.map(s => s.slice(8) + '/' + s.slice(5, 7)), splitLine: { show: false }, axisLabel: { color: t.muted, fontSize: 10, hideOverlap: true } }),
+    yAxis: ax(t, { type: 'value', scale: true, axisLabel: { color: t.muted, formatter: v => num(v / 1000) + 'k' } }),
+    tooltip: { trigger: 'axis', valueFormatter: v => num(v) },
+    series: [{ name: 'Thực tế', type: 'line', data: f.actual, symbol: 'circle', symbolSize: 5, lineStyle: { width: 3, color: t.ink }, itemStyle: { color: t.ink } },
+      ...keys.map((k, i) => ({ name: k, type: 'line', data: f[k], symbol: 'none', lineStyle: { width: 2, color: cols[i], type: i < 2 ? 'dashed' : 'solid' }, itemStyle: { color: cols[i] } }))] };
+});
+// Chế độ chụp màn hình cho tài liệu: ?shot=<id chương>&theme=light
+(() => { const u = new URLSearchParams(location.search); const th = u.get('theme'); if (th) document.documentElement.setAttribute('data-theme', th);
+  const s = u.get('shot'); if (!s) return; document.body.classList.add('shot-mode');
+  if (s !== 'hero') { document.querySelector('header.hero').hidden = true; document.querySelectorAll('section.ch').forEach(x => x.hidden = x.id !== s); }
+  else document.querySelectorAll('main, footer.foot').forEach(x => x.hidden = true); })();
+
+function boot() {
+  if (!window.echarts) { document.querySelectorAll('.chart').forEach(el => el.innerHTML = '<p style="color:var(--muted);padding:24px">Biểu đồ cần kết nối mạng để tải thư viện ECharts.</p>'); return; }
+  renderAll();
+}
+boot();
+const mq = matchMedia('(prefers-color-scheme: dark)');
+mq.addEventListener?.('change', () => window.echarts && renderAll());
+new MutationObserver(() => window.echarts && renderAll()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+// Mục lục theo vị trí cuộn
+const links = [...document.querySelectorAll('.toc a')];
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+document.querySelectorAll('section.ch').forEach(s => io.observe(s));
+
+// Nền mở đầu: các chấm đại diện 5 nguồn, trôi chậm
+const cv = document.getElementById('heroCanvas'), ctx = cv.getContext('2d');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W, H, pts = [];
+function size() { const r = cv.getBoundingClientRect(); W = cv.width = r.width * devicePixelRatio; H = cv.height = r.height * devicePixelRatio;
+  const keys = ['cj', 'batf', 'carbo', 'lgsr', 'm5']; pts = Array.from({ length: 90 }, (_, i) => ({ x: Math.random() * W, y: Math.random() * H, r: (1 + Math.random() * 2.4) * devicePixelRatio, k: keys[i % 5], vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25 })); }
+function draw() { ctx.clearRect(0, 0, W, H); const cols = {}; ['cj', 'batf', 'carbo', 'lgsr', 'm5'].forEach(k => cols[k] = css('--' + k));
+  for (let i = 0; i < pts.length; i++) { const a = pts[i];
+    for (let j = i + 1; j < pts.length; j++) { const b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+      if (d < 120 * devicePixelRatio && a.k !== b.k) { ctx.strokeStyle = cols[a.k]; ctx.globalAlpha = (1 - d / (120 * devicePixelRatio)) * .35; ctx.lineWidth = devicePixelRatio * .6; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); } }
+    ctx.globalAlpha = .9; ctx.fillStyle = cols[a.k]; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 7); ctx.fill();
+    if (!reduce) { a.x += a.vx; a.y += a.vy; if (a.x < 0 || a.x > W) a.vx *= -1; if (a.y < 0 || a.y > H) a.vy *= -1; } }
+  if (!reduce) requestAnimationFrame(draw); }
+size(); draw(); addEventListener('resize', () => { size(); if (reduce) draw(); });
+})();
+</script>

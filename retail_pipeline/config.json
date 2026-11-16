@@ -1,0 +1,16 @@
+{
+  "input_dir": "data/raw",
+  "output_dir": "outputs/enterprise",
+  "analysis_end": "2017-12-31",
+  "forecast_categories": 20,
+  "forecast_horizon_days": 7,
+  "random_seed": 42,
+  "max_unmatched_product_rate": 0.02,
+  "max_invalid_timestamp_rate": 0.0,
+  "observed_zero_transaction_dates": ["2017-12-25"],
+  "top_customer_fraction": 0.2,
+  "risk_inactive_days": 28,
+  "risk_eligible_lookback_days": 90,
+  "monitoring_psi_warning": 0.2,
+  "note": "Historical public household panel. sales_value is retailer receipts, not profit or full-store revenue."
+}

@@ -1,0 +1,6 @@
+# Thư viện chạy API trên Vercel (Python runtime). Bản phát triển đầy đủ: backend/requirements.txt
+fastapi==0.115.0
+duckdb==1.2.2
+pandas==2.2.3
+numpy==2.1.3
+pydantic==2.9.2

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hai bộ biến cho mỗi màu: --x (hex, cho ECharts đọc qua getComputedStyle) và --x-rgb (bộ ba số, cho Tailwind với độ mờ). */
+:root {
+  --bg: #f3f6f4; --surface: #ffffff; --ink: #11231e; --muted: #5d6f68; --line: #dbe4df; --soft: #e8efeb;
+  --brand: #173e35; --brand-ink: #eef5f1; --accent: #c4862a; --data: #3f6f95; --econ: #b0702a;
+  --cj: #1f6b55; --cj2: #7fb39e; --batf: #c4862a; --batf2: #e2bb7e; --carbo: #a94a3f; --carbo2: #d48f86; --lgsr: #7a65a8; --m5: #3f6f95; --uci: #8a8f8c;
+  --bg-rgb: 243 246 244; --surface-rgb: 255 255 255; --ink-rgb: 17 35 30; --muted-rgb: 93 111 104; --line-rgb: 219 228 223; --soft-rgb: 232 239 235;
+  --brand-rgb: 23 62 53; --brand-ink-rgb: 238 245 241; --accent-rgb: 196 134 42; --data-rgb: 63 111 149; --econ-rgb: 176 112 42;
+  --cj-rgb: 31 107 85; --batf-rgb: 196 134 42; --carbo-rgb: 169 74 63; --lgsr-rgb: 122 101 168; --m5-rgb: 63 111 149;
+  --body: "Be Vietnam Pro", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1613; --surface: #12201c; --ink: #e4ede8; --muted: #93a69e; --line: #24372f; --soft: #182a24;
+    --brand: #0f2a23; --brand-ink: #e7f1ec; --accent: #e0a24a; --data: #7fa8cc; --econ: #dd9c55;
+    --cj: #4fae8c; --cj2: #2f7a62; --batf: #e0a24a; --batf2: #9c763a; --carbo: #dc7a6d; --carbo2: #94534b; --lgsr: #a593d6; --m5: #78a6d1; --uci: #8f9692;
+    --bg-rgb: 12 22 19; --surface-rgb: 18 32 28; --ink-rgb: 228 237 232; --muted-rgb: 147 166 158; --line-rgb: 36 55 47; --soft-rgb: 24 42 36;
+    --brand-rgb: 15 42 35; --brand-ink-rgb: 231 241 236; --accent-rgb: 224 162 74; --data-rgb: 127 168 204; --econ-rgb: 221 156 85;
+    --cj-rgb: 79 174 140; --batf-rgb: 224 162 74; --carbo-rgb: 220 122 109; --lgsr-rgb: 165 147 214; --m5-rgb: 120 166 209;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1613; --surface: #12201c; --ink: #e4ede8; --muted: #93a69e; --line: #24372f; --soft: #182a24;
+  --brand: #0f2a23; --brand-ink: #e7f1ec; --accent: #e0a24a; --data: #7fa8cc; --econ: #dd9c55;
+  --cj: #4fae8c; --cj2: #2f7a62; --batf: #e0a24a; --batf2: #9c763a; --carbo: #dc7a6d; --carbo2: #94534b; --lgsr: #a593d6; --m5: #78a6d1; --uci: #8f9692;
+  --bg-rgb: 12 22 19; --surface-rgb: 18 32 28; --ink-rgb: 228 237 232; --muted-rgb: 147 166 158; --line-rgb: 36 55 47; --soft-rgb: 24 42 36;
+  --brand-rgb: 15 42 35; --brand-ink-rgb: 231 241 236; --accent-rgb: 224 162 74; --data-rgb: 127 168 204; --econ-rgb: 221 156 85;
+  --cj-rgb: 79 174 140; --batf-rgb: 224 162 74; --carbo-rgb: 220 122 109; --lgsr-rgb: 165 147 214; --m5-rgb: 120 166 209;
+  color-scheme: dark;
+}
+
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--body); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { text-wrap: balance; }
+.tabular { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+input[type="range"] { accent-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

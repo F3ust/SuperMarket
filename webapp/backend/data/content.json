@@ -1,0 +1,1094 @@
+{
+ "meta": {
+  "kpis": {
+   "total_rows": 114597234,
+   "sources": 5,
+   "period": "2006–2016",
+   "stores": 1817,
+   "field_groups": 17
+  },
+  "sources": [
+   {
+    "key": "cj",
+    "name": "The Complete Journey",
+    "sub": "dunnhumby · bản gốc 2 năm",
+    "desc": "2.595.732 dòng giao dịch, 2.500 hộ, 582 cửa hàng, 92.339 SKU, 102 tuần; thêm 36,8 tr dòng trưng bày/tờ rơi, 30 chiến dịch và coupon.",
+    "grain": "Dòng hóa đơn của panel hộ mua thường xuyên",
+    "answers": "Ai mua, mua gì, giảm giá bao nhiêu, chiến dịch có kéo thêm chi tiêu không"
+   },
+   {
+    "key": "batf",
+    "name": "Breakfast at the Frat",
+    "sub": "dunnhumby · 2009–2011",
+    "desc": "538.643 dòng cửa hàng × SKU × tuần, 77 cửa hàng ở IN, KY, OH, TX, 55 SKU, 156 tuần.",
+    "grain": "Tuần × cửa hàng × SKU, có giá kệ và giá cơ sở",
+    "answers": "Độ co giãn giá, hiệu ứng tờ rơi/trưng bày/giảm giá tạm thời, phân khúc cửa hàng"
+   },
+   {
+    "key": "carbo",
+    "name": "Carbo-Loading",
+    "sub": "dunnhumby · 104 tuần",
+    "desc": "5,2 tr dòng, 510.027 hộ, 3.316.349 giỏ, 927 SKU mì Ý, sốt, siro, bột bánh.",
+    "grain": "Dòng giao dịch hộ trong 4 ngành bổ trợ",
+    "answers": "Trung thành thương hiệu, coupon, cặp hàng bổ trợ, mức tập trung thị trường"
+   },
+   {
+    "key": "lgsr",
+    "name": "Let’s Get Sort-of-Real",
+    "sub": "dunnhumby · mẫu 5.000 khách",
+    "desc": "3,1 tr dòng, 482.636 giỏ, 761 cửa hàng, 115 tuần. Dữ liệu mô phỏng.",
+    "grain": "Dòng giỏ hàng có nhãn nhiệm vụ giỏ, độ nhạy giá, định dạng cửa hàng",
+    "answers": "Nhịp giờ, loại chuyến mua, phân khúc giá, định dạng cửa hàng"
+   },
+   {
+    "key": "m5",
+    "name": "M5 Forecasting",
+    "sub": "Walmart · Kaggle, bản Zenodo",
+    "desc": "30.490 chuỗi SKU-cửa hàng × 1.941 ngày, 10 cửa hàng ở CA, TX, WI; 6,8 tr dòng giá tuần, lịch sự kiện và SNAP.",
+    "grain": "Ngày × cửa hàng × SKU (lượng bán), giá theo tuần",
+    "answers": "Dự báo, tính mùa vụ, tác động trợ cấp SNAP, sự kiện, độ co giãn"
+   }
+  ],
+  "fields": [
+   {
+    "field": "Mã khách / hộ",
+    "have": [
+     "cj",
+     "carbo",
+     "lgsr"
+    ],
+    "note": "Có trong CJ, Carbo; LGSR có nhưng 20% giỏ không thẻ"
+   },
+   {
+    "field": "Mã giỏ / hóa đơn",
+    "have": [
+     "cj",
+     "carbo",
+     "lgsr"
+    ],
+    "note": ""
+   },
+   {
+    "field": "Giờ giao dịch",
+    "have": [
+     "cj",
+     "carbo",
+     "lgsr"
+    ],
+    "note": "LGSR theo khung giờ"
+   },
+   {
+    "field": "Giá kệ / giá cơ sở",
+    "have": [
+     "batf"
+    ],
+    "note": "Chỉ BATF tách giá thực và giá cơ sở"
+   },
+   {
+    "field": "Giá bán thực tế",
+    "have": [
+     "cj",
+     "batf",
+     "carbo",
+     "m5"
+    ],
+    "note": "CJ, Carbo phải tự suy ra = tiền/đơn vị"
+   },
+   {
+    "field": "Giảm giá thẻ thành viên",
+    "have": [
+     "cj"
+    ],
+    "note": ""
+   },
+   {
+    "field": "Coupon",
+    "have": [
+     "cj",
+     "carbo"
+    ],
+    "note": "Carbo: cờ 0/1; CJ: số tiền + chiến dịch"
+   },
+   {
+    "field": "Tờ rơi / quảng cáo",
+    "have": [
+     "cj",
+     "batf",
+     "carbo"
+    ],
+    "note": "Carbo chỉ từ tuần 43"
+   },
+   {
+    "field": "Trưng bày tại cửa hàng",
+    "have": [
+     "cj",
+     "batf",
+     "carbo"
+    ],
+    "note": ""
+   },
+   {
+    "field": "Chiến dịch marketing trực tiếp",
+    "have": [
+     "cj"
+    ],
+    "note": ""
+   },
+   {
+    "field": "Nhân khẩu học hộ",
+    "have": [
+     "cj"
+    ],
+    "note": "801/2.500 hộ"
+   },
+   {
+    "field": "Phân khúc khách / độ nhạy giá",
+    "have": [
+     "lgsr"
+    ],
+    "note": "Nhãn có sẵn, dữ liệu mô phỏng"
+   },
+   {
+    "field": "Thuộc tính cửa hàng",
+    "have": [
+     "batf",
+     "lgsr",
+     "m5"
+    ],
+    "note": "BATF: diện tích, phân khúc; LGSR: định dạng, vùng; M5: bang"
+   },
+   {
+    "field": "Thương hiệu / nhãn riêng",
+    "have": [
+     "cj",
+     "batf",
+     "carbo"
+    ],
+    "note": ""
+   },
+   {
+    "field": "Lịch lễ & sự kiện",
+    "have": [
+     "m5"
+    ],
+    "note": ""
+   },
+   {
+    "field": "Trợ cấp thực phẩm (SNAP)",
+    "have": [
+     "m5"
+    ],
+    "note": "Biến chính sách duy nhất"
+   },
+   {
+    "field": "Ngày không bán (zero)",
+    "have": [
+     "m5"
+    ],
+    "note": "Chỉ M5 ghi nhận lượng 0 tường minh"
+   }
+  ],
+  "quality": [
+   {
+    "source": "cj",
+    "limit": "Panel 2.500 hộ, không phải toàn bộ doanh thu cửa hàng",
+    "evidence": "Nhân khẩu học chỉ có 801 hộ (32%) nhưng chiếm 56% doanh thu → hộ có hồ sơ là hộ chi nhiều. SALES_VALUE là tiền nhà bán lẻ nhận, không phải giá khách trả; 18.850 dòng có giá trị ≤ 0.",
+    "handling": "Không dùng tổng theo cửa hàng làm doanh thu cửa hàng. Kết luận nhân khẩu học chỉ đại diện nhóm có hồ sơ."
+   },
+   {
+    "source": "batf",
+    "limit": "Chỉ 55 SKU, 4 ngành, toàn top brand",
+    "evidence": "5.070 dòng có giá bán cao hơn giá cơ sở; 185 dòng thiếu giá cơ sở. Dữ liệu chỉ có tuần có bán.",
+    "handling": "Ước lượng co giãn tốt nhất trong 5 nguồn vì có giá cơ sở và biến khuyến mãi tách riêng, nhưng không suy rộng ra toàn cửa hàng."
+   },
+   {
+    "source": "carbo",
+    "limit": "Vũ trụ chỉ gồm 4 ngành",
+    "evidence": "Mọi giỏ đều chứa ít nhất một trong 4 ngành, nên lift mì Ý + sốt chỉ 0,90 dù 53% giỏ có sốt cũng có mì. Tờ rơi/trưng bày chỉ có từ tuần 43.",
+    "handling": "Lift trong dữ liệu đã lọc ngành bị kéo về 1; cần mẫu giỏ đầy đủ mới đo đúng mức bổ trợ."
+   },
+   {
+    "source": "lgsr",
+    "limit": "Dữ liệu mô phỏng",
+    "evidence": "Nhà phát hành ghi rõ đây là dummy data mô phỏng. 20% dòng không có mã khách (giỏ không thẻ); có 115 tuần thay vì 117 như mô tả.",
+    "handling": "Dùng để thử quy trình và phương pháp, không dùng làm bằng chứng kinh tế."
+   },
+   {
+    "source": "m5",
+    "limit": "68% ô ngày-SKU bằng 0",
+    "evidence": "Ngày 25/12 cả năm gần như không bán (cửa hàng đóng). Không có tồn kho nên không phân biệt được 'không có cầu' với 'hết hàng'. 91% chuỗi là nhu cầu gián đoạn hoặc cục.",
+    "handling": "Mô hình dự báo phải xử lý nhu cầu gián đoạn; doanh thu phải tự tính = lượng × giá tuần."
+   }
+  ],
+  "timeline": [
+   {
+    "name": "LGSR (mô phỏng)",
+    "src": "lgsr",
+    "start": "2006-04-10",
+    "end": "2008-07-06"
+   },
+   {
+    "name": "BATF",
+    "src": "batf",
+    "start": "2009-01-14",
+    "end": "2012-01-04"
+   },
+   {
+    "name": "UCI Online Retail",
+    "src": "uci",
+    "start": "2010-12-01",
+    "end": "2011-12-09"
+   },
+   {
+    "name": "M5 Walmart",
+    "src": "m5",
+    "start": "2011-01-29",
+    "end": "2016-05-22"
+   },
+   {
+    "name": "Complete Journey (bản R)",
+    "src": "cj2",
+    "start": "2017-01-01",
+    "end": "2017-12-31"
+   }
+  ]
+ },
+ "sections": [
+  {
+   "id": "nguon",
+   "eyebrow": "Chương 1 · Bản đồ nguồn",
+   "title": "Mỗi bộ dữ liệu nhìn bán lẻ ở một hạt khác nhau",
+   "lead": "Hạt dữ liệu quyết định câu hỏi trả lời được. Panel hộ cho biết ai mua. Bảng cửa hàng-tuần cho biết giá tác động thế nào. Chuỗi ngày-SKU cho biết cần dự trữ bao nhiêu.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cTimeline",
+       "title": "Dòng thời gian các nguồn",
+       "sub": "Các nguồn có ngày thật. CJ bản gốc và Carbo chỉ ghi số thứ tự ngày/tuần (711 ngày, 104 tuần) nên không đặt được lên trục. Không có hai nguồn nào trùng kỳ và trùng địa bàn.",
+       "controls": []
+      }
+     ],
+     "data": null,
+     "econ": null
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "du-lieu",
+   "eyebrow": "Chương 2 · Góc dữ liệu",
+   "title": "Trước khi tin con số, cần biết mỗi nguồn sai ở đâu",
+   "lead": "Mỗi nguồn có một điểm mù. Bảng dưới ghi nguồn gốc sai lệch và cách xử lý trong báo cáo này.",
+   "callout": "Nguyên tắc trộn: hài hòa ở mức chỉ số, không nối ở mức dòng . Cùng một chỉ số (độ co giãn, mức tăng do trưng bày, tỷ trọng top 20%) được ước lượng riêng trong từng nguồn bằng cùng phương pháp. Kết luận nào lặp lại ở nhiều nguồn độc lập thì đáng tin hơn kết luận chỉ có ở một nguồn.",
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cDemand",
+       "title": "Nhu cầu ở cấp SKU-cửa hàng phần lớn là gián đoạn",
+       "sub": "M5 · phân loại Syntetos–Boylan (ADI 1,32; CV² 0,49) cho 30.490 chuỗi",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": "91%",
+      "paragraphs": [
+       "chuỗi SKU-cửa hàng có nhu cầu gián đoạn hoặc cục. Ở ngành Thực phẩm chỉ 8% chuỗi bán đều. Tỷ lệ ngày bằng 0: Thực phẩm 62%, Gia dụng 72%, Sở thích 77%."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Lượng bán bằng 0 có thể là không có cầu hoặc hết hàng. Nếu không có dữ liệu tồn kho, mô hình sẽ đánh giá thấp nhu cầu thật của mặt hàng hay hết hàng, và chuỗi sẽ tiếp tục nhập thiếu. Chuỗi Việt Nam cần ghi tồn kho đầu ngày để phân biệt hai trường hợp này."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "tap-trung",
+   "eyebrow": "Chương 3 · Tập trung doanh thu",
+   "title": "Quy luật 20/60 xuất hiện ở cả khách hàng lẫn mặt hàng",
+   "lead": "Đường Lorenz của năm góc nhìn gần như chồng lên nhau. Đây là phát hiện ổn định nhất của báo cáo.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cLorenz",
+       "title": "Tỷ trọng doanh thu tích lũy",
+       "sub": "Xếp khách hoặc mặt hàng từ chi nhiều đến chi ít. Đường chéo là phân bổ đều.",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": "53% – 66%",
+      "paragraphs": [
+       "doanh thu đến từ 20% khách (CJ, Carbo 66%, LGSR). Với mặt hàng, top 20% SKU của M5 tạo 59% doanh thu. Panel CJ chỉ chọn hộ mua thường xuyên nên mức tập trung thật của cửa hàng còn cao hơn."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Doanh thu tập trung nên giá trị kinh tế nằm ở việc giữ nhóm đầu, không phải kéo thêm khách lẻ. Mất 1% hộ đầu của CJ tương đương mất 6% doanh thu. Ngân sách CRM nên chia theo giá trị vòng đời. Danh mục hàng nên được rà theo đuôi dài: 10% doanh thu M5 đến từ 40% SKU bán chậm nhất, chiếm kệ và vốn tồn kho."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "khach-hang",
+   "eyebrow": "Chương 4 · Khách hàng theo thời gian",
+   "title": "Doanh thu panel tăng 25% chủ yếu nhờ giỏ lớn hơn",
+   "lead": "Complete Journey theo dõi cùng 2.500 hộ trong 102 tuần. Tăng trưởng được tách thành ba thành phần nhân với nhau: số hộ hoạt động × số chuyến mỗi hộ × giá trị mỗi giỏ.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cPeriods",
+       "title": "Ba động lực của doanh thu theo chu kỳ 4 tuần",
+       "sub": "Chỉ số = 100 ở kỳ 3 (tuần 9–12)",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Hai kỳ đầu thấp do hộ được đưa vào panel dần dần, nên báo cáo so kỳ 3–8 với kỳ 20–25. Phân rã theo log: tổng tăng 22,1 điểm log = số hộ 7,4 + chuyến/hộ 2,9 + giá trị giỏ 12,7 (sai lệch nhỏ do lấy trung bình)."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Hơn một nửa mức tăng đến từ giá trị giỏ, nghĩa là hộ dồn thêm chi tiêu vào cửa hàng (tăng thị phần ví), không phải đến thường xuyên hơn. Giá trị giỏ cũng chứa yếu tố giá: phần lạm phát giá bán lẻ thực phẩm ở Mỹ khoảng 2–3%/năm cần được trừ trước khi gọi đây là tăng trưởng thực."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cTraj",
+       "title": "Quỹ đạo của từng hộ: nửa đầu so với nửa sau",
+       "sub": "2.491 hộ có mặt từ 120 ngày đầu; cột là số hộ, đường là chênh doanh thu (USD)",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "1.263 hộ tăng chi hơn 20%, 466 hộ giảm, 274 hộ không mua trong 8 tuần cuối. Số hộ tăng chi nhiều bất thường có thể do hộ dùng thẻ thành viên đều hơn theo thời gian, không hẳn là chi tiêu thật tăng."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Nhóm giảm chi và rời bỏ mất 392.805 USD giữa hai nửa, bằng 29% phần tăng của nhóm tăng chi. Giữ chân rẻ hơn thu hút: phát hiện sớm hộ bắt đầu giảm chi (chương rủi ro rời bỏ trong dashboard cũ) có giá trị kinh tế trực tiếp."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cRfm",
+       "title": "Phân khúc RFM tại cuối kỳ",
+       "sub": "R = số ngày từ lần mua cuối, F = số giỏ, M = tổng chi; chấm điểm theo nhóm 20%",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "RFM chỉ dùng ba trường có sẵn ở mọi hệ thống POS có mã khách, nên chuyển sang chuỗi Việt Nam ngay được. Ngưỡng theo nhóm 20% là tương đối: cùng một hộ có thể đổi phân khúc khi tập khách thay đổi."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "\"Nhà vô địch\" chiếm 22% số hộ nhưng 48% doanh thu. Nhóm \"có nguy cơ mất\" chỉ 5% số hộ nhưng mỗi hộ chi bình quân 5.010 USD, cao hơn nhóm trung thành. Đây là nơi chi phí giữ chân mang lại lợi ích lớn nhất."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "gia",
+   "eyebrow": "Chương 5 · Giá",
+   "title": "Hàng tùy ý co giãn mạnh, hàng thiết yếu thì gần như không",
+   "lead": "Độ co giãn được ước lượng bằng hồi quy log–log với hiệu ứng cố định SKU×cửa hàng và tuần. BATF và Carbo đã giữ cố định tờ rơi, trưng bày và giảm giá tạm thời. Thanh ngang là khoảng tin cậy 95%.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cElastic",
+       "title": "Độ co giãn của lượng bán theo giá",
+       "sub": "Giá trị −2 nghĩa là giá tăng 1% thì lượng bán giảm khoảng 2%",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "BATF đo trên giá kệ thực tế so với giá cơ sở, nên ước lượng sạch nhất. Carbo và M5 phải suy giá từ doanh thu/đơn vị hoặc giá tuần. Biến động giá của hai nguồn này nhỏ hơn và lẫn sai số đo, khiến hệ số bị kéo về 0. Vì vậy cần so sánh theo thứ hạng, không so trị tuyệt đối giữa các nguồn."
+      ]
+     },
+     "econ": {
+      "big": "-2,99",
+      "paragraphs": [
+       "là độ co giãn của pizza đông lạnh, ngành nhạy giá nhất: có nhiều sản phẩm thay thế và dễ tích trữ. Ngũ cốc -1,77, snack -1,36. Bốn ngành của Carbo (-0,54 đến -0,27) và các ngành của M5 đều nằm trong khoảng từ −1 đến 0. Với nhóm ít co giãn, tăng giá nhẹ làm tăng doanh thu. Với nhóm co giãn hơn 1, giảm giá có thể tăng doanh thu nhưng phải so với biên lợi nhuận."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cSeg",
+       "title": "Co giãn theo phân khúc cửa hàng",
+       "sub": "BATF · cửa hàng Value / Mainstream / Upscale do nhà bán lẻ tự phân loại",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Khoảng tin cậy giữa ba phân khúc chồng lên nhau ở hầu hết ngành. Chỉ có 17 cửa hàng Upscale và 19 cửa hàng Value, nên mẫu chưa đủ để chứng minh khác biệt."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Giả thuyết \"cửa hàng bình dân nhạy giá hơn\" không được dữ liệu ủng hộ rõ. Snack ở cửa hàng Value thậm chí ít co giãn hơn (-1,16). Độ nhạy giá phụ thuộc ngành hàng nhiều hơn phụ thuộc vị trí cửa hàng. Nên định giá theo ngành trước, rồi mới tinh chỉnh theo cụm cửa hàng."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cLerner",
+       "title": "Biên lợi nhuận ngụ ý theo quy tắc Lerner",
+       "sub": "BATF · (P − MC)/P = 1/|e| nếu nhà bán lẻ định giá tối ưu cho từng SKU; vạch là biên hòa vốn khi giảm giá 20%",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Độ co giãn ở đây là của từng SKU, đã gồm phần khách chuyển từ SKU khác sang. Co giãn của cả ngành sẽ thấp hơn, nên biên ngụ ý cho cả ngành cao hơn con số trên. Không có giá vốn để kiểm tra trực tiếp."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Pizza đông lạnh co giãn mạnh nhất nên biên tối ưu chỉ 33%; nước súc miệng 78%. Giảm giá 20% chỉ có lãi khi biên hiện tại thấp hơn 41% (pizza) hoặc 61% (ngũ cốc). Đây là cách nối độ co giãn với quyết định giá khi có giá vốn thật."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cPch",
+       "title": "Giá thay đổi thưa và theo bước lớn",
+       "sub": "M5 · 6.841.121 quan sát giá tuần; phân bố mức thay đổi khi giá đổi",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Chỉ 1,6% tuần SKU-cửa hàng Thực phẩm có đổi giá (Gia dụng 0,8%, Sở thích 0,7%). Khi đổi, trung vị thay đổi là 10,1%. Biến động giá ít nên ước lượng co giãn từ M5 kém chính xác hơn BATF."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Giá cứng là dấu hiệu của chi phí thay đổi giá (menu cost: in nhãn, cập nhật hệ thống, rủi ro làm khách khó chịu). Giá giữ nguyên trung bình khoảng 62 tuần ở Thực phẩm. Lạm phát giá bình quân năm của cùng SKU-cửa hàng: Thực phẩm 0,9%, Gia dụng 0,3%, Sở thích 0,3%."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "khuyen-mai",
+   "eyebrow": "Chương 6 · Khuyến mãi",
+   "title": "Vị trí trên kệ và tờ rơi hiệu quả hơn giảm giá đơn thuần",
+   "lead": "Ba nguồn có biến trưng bày và tờ rơi. Sau khi đã kiểm soát giá, phần còn lại là hiệu ứng của sự chú ý.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cPromo",
+       "title": "Mức tăng lượng bán khi có hoạt động",
+       "sub": "Feature = tờ rơi/quảng cáo; Display = trưng bày; TPR = giảm giá tạm thời không kèm quảng bá",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "CJ chỉ quan sát những tuần có hộ trong panel mua, nên mức tăng (6% trưng bày, 14% tờ rơi, 18% cả hai) là cận dưới. BATF và Carbo đo ở cấp cửa hàng nên ghi được toàn bộ lượng bán. Hiệu ứng tờ rơi bột bánh 92% tính trên mẫu nhỏ."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Trưng bày tăng 28–69% lượng bán ở BATF và 33–47% ở Carbo khi giá không đổi. Ngược lại, cờ TPR (chỉ giảm giá) có hệ số ≈ 0 hoặc âm khi đã tính giá: giảm giá chỉ tác động qua mức giá, không có hiệu ứng phụ. Khách mua theo sự chú ý nhiều hơn theo phép tính. Ngân sách trade marketing nên ưu tiên vị trí kệ và tờ rơi, không chỉ đổ vào mức giảm."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cDepth",
+       "title": "Giảm sâu thì bán nhiều, nhưng hiếm",
+       "sub": "BATF · đơn vị bán trung bình mỗi SKU-cửa hàng-tuần theo độ sâu giảm giá",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "74% quan sát bán đúng giá cơ sở. Nhóm giảm ≥ 40% chỉ có 8.222 quan sát, nhưng bán 60,3 đơn vị/tuần so với 15,8 khi không giảm."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Phần lượng bán tăng thêm trong tuần giảm giá gồm ba phần: khách mới, khách chuyển từ thương hiệu khác, và khách mua trước rồi bớt mua tuần sau. Chỉ phần đầu là tăng trưởng thật. Cần đo lượng bán 2–4 tuần sau khuyến mãi để trừ phần mua dồn trước khi tính ROI."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cCampaign",
+       "title": "Chiến dịch coupon: chọn đúng người hay tạo thêm chi tiêu?",
+       "sub": "CJ · 29 chiến dịch. Trục ngang: hộ nhận coupon đã chi nhiều hơn bao nhiêu trước chiến dịch. Trục dọc: chênh tăng trưởng trong chiến dịch so với hộ không nhận (DiD)",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": "×2,8",
+      "paragraphs": [
+       "là mức chi của hộ nhận chiến dịch TypeA so với hộ không nhận, ngay cả trước khi chiến dịch bắt đầu. Hộ nhận không được chọn ngẫu nhiên, nên so sánh thô sẽ gán nhầm thành tích cho chiến dịch."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Khi so tốc độ tăng chi tiêu, chênh lệch trung vị chỉ 0,2% (TypeA), -0,4% (TypeB), 0,3% (TypeC). Tỷ lệ đổi coupon cao nhất ở TypeA (16,0%) vì coupon được cá nhân hóa. Phần lớn coupon có thể đang trợ giá cho chi tiêu vốn sẽ xảy ra. Chuỗi cần nhóm đối chứng ngẫu nhiên (holdout) trước khi mở rộng ngân sách."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cDyn",
+       "title": "Khuyến mãi của đối thủ và tuần sau khuyến mãi",
+       "sub": "BATF · hệ số trong cùng mô hình hiệu ứng cố định; rival = tỷ lệ SKU khác cùng ngành đang khuyến mãi",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Mô hình chỉ dùng chuỗi tuần liên tiếp và thêm biến trễ khuyến mãi 1–2 tuần. Nếu khách tích trữ, hệ số trễ sẽ âm. Kết quả: trễ 1 tuần dương nhẹ (+1 đến +4%), trễ 2 tuần gần 0. BATF không cho thấy mua dồn rõ ràng, có thể do khuyến mãi thường kéo dài nhiều tuần liên tiếp."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Khi tất cả SKU khác cùng ngành khuyến mãi, lượng bán của một SKU giảm 5%–22% (mạnh nhất ở ngũ cốc). Đây là ăn mòn lẫn nhau (cannibalization): một phần lượng tăng của SKU khuyến mãi lấy từ SKU khác trong cùng cửa hàng. Đánh giá khuyến mãi phải tính ở cấp ngành, không chỉ ở SKU được giảm giá."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cSim",
+       "title": "Mô phỏng lợi nhuận khi giảm giá",
+       "sub": "Dùng độ co giãn và hiệu ứng trưng bày đã ước lượng; biên gộp là giả định vì dữ liệu không có giá vốn",
+       "controls": [
+        "0.2",
+        "0.3",
+        "0.4",
+        "0.1",
+        "0.2",
+        "0.3"
+       ]
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Lượng bán mới = (1 − mức giảm)^e; trường hợp có trưng bày nhân thêm hiệu ứng trưng bày. Lợi nhuận = (biên − mức giảm) × lượng bán, so với lợi nhuận khi không giảm. Mô phỏng chưa trừ ăn mòn SKU khác, nên là cận trên."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Ở biên 30%, giảm giá 10% đơn thuần làm giảm lợi nhuận ở cả bốn ngành; chỉ khi kèm trưng bày thì ngũ cốc, pizza, snack mới có lãi. Giảm 20% chỉ có lãi ở biên 40%, có trưng bày, và chỉ với ngũ cốc và pizza (hai ngành co giãn mạnh nhất). Tiền khuyến mãi nên đi kèm vị trí kệ, và mức giảm phải nhỏ hơn biên một khoảng đủ lớn."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "chinh-sach",
+   "eyebrow": "Chương 7 · Lịch và chính sách",
+   "title": "Ngày nhận trợ cấp thực phẩm làm giỏ thực phẩm tăng tới 30%",
+   "lead": "M5 ghi những ngày bang chi trả SNAP (tem phiếu thực phẩm cho hộ thu nhập thấp). Đây là biến chính sách duy nhất trong 5 nguồn, và là thí nghiệm tự nhiên tốt về ràng buộc thanh khoản.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cSnap",
+       "title": "Mức tăng lượng bán vào ngày SNAP",
+       "sub": "Hồi quy log lượng bán theo ngày, có hiệu ứng cố định năm-tháng và thứ trong tuần, loại ngày lễ; sai số HAC",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Lịch SNAP khác nhau giữa các bang. CA chi trả ngày 1–10, TX và WI xen kẽ trong 15 ngày đầu. Nhờ khác biệt này có thể tách hiệu ứng SNAP khỏi hiệu ứng nhận lương đầu tháng. Hiệu ứng tập trung ở Thực phẩm (CA 10%, TX 15%, WI 30%), còn Gia dụng và Sở thích chỉ 1,5–3%."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Nếu hộ làm mượt tiêu dùng theo lý thuyết thu nhập thường xuyên, ngày nhận tiền không làm thay đổi lượng mua. Dữ liệu cho thấy điều ngược lại: hộ có ràng buộc thanh khoản chi ngay khi có tiền. Hiệu ứng lan rất ít sang ngành không được trợ cấp, phù hợp với việc SNAP chỉ dùng được cho thực phẩm. Ở Việt Nam, tương tự là ngày nhận lương và ngày chi trả lương hưu, trợ cấp. Chuỗi nên đặt lịch nhập hàng thiết yếu và khuyến mãi theo các ngày này."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cDom",
+       "title": "Nhịp chi tiêu theo ngày trong tháng",
+       "sub": "Tổng lượng bán theo bang, chuẩn hóa theo trung bình tháng (1,0 = mức trung bình)",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "WI có răng cưa rõ nhất: các ngày 2, 3, 5, 6, 8, 9, 11, 12, 14, 15 (đúng lịch SNAP của WI) cao hơn hẳn các ngày xen giữa. Đường CA cao đều trong 10 ngày đầu rồi giảm dần."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Nửa cuối tháng thấp hơn đầu tháng cho thấy nhu cầu bị giới hạn bởi dòng tiền của hộ. Chương trình giữ khách cuối tháng (gói tiết kiệm, nhãn riêng giá thấp) có thể bù phần thiếu hụt này."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cEvents",
+       "title": "Ngày lễ: nhiều ngày làm giảm doanh số",
+       "sub": "M5 · lượng bán ngày lễ so với cùng thứ tuần trước và tuần sau. Ngày 25/12 cửa hàng đóng cửa nên bị loại.",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Lượng bán đo trong đúng ngày lễ. Phần mua sắm trước lễ (ví dụ trước Lễ Tạ ơn) nằm ở ngày trước đó, nên ngày lễ trông như giảm. Mô hình dự báo cần biến \"ngày trước lễ\" chứ không chỉ biến \"ngày lễ\"."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Lễ Tạ ơn -28% và Năm mới -23%: hộ đã mua trước và ở nhà nấu ăn hoặc đi thăm gia đình. Lễ Lao động 28%: kỳ nghỉ cuối hè gắn với tiệc ngoài trời. Với Tết Nguyên đán, chuỗi Việt Nam cần mô hình riêng cho 2–3 tuần trước Tết và tuần đóng cửa."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "thu-nhap",
+   "eyebrow": "Chương 8 · Thu nhập và nhãn riêng",
+   "title": "Thu nhập tăng một bậc, chi tiêu tăng 6,5% và nhãn riêng giảm 0,78 điểm %",
+   "lead": "CJ là nguồn duy nhất có nhân khẩu học. Thu nhập được mã hóa thứ bậc từ Level1 đến Level12, không có số tiền cụ thể.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cIncome",
+       "title": "Chi tiêu tuần và tỷ trọng nhãn riêng theo bậc thu nhập",
+       "sub": "CJ · 801 hộ có hồ sơ; hồi quy có kiểm soát quy mô hộ",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Các bậc 10–12 chỉ có 5–11 hộ, nên con số ở đầu cao rất nhiễu. Hệ số hồi quy (sai số chuẩn 0,011) đáng tin hơn từng cột. R² chỉ 0,06: thu nhập giải thích rất ít phần chênh lệch chi tiêu giữa các hộ, còn lại là thói quen và lòng trung thành với cửa hàng."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Mỗi bậc thu nhập chỉ làm chi tiêu tạp hóa tăng 6,5%, trong khi khoảng cách thu nhập giữa hai bậc thường lớn hơn nhiều. Chi tiêu thực phẩm tăng chậm hơn thu nhập, phù hợp quy luật Engel. Nhãn riêng hành xử như hàng cấp thấp (inferior good): hộ thu nhập cao mua ít hơn. Khi kinh tế đi xuống, tỷ trọng nhãn riêng là chỉ báo sớm cho việc khách hạ cấp chi tiêu."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cPL",
+       "title": "Chênh giá nhãn riêng và thương hiệu quốc gia",
+       "sub": "BATF · giá bán bình quân (USD/đơn vị)",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Giá bình quân tính bằng doanh thu chia đơn vị, nên chịu ảnh hưởng của cỡ gói. BATF có 1–2 SKU nhãn riêng mỗi ngành với cỡ gói tương đương, nên so sánh ở đây tương đối công bằng."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Nhãn riêng rẻ hơn 30–62%. Ở ngũ cốc nhãn riêng khuyến mãi nhiều hơn thương hiệu (TPR 18% so với 9% số tuần). Nhà bán lẻ dùng nhãn riêng làm công cụ cạnh tranh giá và để có thêm sức mặc cả với nhà sản xuất."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cLoyal",
+       "title": "Trung thành thương hiệu trong 4 ngành",
+       "sub": "Carbo · hộ có ≥ 5 lần mua trong ngành; trung thành = ≥ 80% số lần mua cùng một thương hiệu",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Chỉ số HHI của ngành: bột bánh 2.388, sốt 2.080, mì Ý 1.778, siro 1.165. Theo ngưỡng 1.500–2.500, ba ngành đầu tập trung ở mức vừa; siro phân tán hơn."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Bột bánh có 56% hộ trung thành, mì Ý chỉ 22%. Mì Ý gần như hàng đồng nhất, cạnh tranh bằng giá; nhãn riêng chiếm 44% doanh thu mì Ý so với 10% ở sốt. Ngành đồng nhất nên đẩy nhãn riêng. Ngành trung thành cao nên hợp tác với nhãn dẫn đầu."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cSwitch",
+       "title": "Ma trận chuyển đổi thương hiệu",
+       "sub": "Carbo · xác suất lần mua kế tiếp của cùng hộ thuộc thương hiệu ở cột, cho biết lần trước là thương hiệu ở hàng",
+       "controls": [
+        "pasta sauce",
+        "pasta"
+       ]
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Đường chéo là tỷ lệ mua lặp lại. Thị phần dừng tính từ ma trận (vector riêng) gần bằng thị phần hiện tại, nghĩa là thị trường đang ở trạng thái cân bằng trong 2 năm quan sát: không thương hiệu nào đang tăng hay giảm thị phần một cách hệ thống."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Ragu giữ lại 69% khách sốt, nhãn riêng giữ 64% khách mì Ý: ở ngành đồng nhất, khách quen mua hàng rẻ nhất trên kệ. Các thương hiệu nhỏ giữ chân kém (30–45%), nên khuyến mãi của họ chủ yếu tạo lượt mua thử rồi khách quay về thương hiệu cũ."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "hanh-vi",
+   "eyebrow": "Chương 9 · Hành vi giỏ hàng",
+   "title": "Phần lớn số lần ghé là chuyến nhỏ, phần lớn doanh thu đến từ chuyến lớn",
+   "lead": "LGSR có nhãn sẵn cho loại chuyến và độ nhạy giá của giỏ. Đây là dữ liệu mô phỏng, nên được dùng để thử phương pháp và đặt giả thuyết.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cBasket",
+       "title": "Số giỏ và doanh thu theo loại chuyến và độ nhạy giá",
+       "sub": "LGSR · 482.636 giỏ",
+       "controls": [
+        "basket_type",
+        "price_sens",
+        "mission",
+        "fmt"
+       ]
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Small Shop chiếm 55% số giỏ nhưng chỉ 19% doanh thu. Full Shop chỉ 11% số giỏ nhưng tạo 35%. Giỏ không thẻ thành viên chiếm 27% ở cửa hàng nhỏ (SS), cao hơn mức 19% ở cửa hàng lớn."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Giá trị giỏ Full Shop (40,2) gấp khoảng 9 lần Small Shop (4,3). Chuyến mua lớn là nơi chuỗi cạnh tranh về giá với đại siêu thị. Chuyến nhỏ là nơi cạnh tranh về sự tiện lợi với cửa hàng tiện lợi. Hai loại chuyến cần hai chiến lược giá khác nhau."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cHeat",
+       "title": "Bản đồ nhiệt thứ × giờ",
+       "sub": "LGSR · số giỏ",
+       "controls": []
+      },
+      {
+       "chart": "cHours",
+       "title": "Nhịp giờ ở ba nguồn",
+       "sub": "Tỷ lệ số giỏ theo giờ",
+       "controls": []
+      }
+     ],
+     "data": null,
+     "econ": null
+    },
+    {
+     "charts": [
+      {
+       "chart": "cComp",
+       "title": "Bổ trợ trong giỏ: lift phụ thuộc vào vũ trụ dữ liệu",
+       "sub": "Carbo · lift = P(A và B) / (P(A)·P(B)); confidence = P(B|A)",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Bột bánh + siro có lift 2,05. Mì Ý + sốt chỉ 0,90 dù 53% giỏ có sốt cũng có mì. Lý do là Carbo chỉ giữ giỏ có ít nhất một trong bốn ngành, nên P(A) và P(B) bị thổi phồng. Chạy luật kết hợp trên dữ liệu đã lọc ngành sẽ cho kết quả sai."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Hàng bổ trợ có độ co giãn chéo âm: giảm giá mì Ý kéo theo lượng bán sốt. Chiến lược \"hàng mồi\" là giảm giá mặt hàng có cầu bổ trợ cao để thu lợi nhuận từ mặt hàng đi kèm có biên tốt hơn (sốt có giá 1,74 so với mì 0,99 USD/đơn vị)."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cRules",
+       "title": "Luật kết hợp trên giỏ đầy đủ",
+       "sub": "CJ · 250.965 giỏ, 60 nhóm hàng phổ biến nhất, cặp xuất hiện ≥ 1.000 giỏ; 15 cặp có lift cao nhất",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": "9,8 so với 0,90",
+      "paragraphs": [
+       "là lift của mì Ý + sốt trên giỏ đầy đủ (CJ) so với trên dữ liệu đã lọc 4 ngành (Carbo). Cùng một cặp hàng, kết luận ngược nhau. Đây là ví dụ rõ nhất cho việc phạm vi dữ liệu quyết định kết quả."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Các cặp lift cao là bữa ăn hoàn chỉnh: mì + sốt, phô mai + thịt nguội, cà chua + rau salad, xúc xích + bánh mì. Khách mua giải pháp cho một bữa ăn, không mua từng món. Trưng bày theo bữa ăn và khuyến mãi gói tận dụng độ co giãn chéo âm giữa các món bổ trợ."
+      ]
+     }
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "du-bao",
+   "eyebrow": "Chương 10 · Dự báo",
+   "title": "Học máy giảm sai số 22% so với lặp lại tuần trước, nhưng mô hình đơn giản đã gần bằng",
+   "lead": "Bài toán M5: dự báo 28 ngày cuối (23/04–22/05/2016) cho 30.490 chuỗi SKU-cửa hàng. Đánh giá bằng RMSSE có trọng số doanh thu (WRMSSE cấp SKU, cách M5 chấm điểm) và WAPE.",
+   "callout": null,
+   "findings": [
+    {
+     "charts": [
+      {
+       "chart": "cFc",
+       "title": "So sánh mô hình",
+       "sub": "Thấp hơn là tốt hơn. GBM huấn luyện trên 2.499.530 quan sát lấy mẫu từ 420 ngày trước kỳ kiểm tra",
+       "controls": []
+      }
+     ],
+     "data": {
+      "big": null,
+      "paragraphs": [
+       "Mô hình chỉ dùng thông tin có trước ngày dự báo ít nhất 28 ngày (độ trễ ≥ 28), nên không rò rỉ tương lai và dự báo được cả 28 ngày một lần. Biến quan trọng nhất: rm28, rm91, rm7. Sai số theo ngành cao nhất ở Sở thích, nơi 77% ngày bằng 0."
+      ]
+     },
+     "econ": {
+      "big": null,
+      "paragraphs": [
+       "Tốt nhất là GBM toàn cục (Poisson) (WRMSSE 0,858, WAPE 74%), nhưng trung bình 28 ngày đơn giản chỉ kém 1,1% ở cấp SKU. Khác biệt lớn nằm ở cấp tổng: sai số ngày của GBM là 3.442 đơn vị so với 6.857 của trung bình 28 ngày, vì GBM bắt được nhịp cuối tuần. Với cùng mức phục vụ, tồn kho an toàn tỷ lệ với độ lệch chuẩn sai số, nên chuỗi nên bắt đầu bằng mô hình đơn giản cho từng SKU và dùng học máy cho kế hoạch tổng (nhân sự, vận tải, nhập hàng theo ngành)."
+      ]
+     }
+    },
+    {
+     "charts": [
+      {
+       "chart": "cFcLine",
+       "title": "Tổng lượng bán 28 ngày: thực tế và dự báo",
+       "sub": "Tổng toàn bộ 30.490 chuỗi theo ngày",
+       "controls": []
+      }
+     ],
+     "data": null,
+     "econ": null
+    }
+   ],
+   "cards": [],
+   "actions": []
+  },
+  {
+   "id": "tong-hop",
+   "eyebrow": "Chương 11 · Tổng hợp",
+   "title": "Điều gì lặp lại ở nhiều nguồn độc lập",
+   "lead": "Mức tin cậy tăng theo số nguồn độc lập cùng cho một kết quả. Mỗi thẻ ghi rõ nguồn nào ủng hộ.",
+   "callout": null,
+   "findings": [],
+   "cards": [
+    {
+     "sources": [
+      "CJ",
+      "Carbo",
+      "LGSR",
+      "M5"
+     ],
+     "title": "Doanh thu tập trung mạnh",
+     "body": "20% khách hoặc SKU tạo 53–66% doanh thu. Hệ số Gini từ 0,50 đến 0,65. Độ tin cậy cao."
+    },
+    {
+     "sources": [
+      "CJ",
+      "BATF",
+      "Carbo"
+     ],
+     "title": "Trưng bày và tờ rơi tạo lượng bán khi giá không đổi",
+     "body": "Trưng bày tăng 6%–69% , tờ rơi tăng 14%–92% tùy nguồn và ngành. Giảm giá tạm thời không có tác dụng thêm ngoài mức giá. Độ tin cậy cao."
+    },
+    {
+     "sources": [
+      "BATF",
+      "Carbo",
+      "M5"
+     ],
+     "title": "Độ co giãn giá khác nhau theo ngành",
+     "body": "Hàng tùy ý, dễ thay thế: −1,3 đến −3,0 . Hàng thiết yếu: −0,3 đến −0,5 . Giá trị tuyệt đối phụ thuộc cách đo giá. Độ tin cậy trung bình."
+    },
+    {
+     "sources": [
+      "M5"
+     ],
+     "title": "Dòng tiền của hộ quyết định thời điểm mua",
+     "body": "Ngày SNAP tăng Thực phẩm 10%–30% . Đầu tháng cao hơn cuối tháng. Chỉ có một nguồn nhưng thiết kế gần với thí nghiệm tự nhiên."
+    },
+    {
+     "sources": [
+      "CJ",
+      "BATF",
+      "Carbo"
+     ],
+     "title": "Nhãn riêng là công cụ cạnh tranh giá",
+     "body": "Rẻ hơn 30–62%. Thu nhập càng cao tỷ trọng càng giảm. Chiếm phần lớn ở ngành đồng nhất (mì Ý 44%). Độ tin cậy trung bình đến cao."
+    },
+    {
+     "sources": [
+      "CJ"
+     ],
+     "title": "Đo coupon dễ bị nhầm do chọn mẫu",
+     "body": "Hộ nhận coupon đã chi gấp 2,3–2,8 lần từ trước. Chênh lệch tăng trưởng ≈ 0. Cần thử nghiệm có nhóm đối chứng."
+    },
+    {
+     "sources": [
+      "BATF"
+     ],
+     "title": "Khuyến mãi ăn mòn SKU cùng ngành",
+     "body": "Đối thủ cùng ngành khuyến mãi làm lượng bán giảm 5%–22% . Đo hiệu quả ở cấp ngành. Độ tin cậy trung bình."
+    },
+    {
+     "sources": [
+      "M5"
+     ],
+     "title": "Học máy cải thiện dự báo rõ rệt",
+     "body": "GBM toàn cục (Poisson) giảm WRMSSE 22% so với naive mùa vụ; trung bình 28 ngày chỉ kém 1,1%. Một kỳ kiểm tra 28 ngày, cần thêm kỳ để khẳng định."
+    },
+    {
+     "sources": [
+      "CJ",
+      "Carbo"
+     ],
+     "title": "Phạm vi dữ liệu quyết định kết luận giỏ hàng",
+     "body": "Lift mì Ý + sốt 9,8 trên giỏ đầy đủ, 0,90 trên dữ liệu lọc ngành. Độ tin cậy cao."
+    }
+   ],
+   "actions": []
+  },
+  {
+   "id": "hanh-dong",
+   "eyebrow": "Chương 12 · Hành động cho chuỗi",
+   "title": "Từ dữ liệu công khai đến thử nghiệm tại chuỗi siêu thị Việt Nam",
+   "lead": "Kết quả trên đến từ thị trường Mỹ và Anh giai đoạn 2006–2016. Chúng dùng để đặt giả thuyết và chọn phương pháp. Mỗi hành động cần được kiểm chứng lại bằng dữ liệu của chính chuỗi.",
+   "callout": null,
+   "findings": [],
+   "cards": [],
+   "actions": [
+    {
+     "title": "Ghi đủ trường mà các nguồn công khai thiếu",
+     "body": "Hóa đơn có mã khách, giá kệ và giá cơ sở theo ngày, cờ tờ rơi/trưng bày theo cửa hàng-SKU-tuần, tồn kho đầu ngày, giá vốn. Thiếu tồn kho thì không phân biệt được hết hàng với không có cầu; thiếu giá vốn thì không tính được ROI khuyến mãi."
+    },
+    {
+     "title": "Ước lượng độ co giãn theo ngành trước khi đổi giá",
+     "body": "Áp dụng mô hình hiệu ứng cố định như BATF cho 20 ngành hàng đầu. Tăng giá nhẹ ở ngành ít co giãn, dùng nhãn riêng để cạnh tranh ở ngành co giãn mạnh."
+    },
+    {
+     "title": "Chuyển ngân sách từ giảm giá sang vị trí kệ và tờ rơi",
+     "body": "Thử theo cặp cửa hàng: một cửa hàng có trưng bày đầu kệ, một cửa hàng không, cùng mức giá. Đo lượng bán 4 tuần sau để trừ phần mua dồn trước."
+    },
+    {
+     "title": "Đặt lịch hàng thiết yếu theo ngày nhận lương",
+     "body": "Lập lịch theo ngày trả lương phổ biến và ngày chi trả lương hưu, trợ cấp. Thêm biến \"ngày trước lễ\" và cửa sổ Tết vào mô hình dự báo."
+    },
+    {
+     "title": "Mọi chiến dịch CRM phải có nhóm đối chứng",
+     "body": "Giữ ngẫu nhiên 10% khách đủ điều kiện không nhận ưu đãi. Chỉ tính phần chênh lệch với nhóm đối chứng là hiệu quả của chiến dịch."
+    },
+    {
+     "title": "Dự báo theo kiểu nhu cầu",
+     "body": "SKU bán đều dùng mô hình chuỗi thời gian. SKU gián đoạn dùng Croston/TSB hoặc mô hình phân phối. Đánh giá bằng sai số có trọng số doanh thu (WRMSSE như M5) thay vì MAPE."
+    }
+   ]
+  }
+ ]
+}

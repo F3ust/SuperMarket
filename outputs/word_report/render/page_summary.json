@@ -1,0 +1,290 @@
+[
+  {
+    "page": 1,
+    "first": [
+      "Trang 1 ",
+      "Phân tích dữ liệu và mô hình cho chuỗi "
+    ],
+    "chars": 1654,
+    "images": 0
+  },
+  {
+    "page": 2,
+    "first": [
+      "Trang 2 ",
+      "Tóm tắt dành cho người ra quyết định "
+    ],
+    "chars": 1609,
+    "images": 0
+  },
+  {
+    "page": 3,
+    "first": [
+      "Trang 3 ",
+      "Mục lục "
+    ],
+    "chars": 1256,
+    "images": 0
+  },
+  {
+    "page": 4,
+    "first": [
+      "Trang 4 ",
+      "01 Dữ liệu và khả năng áp dụng "
+    ],
+    "chars": 1871,
+    "images": 0
+  },
+  {
+    "page": 5,
+    "first": [
+      "Trang 5 ",
+      "02 Chất lượng và đối soát "
+    ],
+    "chars": 1827,
+    "images": 0
+  },
+  {
+    "page": 6,
+    "first": [
+      "Trang 6 ",
+      "03 Biến động doanh thu "
+    ],
+    "chars": 1208,
+    "images": 1
+  },
+  {
+    "page": 7,
+    "first": [
+      "Trang 7 ",
+      "04 Ngành hàng và nguyên nhân biến động "
+    ],
+    "chars": 1212,
+    "images": 1
+  },
+  {
+    "page": 8,
+    "first": [
+      "Trang 8 ",
+      "05 Danh mục sản phẩm và tập trung doanh số "
+    ],
+    "chars": 1429,
+    "images": 1
+  },
+  {
+    "page": 9,
+    "first": [
+      "Trang 9 ",
+      "06 Giá trị khách hàng và phân nhóm "
+    ],
+    "chars": 1503,
+    "images": 1
+  },
+  {
+    "page": 10,
+    "first": [
+      "Trang 10 ",
+      "07 Nhóm khách theo thời điểm xuất hiện "
+    ],
+    "chars": 1564,
+    "images": 1
+  },
+  {
+    "page": 11,
+    "first": [
+      "Trang 11 ",
+      "08 Hành vi mua xuyên cửa hàng "
+    ],
+    "chars": 1319,
+    "images": 1
+  },
+  {
+    "page": 12,
+    "first": [
+      "Trang 12 ",
+      "09 Khuyến mãi và giới hạn diễn giải "
+    ],
+    "chars": 1198,
+    "images": 1
+  },
+  {
+    "page": 13,
+    "first": [
+      "Trang 13 ",
+      "10 Đánh giá chiến dịch coupon "
+    ],
+    "chars": 1518,
+    "images": 1
+  },
+  {
+    "page": 14,
+    "first": [
+      "Trang 14 ",
+      "11 Thiết kế bài toán dự báo "
+    ],
+    "chars": 1817,
+    "images": 0
+  },
+  {
+    "page": 15,
+    "first": [
+      "Trang 15 ",
+      "12 So sánh các mô hình dự báo "
+    ],
+    "chars": 1279,
+    "images": 1
+  },
+  {
+    "page": 16,
+    "first": [
+      "Trang 16 ",
+      "13 Sai số theo ngành hàng và theo tuần "
+    ],
+    "chars": 1187,
+    "images": 1
+  },
+  {
+    "page": 17,
+    "first": [
+      "Trang 17 ",
+      "14 Bất định và giới hạn dự báo "
+    ],
+    "chars": 1647,
+    "images": 1
+  },
+  {
+    "page": 18,
+    "first": [
+      "Trang 18 ",
+      "15 Thiết kế mô hình khách hàng "
+    ],
+    "chars": 1656,
+    "images": 0
+  },
+  {
+    "page": 19,
+    "first": [
+      "Trang 19 ",
+      "16 Kết quả nhận diện khách giảm mua "
+    ],
+    "chars": 1154,
+    "images": 1
+  },
+  {
+    "page": 20,
+    "first": [
+      "Trang 20 ",
+      "17 Công suất chăm sóc và độ bất định "
+    ],
+    "chars": 1048,
+    "images": 1
+  },
+  {
+    "page": 21,
+    "first": [
+      "Trang 21 ",
+      "18 Giải thích và kiểm tra điểm rủi ro "
+    ],
+    "chars": 1525,
+    "images": 1
+  },
+  {
+    "page": 22,
+    "first": [
+      "Trang 22 ",
+      "19 Giỏ hàng và gợi ý mua cùng "
+    ],
+    "chars": 1486,
+    "images": 1
+  },
+  {
+    "page": 23,
+    "first": [
+      "Trang 23 ",
+      "20 Kiến trúc quy trình dữ liệu "
+    ],
+    "chars": 1534,
+    "images": 1
+  },
+  {
+    "page": 24,
+    "first": [
+      "Trang 24 ",
+      "21 Mô hình dữ liệu cho chuỗi "
+    ],
+    "chars": 1406,
+    "images": 1
+  },
+  {
+    "page": 25,
+    "first": [
+      "Trang 25 ",
+      "22 Vận hành tự động và giám sát "
+    ],
+    "chars": 1678,
+    "images": 0
+  },
+  {
+    "page": 26,
+    "first": [
+      "Trang 26 ",
+      "23 Thiết kế thử nghiệm kinh doanh "
+    ],
+    "chars": 2067,
+    "images": 0
+  },
+  {
+    "page": 27,
+    "first": [
+      "Trang 27 ",
+      "24 Lộ trình PoC và điều kiện nghiệm thu "
+    ],
+    "chars": 1377,
+    "images": 1
+  },
+  {
+    "page": 28,
+    "first": [
+      "Trang 28 ",
+      "25 Hiệu quả kinh tế và quản trị rủi ro "
+    ],
+    "chars": 1998,
+    "images": 0
+  },
+  {
+    "page": 29,
+    "first": [
+      "Trang 29 ",
+      "26 Hồ sơ mô hình và tái lập "
+    ],
+    "chars": 2050,
+    "images": 0
+  },
+  {
+    "page": 30,
+    "first": [
+      "Trang 30 ",
+      "27 Từ điển chỉ tiêu và dữ liệu cần xin "
+    ],
+    "chars": 1935,
+    "images": 0
+  },
+  {
+    "page": 31,
+    "first": [
+      "Trang 31 ",
+      "28 Nguồn tham khảo "
+    ],
+    "chars": 1950,
+    "images": 0
+  },
+  {
+    "page": 32,
+    "first": [
+      "Trang 32 ",
+      "29 Phụ lục sai số dự báo chi tiết "
+    ],
+    "chars": 1462,
+    "images": 0
+  }
+]

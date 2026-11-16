@@ -1,0 +1,705 @@
+"""
+@author: Otto Fajardo
+"""
+from collections import OrderedDict
+from datetime import datetime
+
+import numpy as np
+import narwhals.stable.v2 as nw
+
+pandas_available = False
+try:
+    import pandas as pd
+    pandas_available = True
+except:
+    pass
+# xray is needed for 3d arrays only
+xray_available = False
+try:
+    import xarray as xr
+    xray_available = True
+except:
+    pass
+# polars is optional, needed only for output_format="polars"
+polars_available = False
+try:
+    import polars as pl
+    polars_available = True
+except:
+    pass
+
+from .librdata import Parser
+from .custom_errors import PyreadrError
+
+
+def _r_dates_to_python(days):
+    """
+    R dates are doubles with days since 1970-01-01. Returns an object array of datetime.date, with None for NA,
+    NaN and Inf (cast only the finite values, casting NaN gives a RuntimeWarning).
+    """
+    days = np.asarray(days, dtype=np.float64)
+    dates = np.full(days.shape, np.datetime64("NaT"), dtype="datetime64[D]")
+    finite = np.isfinite(days)
+    dates[finite] = days[finite].astype("datetime64[D]")
+    return dates.astype(datetime)
+
+
+def _r_missing_mask(values, dtype_name):
+    """
+    Boolean array, True where values (numpy array from librdata) is R's NA.
+    """
+    if dtype_name == "NUMERIC":
+        # R's NA is a NaN with 1954 in the low word, any other NaN is R's NaN and stays NaN
+        return np.isnan(values) & ((values.view(np.uint64) & 0xFFFFFFFF) == 1954)
+    if dtype_name in ("TIMESTAMP", "DATE"):
+        # dates and timestamps cannot be NaN
+        return np.isnan(values)
+    if dtype_name in ("INTEGER", "LOGICAL"):
+        return values <= -2147483648
+    raise PyreadrError("unexpected data type %s" % dtype_name)
+
+
+def _polars_series(name, values, dtype_name):
+    """
+    polars Series from the data of one R vector: numeric data comes as numpy array with R's NA markers, which
+    become nulls (much faster than building python lists, as librdata gives whole columns); character data comes
+    as a list with None for NA.
+    """
+    if dtype_name == "CHARACTER":
+        return pl.Series(name, values, dtype=pl.String)
+    series = pl.Series(name, values)
+    missing = _r_missing_mask(values, dtype_name)
+    if missing.any():
+        series = series.set(pl.Series(missing), None)
+    return series
+
+
+
+class Table:
+    """
+    In librdata each object is parsed into a "table".
+    This python object is passed to the Pyreadr parser and will collect all the data.
+    Once the parsing is finished it has methods to convert to a pandas or polars data frame.
+    """
+
+    def __init__(self, timezone=None):
+
+        self.name = None
+        self.column_names = dict()
+        self.column_names_special = dict()
+        self.row_names = list()
+        self.column_types = dict()
+        self.columns = list()
+        self.value_labels = dict()
+        self.df = None
+        self.timezone = timezone
+        self.output_format = "pandas"
+        self.dim = None
+        self.dim_num = 0
+        self.dim_names = list()
+        self.dim_names_ready = list()
+        self.arraylike_data = None
+        # rows to read; data frames and vectors are sliced while parsing (PyreadrParser), matrices and arrays here
+        self.row_offset = 0
+        self.row_limit = 0
+
+    def convert_to_dataframe(self):
+        """
+        Coordinates all the necessary steps to convert the data collected from the parser to a pandas or polars data frame.
+        """
+        if self.dim_num:
+            self._arraylike_todf()
+        else:
+            self._dflike_todf()
+        return self.df
+
+    # Internal methods
+
+    # methods for arraylike: array, matrix, table
+    def _arraylike_todf(self):
+        """
+        Method to convert objects with the dim attribute set: matrices, 
+        arrays and tables; also vectors if the user set the dim attribute
+        explicitly.
+        """
+        self._arraylike_convert()
+        self._arraylike_buildf()
+        self._handle_value_labels()
+        self._arraylike_select_rows()
+
+    def _arraylike_select_rows(self):
+        """
+        Select rows (first dimension) of matrices and arrays, they are stored by column so it cannot be done
+        while parsing.
+        """
+        if not (self.row_offset or self.row_limit):
+            return
+        end = self.row_offset + self.row_limit if self.row_limit else None
+        if xray_available and isinstance(self.df, xr.DataArray):
+            self.df = self.df.isel({self.df.dims[0]: slice(self.row_offset, end)})
+        elif self.output_format == "polars":
+            self.df = self.df.slice(self.row_offset, self.row_limit if self.row_limit else None)
+        else:
+            df = self.df.iloc[self.row_offset:end]
+            if isinstance(self.df.index, pd.RangeIndex):
+                df = df.reset_index(drop=True)
+            self.df = df
+
+    def _arraylike_convert(self):
+        """
+        convert the data to suitable types
+        """
+        if len(self.columns)>1:
+            raise PyreadrError("matrix, array or table object with more than one vector!")
+
+        dtype = self.column_types[0]
+
+        if self.output_format == "polars":
+            # numeric data stays numpy with R's NA markers, _arraylike_buildf makes each column a polars Series
+            # with _polars_series. Character data is a list
+            if dtype.name == "CHARACTER":
+                self.arraylike_data = np.asarray(self.columns[0], dtype=object)
+            else:
+                self.arraylike_data = np.asarray(self.columns[0])
+            return
+
+        if dtype.name == "CHARACTER":
+            data = np.asarray(self.columns[0], dtype=object)
+        else:
+            data = np.asarray(self.columns[0])
+
+        # apparently DATE arrays and matrices are not saved as date or datetimes but numeric
+        # but if someone creates a vector and sets the dim attribute, we will get trough these.
+        if dtype.name == "TIMESTAMP":
+            # inf values do not make sense for timestamp
+            data[data == np.inf] = np.nan
+            data = pd.to_datetime(data, unit='s').values
+        elif dtype.name == "DATE":
+            data = _r_dates_to_python(data)
+        elif dtype.name == "LOGICAL" or dtype.name == "INTEGER":
+            na_index = data <= -2147483648
+            if np.any(na_index):
+                if dtype.name == "INTEGER":
+                    data = data.astype(object)
+                    data[na_index] = np.nan
+                elif dtype.name == "LOGICAL":
+                    data = data.astype('bool')
+                    data = data.astype(object)
+                    data[na_index] = np.nan
+            else:
+                if dtype.name == "LOGICAL":
+                    data = data.astype('bool')
+
+        self.arraylike_data = data
+
+    def _arraylike_buildf(self):
+        """"
+        Transform the one dimensional array to a dataframe with several rows and columns
+        """
+        data = self.arraylike_data
+        dim = self.dim
+        if len(dim)>3:
+            raise PyreadrError("Librdata currently supports arrays with up to 3 dimensions, you got %s dimensions" % str(len(dim)))
+        dimtuple = tuple(dim.tolist())
+        data = np.reshape(data, dimtuple, order='F')
+        rownames = None
+        colnames = None
+        if self.dim_names:
+            self.arrange_dimnames_arraylike()
+            dim_names = self.dim_names_ready
+            len_dim_names = len(dim_names)
+            if self.dim_num<3:
+                rownames = dim_names[0]
+                if len_dim_names>1:
+                    colnames = dim_names[1]
+            else:
+                if not xray_available:
+                    raise PyreadrError("Trying to read array with >2 dimensions, please install xarray!")
+                self.df = xr.DataArray(data, dim_names)
+                return
+        else:
+            if self.dim_num>=3:
+                if not xray_available:
+                    raise PyreadrError("Trying to read array with >2 dimensions, please install xarray!")
+                self.df = xr.DataArray(data)
+                return
+
+        if self.output_format == "polars":
+            dtype = self.column_types[0]
+            if data.ndim == 1:
+                columns = {'0': data}
+            elif colnames:
+                columns = {colnames[c]: data[:, c] for c in range(data.shape[1])}
+            else:
+                columns = {str(c): data[:, c] for c in range(data.shape[1])}
+            cols = {}
+            for name, values in columns.items():
+                if dtype.name == "CHARACTER":
+                    values = values.tolist()
+                cols[name] = _polars_series(name, values, dtype.name)
+            df = pl.DataFrame(cols)
+            if dtype.name == "LOGICAL":
+                df = df.with_columns(pl.col(c).cast(pl.Boolean) for c in cols)
+            if dtype.name == "TIMESTAMP" or dtype.name == "DATE":
+                float_cols = list(cols.keys())
+                df = df.with_columns(
+                    pl.when(pl.col(c) == float('inf')).then(None).otherwise(pl.col(c)).alias(c)
+                    for c in float_cols
+                )
+                if dtype.name == "TIMESTAMP":
+                    df = df.with_columns(
+                        pl.from_epoch(pl.col(c).cast(pl.Int64), time_unit="s").alias(c)
+                        for c in float_cols
+                    )
+                    if self.timezone:
+                        df = df.with_columns(
+                            pl.col(c).dt.convert_time_zone(self.timezone).alias(c)
+                            for c in float_cols
+                        )
+                else:
+                    df = df.with_columns(
+                        pl.from_epoch(pl.col(c).cast(pl.Int32), time_unit="d").dt.date().alias(c)
+                        for c in float_cols
+                    )
+            if rownames:
+                df = df.with_columns(pl.Series('rownames', rownames))
+        else:
+            df = pd.DataFrame(data, columns=colnames, index=rownames)
+            if self.column_types[0].name == "TIMESTAMP" and self.timezone:
+                for c in df.columns:
+                    df[c] = df[c].dt.tz_localize('UTC').dt.tz_convert(self.timezone)
+        self.df = df
+
+    def arrange_dimnames_arraylike(self):
+        """
+        Dimenion names are captured as a flat array, transform to a nested array for
+        easier handling.
+        """ 
+        if self.dim_names:
+            dimtuple = tuple(self.dim.tolist())
+            dim_names = list()
+            lendimnames = len(self.dim_names)
+            allcnt = 0
+            cnt = 0
+            dimcnt = 0
+            curdim = list()
+            curdsize = dimtuple[dimcnt]
+            for dname in self.dim_names:
+                curdim.append(dname)
+                cnt += 1
+                allcnt += 1
+                if cnt==curdsize:
+                    if all(x is None for x in curdim):
+                        curdim = None
+                    dim_names.append(curdim)
+                    curdim = list()
+                    cnt = 0
+                    if allcnt < lendimnames:
+                        dimcnt += 1
+                        curdsize = dimtuple[dimcnt]
+            self.dim_names_ready = dim_names
+
+    # methods for data_frames
+    # also vectors
+    def _dflike_todf(self):
+        """
+        This one is for objects that do not have the dim attribute set: dataframes
+        and atomic vectors. (but vectors can have the dim attribute in that case
+        they go to the other method)
+        """
+        self._consolidate_names()
+        self._todf()
+        self._covert_data()
+        self._handle_value_labels()
+        self._handle_row_names()
+
+    def _consolidate_names(self):
+        """
+        librdata may collect column (vector) names from two places, this method consolidates both.
+        """
+
+        final_names = dict()
+        all_indexes = set(list(self.column_names.keys()) + list(self.column_names_special.keys()))
+        for indx in all_indexes:
+            normal = self.column_names.get(indx)
+            special = self.column_names_special.get(indx)
+            if normal and special:
+                raise PyreadrError("Both normal and special names for column index %d" % indx)
+            final = normal if normal else special
+            final_names[indx] = final
+        self.final_names = final_names
+
+    def _todf(self):
+        """
+        Converts the data to a data frame, which still needs some further processing.
+        """
+
+        if self.output_format == "polars":
+            # numeric columns are numpy arrays (they keep their type also if empty or all missing), character
+            # columns lists, typed as String in _polars_series. TIMESTAMP and DATE are converted in _covert_data.
+            # A dict as for pandas: a repeated name keeps the last column
+            series = OrderedDict()
+            for indx, column in enumerate(self.columns):
+                colname = self.final_names[indx]
+                if colname is None:
+                    colname = ""
+                series[colname] = _polars_series(colname, column, self.column_types[indx].name)
+            # a dict, not a list of Series: polars renames a Series named "" to column_0
+            self.df = pl.DataFrame(series)
+            return
+
+        # normal data frames
+        data = OrderedDict()
+        for indx, column in enumerate(self.columns):
+            colname = self.final_names[indx]
+            data[colname] = column
+
+        df = nw.from_dict(data, backend=self.output_format).to_native()
+
+        # pandas infers float64 for an empty character column (an empty list), use pandas string type instead
+        if self.output_format == "pandas" and len(df) == 0:
+            for colindx, dtype in self.column_types.items():
+                if dtype.name == "CHARACTER":
+                    colname = self.final_names[colindx]
+                    df[colname] = df[colname].astype(str)
+
+        self.df = df
+
+    def _covert_data(self):
+        """
+        Downstream processing of the data inside the data frame
+        """
+
+        df = self.df
+        if self.output_format == "polars":
+            if not polars_available:
+                raise PyreadrError("polars is required for output_format='polars'. Please install polars.")
+            for colindx, dtype in self.column_types.items():
+                colname = self.final_names[colindx]
+                if colname is None:
+                    colname = ""
+                if dtype.name == "TIMESTAMP":
+                    df = df.with_columns(
+                        pl.when(pl.col(colname) == float('inf'))
+                          .then(None).otherwise(pl.col(colname)).alias(colname)
+                    )
+                    df = df.with_columns(
+                        pl.from_epoch(pl.col(colname).cast(pl.Int64), time_unit="s").alias(colname)
+                    )
+                    if self.timezone:
+                        df = df.with_columns(
+                            pl.col(colname).dt.convert_time_zone(self.timezone).alias(colname)
+                        )
+                elif dtype.name == "DATE":
+                    df = df.with_columns(
+                        pl.when(pl.col(colname) == float('inf'))
+                          .then(None).otherwise(pl.col(colname)).alias(colname)
+                    )
+                    df = df.with_columns(
+                        pl.from_epoch(pl.col(colname).cast(pl.Int32), time_unit="d").dt.date().alias(colname)
+                    )
+                elif dtype.name == "LOGICAL":
+                    df = df.with_columns(pl.col(colname).cast(pl.Boolean))
+            self.df = df
+        else:
+            for colindx, dtype in self.column_types.items():
+                colname = self.final_names[colindx]
+                if dtype.name == "TIMESTAMP":
+                    df.loc[df[colname] == np.inf, colname] = np.nan
+                    df[colname] = pd.to_datetime(df[colname], unit='s')
+                    if self.timezone:
+                        df[colname] = df[colname].dt.tz_localize('UTC').dt.tz_convert(self.timezone)
+                elif dtype.name == "DATE":
+                    df[colname] = _r_dates_to_python(df[colname].values)
+                elif dtype.name == "LOGICAL" or dtype.name == "INTEGER":
+                    na_index = df[colname] <= -2147483648
+                    if np.any(na_index):
+                        if dtype.name == "INTEGER":
+                            df[colname] = df[colname].astype(object)
+                            df.loc[na_index, colname] = np.nan
+                        elif dtype.name == "LOGICAL":
+                            df[colname] = df[colname].astype('bool')
+                            df[colname] = df[colname].astype(object)
+                            df.loc[na_index, colname] = np.nan
+                    else:
+                        if dtype.name == "LOGICAL":
+                            df[colname] = df[colname].astype('bool')
+
+    def _handle_row_names(self):
+        """
+        For dataframes, set rownames as index (pandas) or add as column (polars)
+        """
+        if self.row_names:
+            if self.output_format == "polars":
+                self.df = self.df.with_columns(pl.Series("rownames", self.row_names))
+            else:
+                self.df['rownames'] = self.row_names
+                self.df = self.df.set_index('rownames')
+
+    # methods for both dim and no dim
+
+    def _handle_value_labels(self):
+        """
+        R factors are represented as integer vectors (1-based codes), and their string equivalences (levels) are stored
+        somewhere else. This method transforms the codes into a categorical type (pandas) or Enum (polars) with all
+        the levels in R order, including the ones not present in the data. A NA level (addNA in R) is dropped, as
+        pandas categories and polars Enum cannot have missing levels, and its values become missing.
+        """
+
+        if self.value_labels:
+            colnames = list(self.df.columns)
+            if self.dim_num>0:
+                if len(self.dim)>1:
+                    dim = self.dim[1]
+                else:
+                    dim = 1
+                indx_labels = [(x, self.value_labels[0]) for x in range(0, dim)]
+            else:
+               indx_labels = list(self.value_labels.items())
+            for colindx, labels in indx_labels:
+                colname = colnames[colindx]
+                levels = [labels[k] for k in sorted(labels)]
+                # 0-based position of the NA level, R allows at most one
+                na_pos = levels.index(None) if None in levels else None
+                if na_pos is not None:
+                    levels.pop(na_pos)
+                if self.output_format == "polars":
+                    # NA codes are already null here
+                    codes = pl.col(colname) - 1
+                    if na_pos is not None:
+                        codes = pl.when(codes == na_pos).then(None).when(codes > na_pos).then(codes - 1).otherwise(codes)
+                    # look the codes up in the levels (casting integers to Enum is not allowed from polars 2)
+                    enum_levels = pl.lit(pl.Series(levels, dtype=pl.Enum(levels)))
+                    self.df = self.df.with_columns(enum_levels.gather(codes).alias(colname))
+                else:
+                    # columns with NA codes are object with NaN at this point
+                    codes = np.asarray(self.df[colname], dtype=np.float64)
+                    codes = np.where(np.isnan(codes), 0, codes).astype(np.int64) - 1
+                    if na_pos is not None:
+                        codes = np.where(codes == na_pos, -1, np.where(codes > na_pos, codes - 1, codes))
+                    self.df[colname] = pd.Categorical.from_codes(codes, categories=levels)
+
+
+class PyreadrParser(Parser):
+    """
+    Parses the RData or Rds file using the parser defined in librdata.pyx which in turn uses the C API of librdata.
+    """
+
+    def __init__(self):
+
+        self.column_index = -1
+        self.table_index = -1
+        self.table_names = list()
+        self.table_data = list()
+        self.current_table = None
+        self.use_objects = None
+        self.parse_current_table = True
+        self.timezone = None
+        self.output_format = "pandas"
+        self.row_offset = 0
+        self.row_limit = 0
+        # (table, column index) of the last character column: its values come one by one after handle_column
+        self.pending_text_column = None
+
+    def set_use_objects(self, use_objects):
+        self.use_objects = use_objects
+
+    def set_rows(self, row_offset, row_limit):
+        """
+        read only the rows row_offset to row_offset + row_limit (row_limit 0: until the end)
+        """
+        self.row_offset = row_offset
+        self.row_limit = row_limit
+
+    def _slicing_rows(self, table):
+        """
+        True if rows have to be selected while parsing. Not for matrices and arrays (R stores them by column),
+        Table selects their rows after building them.
+        """
+        return (self.row_offset or self.row_limit) and table.dim is None
+
+    def _slice_rows(self, values):
+        end = self.row_offset + self.row_limit if self.row_limit else None
+        values = values[self.row_offset:end]
+        # a numpy slice is a view, copy it so that the full array can be freed
+        return values.copy() if isinstance(values, np.ndarray) else values
+
+    def finish_text_column(self):
+        """
+        Select the rows of the last character column, once all its values (and its dim attribute, which comes
+        after them) were read. Called when the next column or table starts and at the end of the parse.
+        """
+        if self.pending_text_column is not None:
+            table, index = self.pending_text_column
+            if self._slicing_rows(table):
+                table.columns[index] = self._slice_rows(table.columns[index])
+            self.pending_text_column = None
+
+    def set_timezone(self, timezone):
+        self.timezone = timezone
+
+    def set_output_format(self, output_format):
+        self.output_format = output_format
+
+    def handle_table(self, name):
+        """
+        Every object in the file is called table, this method is evoked once per object.
+        :param name: str: the name of the table
+        """
+
+        self.finish_text_column()
+        if (self.use_objects is None) or name in self.use_objects:
+
+            self.parse_current_table = True
+            self.table_index += 1
+            self.column_index = -1
+
+            table = Table()
+            table.timezone = self.timezone
+            table.output_format = self.output_format
+            table.row_offset = self.row_offset
+            table.row_limit = self.row_limit
+            table.name = name
+            self.table_data.append(table)
+            self.current_table = table
+
+        else:
+            self.parse_current_table = False
+
+    def handle_column(self, name, data_type, data, count):
+        """
+        Evoked once per each column in the table.
+        :param name: str: column name, may be None
+        :param data_type: object of type DataType(Enum) (defined in librdata.pyx)
+        :param data: a numpy array representing the data in R vector, may be empty
+        :param count: int: number of elements in the array
+        """
+        self.finish_text_column()
+        if self.parse_current_table:
+            self.column_index += 1
+            self.current_table.column_names[self.column_index] = name
+            self.current_table.column_types[self.column_index] = data_type
+            if data is not None:
+                # the dim attribute of numeric vectors is known here
+                if self._slicing_rows(self.current_table):
+                    data = self._slice_rows(data)
+                self.current_table.columns.append(data)
+            else:
+                # character column: the values come with handle_text_value
+                self.current_table.columns.append(list())
+                self.pending_text_column = (self.current_table, self.column_index)
+
+    def handle_column_name(self, name, index):
+        """
+        Some times name is None in handle column but it is recovered with this method.
+        :param name: str: name of the column
+        :param index: int: index of the column
+        """
+        if self.parse_current_table:
+            self.current_table.column_names_special[index] = name
+
+    def handle_dim(self, name, data_type, data, count):
+        """
+        Evoked once to retrieve the number of dimensions
+        :param name: str: column name, may be None
+        :param data_type: object of type DataType(Enum) (defined in librdata.pyx)
+        :param data: a numpy array representing the number of dimensions
+        :param count: int: number of elements in the array
+        """
+        if self.parse_current_table:
+            self.current_table.dim = data
+            self.current_table.dim_num = count
+
+    def handle_dim_name(self, name, index):
+        """
+        Get one dimension name, one at a time, for matrices, arrays, tables.
+        :param name: str: name of the dimension
+        :param index: int: index of the dimension
+        """
+        if self.parse_current_table:
+            self.current_table.dim_names.append(name)
+
+    def handle_row_name(self, name, index):
+        """
+        Handles R dataframe's rownames
+        :param name: str: name of the row
+        :param index: int: index of the row
+        """
+        if self.parse_current_table:
+            if self._slicing_rows(self.current_table):
+                if index < self.row_offset or (self.row_limit and index >= self.row_offset + self.row_limit):
+                    return
+            self.current_table.row_names.append(name)
+
+    def handle_text_value(self, name, index):
+        """
+        For character vectors this will be called once per row and will retrieve the string value for that row.
+        :param name: str: string value for the row
+        :param index: int: index of the row
+        :return:
+        """
+        if self.parse_current_table:
+            self.current_table.columns[self.column_index].append(name)
+
+    def handle_value_label(self, name, index):
+        """
+        Factors are represented as integer vectors.
+        For factors, this method is called before reading the integer data in the Factor column with handle_column.
+        and will give all the string
+        values correspondent to the integer values.
+        :param name: str: string value
+        :param index: int: integer value
+        :return:
+        """
+        if self.parse_current_table:
+            curindx = self.column_index + 1
+            curlabels = self.current_table.value_labels.get(curindx)
+            if curlabels:
+                curlabels[index+1] = name
+            else:
+                curlabels = {index+1: name}
+            self.current_table.value_labels[curindx] = curlabels
+
+
+class ListObjectsParser(Parser):
+    """
+    Specialized parser to only retrieve the R objects in the file and their columns
+    """
+
+    def __init__(self):
+
+        self.object_list = list()
+        self.current_table = -1
+        self.parse_current_table = False
+
+    def handle_table(self, name):
+        """
+        Every object in the file is called table, this method is evoked once per object.
+        :param name: str: the name of the table
+        """
+        curobject = {"object_name": name, "columns": list()}
+        self.object_list.append(curobject)
+        self.current_table += 1
+
+    def handle_column_name(self, name, index):
+        """
+        Some times name is None in handle column but it is recovered with this method.
+        :param name: str: name of the column
+        :param index: int: index of the column
+        """
+        self.object_list[self.current_table]["columns"].append(name)
+
+
+class MetadataParser(Parser):
+    """
+    Specialized parser to only read the file header (file type, format version, compression, R versions).
+    """
+
+    # stop the parse after the header, see librdata.pyx
+    stop_after_header = True
+
+    def __init__(self):
+        self.metadata = None
+
+    def handle_header(self, metadata):
+        self.metadata = metadata

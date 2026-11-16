@@ -1,0 +1,8 @@
+{
+  "status": "success",
+  "as_of": "2017-12-31",
+  "model_run_id": "20261101_211545_762551_356e56a9",
+  "model_train_end": "2017-12-31",
+  "path": "E:\\Cô Xuân\\SieuThi\\outputs\\enterprise\\scores\\20261101_211751_830376",
+  "mode": "score_only_no_retrain"
+}

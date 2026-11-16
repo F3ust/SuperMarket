@@ -1,0 +1,31 @@
+{
+  "file": "E:\\Cô Xuân\\SieuThi\\outputs\\management_finance\\Tai_chinh_quan_tri_cho_chuoi_sieu_thi.docx",
+  "sources": 13,
+  "figures": 1,
+  "tables": 8,
+  "sha256": "71419b54fa54d2e22bf50fd75e183c4032062e027b7acc881b986b46069380d8",
+  "scope": "Research brief; synthetic teaching cases; proposed design; live dashboard not changed.",
+  "arithmetic_checks": {
+    "base_result_million_vnd": 50.0,
+    "scenario_result_million_vnd": 34.0,
+    "result_change_percent": -32,
+    "price_cut_5pct_required_unit_uplift_percent": 33.333333333333336,
+    "closure_result_change_million_vnd": -15
+  },
+  "rendered_pages": 10,
+  "visually_reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "page_text_outside_bounds": [],
+  "external_source_links": 13,
+  "visual_qa": "All pages inspected; tables, chart, diacritics, headers and footers readable."
+}

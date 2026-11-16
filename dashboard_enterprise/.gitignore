@@ -1,0 +1,6 @@
+bundle.json
+payload.json
+qa/
+*.tar.gz
+*.zip
+__pycache__/

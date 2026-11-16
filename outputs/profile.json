@@ -1,0 +1,58 @@
+{
+  "completejourney": {
+    "rows": 1469307,
+    "households": 2469,
+    "stores": 457,
+    "baskets": 155848,
+    "products_sold": 68509,
+    "product_master_rows": 92331,
+    "start": "2017-01-01 11:53:26",
+    "end": "2018-01-01 04:01:20",
+    "duplicate_rows": 0,
+    "missing": {
+      "household_id": 0,
+      "store_id": 0,
+      "basket_id": 0,
+      "product_id": 0,
+      "quantity": 0,
+      "sales_value": 0,
+      "retail_disc": 0,
+      "coupon_disc": 0,
+      "coupon_match_disc": 0,
+      "week": 0,
+      "transaction_timestamp": 0
+    },
+    "nonpositive_quantity": 8869,
+    "nonpositive_sales": 11226,
+    "duplicate_product_keys": 0,
+    "unmatched_product_rows": 4836,
+    "demographic_households": 801,
+    "demographic_transaction_coverage": 0.5641094747387714,
+    "sales_value_total": 4596039.58,
+    "top20_household_sales_share": 0.5457049240642092,
+    "discount_line_share": 0.5078530218667712,
+    "demographic_household_coverage": 0.3244228432563791,
+    "missing_category_lines": 7045,
+    "quantity_warning": "Mixed package sizes and potential weighed/fuel items; do not compare raw quantities across products.",
+    "weekly_baseline_wape": {
+      "previous_week": 0.12239295307503502,
+      "trailing_4_week_mean": 0.07903793774838845
+    }
+  },
+  "online_retail": {
+    "rows": 541909,
+    "start": "2010-12-01 08:26:00",
+    "end": "2011-12-09 12:50:00",
+    "duplicate_rows": 5268,
+    "missing_customer_rows": 135080,
+    "missing_description_rows": 1454,
+    "nonpositive_quantity_rows": 10624,
+    "nonpositive_price_rows": 2517,
+    "cancel_lines": 9288,
+    "positive_deduplicated_rows": 524878,
+    "positive_line_value_GBP": 10642110.804000001,
+    "clean_invoices": 19960,
+    "clean_products": 3922,
+    "clean_identified_customers": 4338
+  }
+}

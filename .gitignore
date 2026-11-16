@@ -1,0 +1,25 @@
+# Dữ liệu thô (2,3 GB; nhiều file > 100 MB, vượt giới hạn GitHub). Tải lại theo docs/DATA_REPORT.md mục "Tái lập dữ liệu".
+data/raw/
+data/raw_dunnhumby/
+data/raw_m5/
+
+# Các lần chạy pipeline (mỗi lần ~40 MB parquet); giữ báo cáo mới nhất ở outputs/enterprise/latest_*
+outputs/enterprise/*/
+outputs/multisource/_cache/
+
+# Lịch sử git cục bộ cũ của dashboard_enterprise
+.local_backup/
+
+# Build, cache, môi trường
+node_modules/
+webapp/frontend/dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.tsbuildinfo
+.vercel/
+.env.local
+*.local
+~$*
+.DS_Store
+Thumbs.db

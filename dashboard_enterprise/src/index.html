@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Hệ thống dữ liệu và AI thử nghiệm cho chuỗi bán lẻ. Phân tích toàn bộ giao dịch, đánh giá model và mô phỏng vận hành đầu cuối.">
+<meta name="theme-color" content="#173e35"><title>Retail Intelligence | Dữ liệu và AI cho chuỗi bán lẻ</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23183d33'/%3E%3Ctext x='8' y='24' font-family='Arial' font-size='24' fill='white'%3ER%3C/text%3E%3C/svg%3E">
+<style>/*__STYLE__*/</style>
+</head>
+<body>
+<a class="skip-link" href="#content">Đến nội dung chính</a>
+<aside id="sidebar">
+  <a href="#overview" class="brand"><span class="brand-mark">R<span></span></span><span>retail<span class="brand-light">intelligence</span></span></a>
+  <div class="workspace"><span class="workspace-icon">CJ</span><div><b>Chuỗi bán lẻ thử nghiệm</b><small>Complete Journey · USD</small></div></div>
+  <div class="nav-caption">KHÔNG GIAN PHÂN TÍCH</div><nav id="navigation" aria-label="Điều hướng chính"></nav>
+  <div class="sidebar-foot"><span class="live-dot"></span><div><b id="sourceState">Đang nạp dữ liệu</b><small>Snapshot lịch sử · không phải POS live</small></div><button id="helpButton" class="icon-button" aria-label="Hướng dẫn sử dụng">?</button></div>
+</aside>
+<div id="main">
+  <header class="topbar"><div class="breadcrumb"><button id="menuToggle" class="icon-button mobile-menu" aria-label="Mở điều hướng">☰</button><span>Workspace</span><span class="crumb-divider">/</span><b id="currentRouteTitle">Tổng quan điều hành</b></div><div class="top-actions"><span class="snapshot-pill">DỮ LIỆU CÔNG KHAI</span><select id="roleView" aria-label="Góc nhìn"><option value="executive">Ban điều hành cấp cao</option><option value="operations">Điều hành vận hành</option></select><button id="alertsButton" class="notification-button" title="Quyết định và công việc cần rà soát" aria-label="Xem cảnh báo dữ liệu">♧</button><div class="avatar" title="Hai vai trò trình diễn">DA</div></div></header>
+  <div class="filterbar" id="filterbar">
+    <div class="filter-date"><label for="period">Kỳ phân tích</label><select id="period"><option value="year">Cả năm 2017</option><option value="q1">Quý 1</option><option value="q2">Quý 2</option><option value="q3">Quý 3</option><option value="q4">Quý 4</option><option value="dec" selected>Tháng 12</option><option value="custom">Tùy chỉnh</option></select><div class="date-inputs"><input id="dateStart" type="date" min="2017-01-01" max="2017-12-31" value="2017-12-01" aria-label="Từ ngày"><span>→</span><input id="dateEnd" type="date" min="2017-01-01" max="2017-12-31" value="2017-12-31" aria-label="Đến ngày"></div></div>
+    <div><label for="storeFilter">Cửa hàng</label><select id="storeFilter"><option value="-1">Tất cả cửa hàng</option></select></div>
+    <div><label for="deptFilter">Ngành hàng</label><select id="deptFilter"><option value="-1">Tất cả ngành hàng</option></select></div>
+    <div><label for="categoryFilter">Nhóm sản phẩm</label><select id="categoryFilter"><option value="-1">Tất cả nhóm sản phẩm</option></select></div>
+    <div><label for="brandFilter">Loại nhãn</label><select id="brandFilter"><option value="-1">Tất cả nhãn</option></select></div>
+    <div class="filter-buttons"><button id="applyFilters" class="button primary">Áp dụng</button><button id="resetFilters" class="button subtle">Đặt lại</button></div>
+  </div>
+  <div id="scopeLine" class="scope-line"><span id="scopeText">Đang chuẩn bị bộ máy phân tích toàn bộ giao dịch…</span><div style="display:flex;align-items:center;gap:8px"><button id="extendedFilters" class="button small">Bộ lọc đầy đủ</button><span id="scopeMode" class="mini-pill">Phạm vi tương tác</span></div></div>
+  <main id="content" tabindex="-1"><div class="loading-panel"><div class="spinner"></div><h1>Chuẩn bị không gian phân tích</h1><p>Giải nén dữ liệu, dựng bộ lọc và đối soát tổng tiền trong trình duyệt.</p><p class="muted" id="loadingDetail">Không sử dụng mẫu thay cho toàn bộ giao dịch trong kỳ.</p></div></main>
+  <footer class="app-footer"><span>Retail Intelligence · Enterprise demo</span><span id="footerStatus">Dữ liệu public · Phiên bản lịch sử 2017</span><button id="aboutButton">Phạm vi và nguồn dữ liệu</button></footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="detailDialog"><div class="dialog-top"><h2 id="dialogTitle">Chi tiết</h2><button id="closeDialog" class="icon-button" aria-label="Đóng">×</button></div><div id="dialogBody"></div></dialog>
+<script>/*__PLOTLY__*/</script>
+<script>window.RETAIL_DATA=/*__DATA__*/;</script>
+<script>window.RETAIL_WORKER=/*__WORKER__*/;</script>
+<script>/*__APP__*/</script>
+</body></html>

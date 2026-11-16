@@ -1,0 +1,301 @@
+{
+  "gini_observed_sales": 0.5248197898616607,
+  "cross_store": {
+    "multiple_store_households": 2139,
+    "share_multiple_stores": 0.8663426488456865,
+    "median_stores": 4.0,
+    "q3_q4_comparable_households": 2232,
+    "q3_q4_dominant_store_changed": 512,
+    "q3_q4_dominant_store_changed_share": 0.22939068100358423
+  },
+  "taxonomy_special_sales": 385867.79,
+  "taxonomy_special_top": [
+    {
+      "department": "FUEL",
+      "product_type": "GASOLINE-REG UNLEADED",
+      "sales": 309563.54
+    },
+    {
+      "department": "MISCELLANEOUS",
+      "product_type": "GASOLINE-REG UNLEADED",
+      "sales": 54449.62
+    },
+    {
+      "department": "MISCELLANEOUS",
+      "product_type": "ELECTRONIC GIFT CARDS ACTIVATI",
+      "sales": 5759.71
+    },
+    {
+      "department": "MISCELLANEOUS",
+      "product_type": "OUTSIDE VENDORS GIFT CARDS",
+      "sales": 2784.89
+    },
+    {
+      "department": "MISCELLANEOUS",
+      "product_type": "MEAT SUPPLIES",
+      "sales": 2670.35
+    },
+    {
+      "department": "MISCELLANEOUS",
+      "product_type": "ELECTRONIC GIFT CARDS REFRESH",
+      "sales": 2268.0
+    },
+    {
+      "department": "MISCELLANEOUS",
+      "product_type": "MISCELLANEOUS H & B AIDS",
+      "sales": 2037.75
+    },
+    {
+      "department": "GROCERY",
+      "product_type": "MISC SALES TRANS",
+      "sales": 1639.08
+    }
+  ],
+  "discount_observational": {
+    "positive_line_discount_share": 0.5082754319533285,
+    "paired_product_store_count": 85198,
+    "median_discounted_to_nondiscounted_line_value": 0.8245614035087719,
+    "ratio_q25": 0.6711409395973155,
+    "ratio_q75": 0.9573560767590618
+  },
+  "forecast": {
+    "OTHER_actual_share": 0.6025941525093326,
+    "OTHER_error_share": 0.5465328146005096,
+    "macro_series_wape": 0.17352535398363664,
+    "median_series_wape": 0.1456198906515284,
+    "interval_test_coverage": 0.6190476190476191,
+    "test_origin_metrics": [
+      {
+        "origin": "2017-12-03",
+        "actual": 93196.15999999999,
+        "predicted": 90189.61750000001,
+        "absolute_error": 4402.407499999996,
+        "series_wape": 0.04723807826416879
+      },
+      {
+        "origin": "2017-12-10",
+        "actual": 87470.18000000001,
+        "predicted": 91793.0675,
+        "absolute_error": 6396.8775000000005,
+        "series_wape": 0.07313209484649512
+      },
+      {
+        "origin": "2017-12-17",
+        "actual": 115132.84999999999,
+        "predicted": 90751.65,
+        "absolute_error": 25741.855,
+        "series_wape": 0.22358392934770574
+      },
+      {
+        "origin": "2017-12-24",
+        "actual": 78935.91,
+        "predicted": 96445.7425,
+        "absolute_error": 19641.2825,
+        "series_wape": 0.24882569289440004
+      }
+    ]
+  },
+  "risk_bootstrap": {
+    "method": "1000 household-cluster bootstrap replications, retaining both snapshots for each sampled household; percentile 95% intervals conditional on two observed calendar origins",
+    "AP_difference": 0.07610196129805341,
+    "AP_difference_CI": [
+      0.052816821087349856,
+      0.09777611177595112
+    ],
+    "precision_top20_difference": 0.06594594594594594,
+    "precision_top20_difference_CI": [
+      0.04329004329004332,
+      0.08972972972972976
+    ],
+    "pooled_ML_AP": 0.4558804514057801,
+    "pooled_baseline_AP": 0.3797784901077267,
+    "pooled_prevalence": 0.1479878840328862,
+    "pooled_Brier_ML": 0.09808045946084426,
+    "pooled_Brier_baseline": 0.1116890502214316
+  },
+  "run_id": "20261101_211545_762551_356e56a9",
+  "data_end": "2017-12-31",
+  "department_growth": [
+    {
+      "department": "GROCERY",
+      "delta_sales": 14976.890000000014,
+      "share_of_net_change": 0.412245348477459
+    },
+    {
+      "department": "DRUG GM",
+      "delta_sales": 9637.779999999999,
+      "share_of_net_change": 0.2652840459300349
+    },
+    {
+      "department": "MEAT-PCKGD",
+      "delta_sales": 1887.0,
+      "share_of_net_change": 0.05194048781669387
+    },
+    {
+      "department": "MISCELLANEOUS",
+      "delta_sales": 1817.2299999999996,
+      "share_of_net_change": 0.050020038513582714
+    },
+    {
+      "department": "DELI",
+      "delta_sales": 1718.25,
+      "share_of_net_change": 0.04729557137839653
+    },
+    {
+      "department": "MEAT",
+      "delta_sales": 1675.2800000000025,
+      "share_of_net_change": 0.04611280361926393
+    },
+    {
+      "department": "SEAFOOD-PCKGD",
+      "delta_sales": 1328.3200000000002,
+      "share_of_net_change": 0.03656258016781707
+    },
+    {
+      "department": "SPIRITS",
+      "delta_sales": 714.6800000000001,
+      "share_of_net_change": 0.019671874845169465
+    }
+  ],
+  "segment_summary": [
+    {
+      "segment": "Giá trị cao, cần kiểm tra giảm mua",
+      "households": 13,
+      "sales": 40402.15,
+      "mean_recency": 51.30769230769231,
+      "mean_frequency": 74.6923076923077,
+      "sales_share": 0.0087942911022748
+    },
+    {
+      "segment": "Khách hàng chủ lực",
+      "households": 415,
+      "sales": 2105438.64,
+      "mean_recency": 2.0626506024096387,
+      "mean_frequency": 163.14457831325302,
+      "sales_share": 0.4582884895516104
+    },
+    {
+      "segment": "Mua thường xuyên",
+      "households": 200,
+      "sales": 389773.29,
+      "mean_recency": 6.865,
+      "mean_frequency": 123.745,
+      "sales_share": 0.0848415189823161
+    },
+    {
+      "segment": "Mới xuất hiện trong dữ liệu",
+      "households": 6,
+      "sales": 553.46,
+      "mean_recency": 8.333333333333334,
+      "mean_frequency": 2.1666666666666665,
+      "sales_share": 0.0001204710232862
+    },
+    {
+      "segment": "Nhóm còn lại",
+      "households": 1835,
+      "sales": 2057966.26,
+      "mean_recency": 26.833242506811988,
+      "mean_frequency": 33.70299727520436,
+      "sales_share": 0.4479552293405124
+    }
+  ],
+  "monthly_kpis": [
+    {
+      "month": "2017-01",
+      "sales": 370886.93,
+      "baskets": 12721,
+      "households": 1982,
+      "aov": 29.155485417813065,
+      "sales_mom": NaN
+    },
+    {
+      "month": "2017-02",
+      "sales": 350070.69,
+      "baskets": 11787,
+      "households": 1946,
+      "aov": 29.699727666072796,
+      "sales_mom": -0.0561255690514626
+    },
+    {
+      "month": "2017-03",
+      "sales": 380300.74,
+      "baskets": 12981,
+      "households": 2025,
+      "aov": 29.296721361990603,
+      "sales_mom": 0.0863541303614991
+    },
+    {
+      "month": "2017-04",
+      "sales": 373646.21,
+      "baskets": 12728,
+      "households": 2008,
+      "aov": 29.356239000628538,
+      "sales_mom": -0.0174980727095087
+    },
+    {
+      "month": "2017-05",
+      "sales": 400771.04,
+      "baskets": 13663,
+      "households": 2075,
+      "aov": 29.3325799604772,
+      "sales_mom": 0.0725949555329357
+    },
+    {
+      "month": "2017-06",
+      "sales": 373512.59,
+      "baskets": 13015,
+      "households": 2027,
+      "aov": 28.69862389550519,
+      "sales_mom": -0.0680150192488957
+    },
+    {
+      "month": "2017-07",
+      "sales": 397367.25,
+      "baskets": 13754,
+      "households": 2078,
+      "aov": 28.891031699869128,
+      "sales_mom": 0.0638657454625557
+    },
+    {
+      "month": "2017-08",
+      "sales": 384746.76,
+      "baskets": 13419,
+      "households": 2033,
+      "aov": 28.6717907444668,
+      "sales_mom": -0.0317602671080718
+    },
+    {
+      "month": "2017-09",
+      "sales": 368006.46,
+      "baskets": 12636,
+      "households": 2028,
+      "aov": 29.123651471984807,
+      "sales_mom": -0.0435099180562299
+    },
+    {
+      "month": "2017-10",
+      "sales": 387403.11,
+      "baskets": 13252,
+      "households": 2052,
+      "aov": 29.23355795351645,
+      "sales_mom": 0.0527073628000984
+    },
+    {
+      "month": "2017-11",
+      "sales": 385552.25,
+      "baskets": 12716,
+      "households": 2061,
+      "aov": 30.320246146586975,
+      "sales_mom": -0.0047776074900379
+    },
+    {
+      "month": "2017-12",
+      "sales": 421882.29,
+      "baskets": 13090,
+      "households": 2057,
+      "aov": 32.22935752482811,
+      "sales_mom": 0.0942285773199351
+    }
+  ],
+  "source_signature": "356e56a950890ee4f7016e41c6b77a9d741c54e4661c70d9619475ab2189601b"
+}

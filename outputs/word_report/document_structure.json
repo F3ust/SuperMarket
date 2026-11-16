@@ -1,0 +1,131 @@
+{
+  "expected_pages": 33,
+  "sections": [
+    "Tóm tắt dành cho người ra quyết định",
+    "Mục lục",
+    "01 Dữ liệu và khả năng áp dụng",
+    "02 Chất lượng và đối soát",
+    "03 Biến động doanh thu",
+    "04 Ngành hàng và nguyên nhân biến động",
+    "05 Danh mục sản phẩm và tập trung doanh số",
+    "06 Giá trị khách hàng và phân nhóm",
+    "07 Nhóm khách theo thời điểm xuất hiện",
+    "08 Hành vi mua xuyên cửa hàng",
+    "09 Khuyến mãi và giới hạn diễn giải",
+    "10 Đánh giá chiến dịch coupon",
+    "11 Thiết kế bài toán dự báo",
+    "12 So sánh các mô hình dự báo",
+    "13 Sai số theo ngành hàng và theo tuần",
+    "14 Bất định và giới hạn dự báo",
+    "15 Thiết kế mô hình khách hàng",
+    "16 Kết quả nhận diện khách giảm mua",
+    "17 Công suất chăm sóc và độ bất định",
+    "18 Giải thích và kiểm tra điểm rủi ro",
+    "19 Giỏ hàng và gợi ý mua cùng",
+    "20 Kiến trúc quy trình dữ liệu",
+    "21 Mô hình dữ liệu cho chuỗi",
+    "22 Vận hành tự động và giám sát",
+    "23 Thiết kế thử nghiệm kinh doanh",
+    "24 Lộ trình PoC và điều kiện nghiệm thu",
+    "25 Hiệu quả kinh tế và quản trị rủi ro",
+    "26 Hồ sơ mô hình và tái lập",
+    "27 Từ điển chỉ tiêu và dữ liệu cần xin",
+    "28 Nguồn tham khảo",
+    "29 Phụ lục sai số dự báo chi tiết",
+    "30 Thuật ngữ chuyên môn"
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "caption": "Số tiền bán và các thành phần của giỏ hàng trong năm 2017",
+      "file": "01_revenue.png"
+    },
+    {
+      "number": 2,
+      "caption": "Phân rã đối xứng của biến động doanh số tháng 12 so với tháng 11",
+      "file": "02_bridge.png"
+    },
+    {
+      "number": 3,
+      "caption": "Đường tích lũy doanh số mua dương sau khi xếp SKU giảm dần",
+      "file": "05_abc.png"
+    },
+    {
+      "number": 4,
+      "caption": "Quy mô và tỷ trọng doanh số của các nhóm khách theo quy tắc nghiệp vụ",
+      "file": "07_segments.png"
+    },
+    {
+      "number": 5,
+      "caption": "Hoạt động giao dịch theo nhóm tháng đầu xuất hiện trong file",
+      "file": "08_cohorts.png"
+    },
+    {
+      "number": 6,
+      "caption": "Phân bố số cửa hàng có giao dịch mua dương của mỗi hộ",
+      "file": "09_cross_store.png"
+    },
+    {
+      "number": 7,
+      "caption": "So sánh tiền mỗi dòng có và không có discount trong cùng cặp SKU và cửa hàng",
+      "file": "10_discount.png"
+    },
+    {
+      "number": 8,
+      "caption": "Tỷ lệ hộ đổi coupon và khoảng Wilson 95 phần trăm theo chiến dịch đủ điều kiện",
+      "file": "11_campaigns.png"
+    },
+    {
+      "number": 9,
+      "caption": "WAPE validation và test của các ứng viên và baseline",
+      "file": "12_forecast_models.png"
+    },
+    {
+      "number": 10,
+      "caption": "Biến động thực tế dự báo và WAPE tại bốn origin test",
+      "file": "13_forecast_weeks.png"
+    },
+    {
+      "number": 11,
+      "caption": "Dải residual heuristic và thực tế test cho nhóm OTHER",
+      "file": "16_forecast_band.png"
+    },
+    {
+      "number": 12,
+      "caption": "Đường precision recall trên hai snapshot test gộp để mô tả",
+      "file": "17_risk_pr.png"
+    },
+    {
+      "number": 13,
+      "caption": "Đánh đổi giữa độ tập trung rủi ro và độ bao phủ khi thay công suất chọn",
+      "file": "18_risk_capacity.png"
+    },
+    {
+      "number": 14,
+      "caption": "Tầm quan trọng hoán vị của các biến trên snapshot validation",
+      "file": "20_risk_importance.png"
+    },
+    {
+      "number": 15,
+      "caption": "So sánh association với popularity trên giỏ test đủ điều kiện",
+      "file": "22_basket_models.png"
+    },
+    {
+      "number": 16,
+      "caption": "Luồng xử lý và kiểm soát của pipeline đã triển khai",
+      "file": "24_pipeline.png"
+    },
+    {
+      "number": 17,
+      "caption": "Thiết kế mở rộng đề xuất cho dữ liệu POS ERP và WMS của chuỗi",
+      "file": "25_chain_architecture.png"
+    },
+    {
+      "number": 18,
+      "caption": "Trình tự triển khai đề xuất khi có dữ liệu doanh nghiệp",
+      "file": "26_poc.png"
+    }
+  ],
+  "run_id": "20261101_211545_762551_356e56a9",
+  "path": "E:\\Cô Xuân\\SieuThi\\outputs\\word_report\\Bao_cao_chuyen_sau_chuoi_sieu_thi.docx"
+}

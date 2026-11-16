@@ -1,0 +1,62 @@
+{
+   "checksum": "97b6ddd293a80ff0ea8e03f2e47a254b",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13438015716992064",
+            "date_last_used": "0",
+            "guid": "3b248748-7f49-486f-8fc9-7af823f33b36",
+            "id": "7",
+            "name": "McAfee Security",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.mcafee.com/consumer/v/browserfav/dell.html",
+            "visit_count": 0
+         } ],
+         "date_added": "13438015715362656",
+         "date_last_used": "0",
+         "date_modified": "13438015716992064",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13438015715362656",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13438015715362656",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [  ],
+         "date_added": "13438015715362656",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "Workspaces",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CkEKHgiIgQISCIVubJehAQAAKg4QABgBIAAoBDAAOABAABIAKhgyUEg5ZWR5aytmS3FnQmMwWmd6QVNBPT1IA6AGDBKMAQgFEocBChx3UkJyWkwrNlBBOWF2S2dqTlA3SlhETGNmdnM9EiQxNmIwYmRjNS0zOTNhLTUzNTEtYjZlMy0wOTdmMzJhN2U0Y2YYACAAKAAw0f3LntwzOLb/y57cM0C2/8ue3DNKHG5teDY1c1FEdnhJOFRnRWV2K0ErbnR0b1NuND1lAAAAAMI+AmAAEowBCAEShwEKHHl4Si82ZnZrZWNyN2twNUVRekI0dFdMcGRiRT0SJDQyNjkxY2MzLWViZTItNWViNy1hMmRkLWIxNWNjYjg5MTBlYhgAIAAoADCf9LzbozE4q/q826MxQKv6vNujMUocYVJDV0xnaEY5YjVJbnFLSUR2dUovanZRa0ZjPWUAAAAAwj4CYAASjAEIAhKHAQocWWNTVG9udkVTUHdxQ3M0TDJjclZodjY4TDk4PRIkMjdhMTVmOTAtZjFjNC01ZmI2LWI3ZWItM2M2NDBjYjc4MTNmGAAgACgAMKD0vNujMTjE+rzbozFAxPq826MxShxvUFZraHdCUmJWNjVLQ1dSMitJT05IV29PdTg9ZQAAAADCPgJgABKMAQgDEocBChxuamdEdTg4ZUNydlhwODZwRDdmSEdjcUZwODg9EiQ4MTdjYTkzNy1hNjk1LTU4ZDktYjk4OC1jZGVjMjYyOGQxZmEYACAAKAAwpfS826MxOPb6vNujMUD2+rzbozFKHHl6TkIwMWNuNTRBN2NSVTB1VCsvUGdtVHRVbz1lAAAAAMI+AmAAMAA4AA==",
+   "version": 1
+}

@@ -1,0 +1,15 @@
+{
+  "pages": 33,
+  "figures": 18,
+  "tables": 19,
+  "words_whitespace": 10566,
+  "toc_links": 30,
+  "checks": "structure, page fields, page bounds, key figures and numbers passed",
+  "initial_render_pages_visually_reviewed": 32,
+  "unchanged_pages_reuse_identical_reviewed_images": 32,
+  "pages_requiring_final_visual_review": [],
+  "final_sha256": "52439f2bcc654088f322fc2c02032ceb786c258432e6fd2f3b348e6e5d0d1762",
+  "prior_render_pages_visually_reviewed": 33,
+  "final_visual_review": "passed all 33 pages with unchanged-page hash comparison and visual review of changed pages",
+  "final_docx_hash_verified": true
+}

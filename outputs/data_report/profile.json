@@ -1,0 +1,1928 @@
+{
+ "generated": "2026-11-17 01:10",
+ "sources": {
+  "cj": {
+   "tables": [
+    {
+     "name": "transaction_data",
+     "file": "transaction_data.csv",
+     "mb": 141.7,
+     "rows": 2595732,
+     "cols": [
+      {
+       "name": "household_key",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2532
+      },
+      {
+       "name": "BASKET_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 290226
+      },
+      {
+       "name": "DAY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 709
+      },
+      {
+       "name": "PRODUCT_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 92005
+      },
+      {
+       "name": "QUANTITY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 11625
+      },
+      {
+       "name": "SALES_VALUE",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 5403
+      },
+      {
+       "name": "STORE_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 587
+      },
+      {
+       "name": "RETAIL_DISC",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2309
+      },
+      {
+       "name": "TRANS_TIME",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1427
+      },
+      {
+       "name": "WEEK_NO",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 104
+      },
+      {
+       "name": "COUPON_DISC",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 413
+      },
+      {
+       "name": "COUPON_MATCH_DISC",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 81
+      }
+     ]
+    },
+    {
+     "name": "causal_data",
+     "file": "causal_data.csv",
+     "mb": 695.9,
+     "rows": 36786524,
+     "cols": [
+      {
+       "name": "PRODUCT_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 67375
+      },
+      {
+       "name": "STORE_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 114
+      },
+      {
+       "name": "WEEK_NO",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 94
+      },
+      {
+       "name": "display",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 10
+      },
+      {
+       "name": "mailer",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 11
+      }
+     ]
+    },
+    {
+     "name": "product",
+     "file": "product.csv",
+     "mb": 6.4,
+     "rows": 92353,
+     "cols": [
+      {
+       "name": "PRODUCT_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 92005
+      },
+      {
+       "name": "MANUFACTURER",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 6359
+      },
+      {
+       "name": "DEPARTMENT",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 42
+      },
+      {
+       "name": "BRAND",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      },
+      {
+       "name": "COMMODITY_DESC",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 302
+      },
+      {
+       "name": "SUB_COMMODITY_DESC",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2424
+      },
+      {
+       "name": "CURR_SIZE_OF_PRODUCT",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4392
+      }
+     ]
+    },
+    {
+     "name": "hh_demographic",
+     "file": "hh_demographic.csv",
+     "mb": 0.0,
+     "rows": 801,
+     "cols": [
+      {
+       "name": "classification_1",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 6
+      },
+      {
+       "name": "classification_2",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3
+      },
+      {
+       "name": "classification_3",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 12
+      },
+      {
+       "name": "HOMEOWNER_DESC",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 5
+      },
+      {
+       "name": "classification_5",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 6
+      },
+      {
+       "name": "classification_4",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 5
+      },
+      {
+       "name": "KID_CATEGORY_DESC",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4
+      },
+      {
+       "name": "household_key",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 820
+      }
+     ]
+    },
+    {
+     "name": "campaign_table",
+     "file": "campaign_table.csv",
+     "mb": 0.1,
+     "rows": 7208,
+     "cols": [
+      {
+       "name": "DESCRIPTION",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3
+      },
+      {
+       "name": "household_key",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1609
+      },
+      {
+       "name": "CAMPAIGN",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 30
+      }
+     ]
+    },
+    {
+     "name": "campaign_desc",
+     "file": "campaign_desc.csv",
+     "mb": 0.0,
+     "rows": 30,
+     "cols": [
+      {
+       "name": "DESCRIPTION",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3
+      },
+      {
+       "name": "CAMPAIGN",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 30
+      },
+      {
+       "name": "START_DAY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 26
+      },
+      {
+       "name": "END_DAY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 28
+      }
+     ]
+    },
+    {
+     "name": "coupon",
+     "file": "coupon.csv",
+     "mb": 2.8,
+     "rows": 124548,
+     "cols": [
+      {
+       "name": "COUPON_UPC",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1142
+      },
+      {
+       "name": "PRODUCT_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 46034
+      },
+      {
+       "name": "CAMPAIGN",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 30
+      }
+     ]
+    },
+    {
+     "name": "coupon_redempt",
+     "file": "coupon_redempt.csv",
+     "mb": 0.1,
+     "rows": 2318,
+     "cols": [
+      {
+       "name": "household_key",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 439
+      },
+      {
+       "name": "DAY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 331
+      },
+      {
+       "name": "COUPON_UPC",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 564
+      },
+      {
+       "name": "CAMPAIGN",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 30
+      }
+     ]
+    }
+   ],
+   "checks": {
+    "households": 2500,
+    "baskets": 276484,
+    "products": 92339,
+    "stores": 582,
+    "day_min": 1,
+    "day_max": 711,
+    "week_min": 1,
+    "week_max": 102,
+    "sales_total": 8057463.079994512,
+    "sales_le0": 18850,
+    "sales_eq0": 18850,
+    "qty_eq0": 14466,
+    "qty_gt1000": 23101,
+    "retail_disc_pos": 36,
+    "coupon_disc_pos": 0,
+    "disc_total": 1448522.1900001678,
+    "dup_rows": 0,
+    "tx_product_not_in_lookup": 0,
+    "hh_with_demo": 801,
+    "hh_in_campaign": 1584,
+    "days_missing": 0,
+    "trans_time_bad": 0,
+    "baskets_multi_store": 0,
+    "baskets_multi_day": 0,
+    "store_top10_share": 0.19412397729554245,
+    "hh_txn_weeks_median": 50.0,
+    "causal_display_dist": [
+     [
+      "0",
+      21038745
+     ],
+     [
+      "1",
+      1102141
+     ],
+     [
+      "2",
+      1812840
+     ],
+     [
+      "3",
+      2073738
+     ],
+     [
+      "4",
+      592985
+     ],
+     [
+      "5",
+      2575289
+     ],
+     [
+      "6",
+      1816021
+     ],
+     [
+      "7",
+      2362118
+     ],
+     [
+      "9",
+      2699467
+     ],
+     [
+      "A",
+      713180
+     ]
+    ],
+    "causal_mailer_dist": [
+     [
+      "0",
+      11534183
+     ],
+     [
+      "A",
+      17106789
+     ],
+     [
+      "C",
+      291059
+     ],
+     [
+      "D",
+      4467453
+     ],
+     [
+      "F",
+      1077549
+     ],
+     [
+      "H",
+      1560395
+     ],
+     [
+      "J",
+      306924
+     ],
+     [
+      "L",
+      301327
+     ],
+     [
+      "P",
+      569
+     ],
+     [
+      "X",
+      120823
+     ],
+     [
+      "Z",
+      19453
+     ]
+    ],
+    "causal_week_min": 9,
+    "causal_week_max": 101,
+    "causal_stores": 115,
+    "dept_top": [
+     [
+      "GROCERY",
+      4093814.1399991945
+     ],
+     [
+      "DRUG GM",
+      1055358.0300000552
+     ],
+     [
+      "PRODUCE",
+      557452.110000014
+     ],
+     [
+      "MEAT",
+      548786.8099999998
+     ],
+     [
+      "KIOSK-GAS",
+      544222.2799999996
+     ],
+     [
+      "MEAT-PCKGD",
+      412436.76999999874
+     ],
+     [
+      "DELI",
+      260866.51000000566
+     ],
+     [
+      "PASTRY",
+      121739.85999999898
+     ]
+    ],
+    "income_dist": [
+     [
+      "Level5",
+      192
+     ],
+     [
+      "Level4",
+      172
+     ],
+     [
+      "Level6",
+      96
+     ],
+     [
+      "Level3",
+      77
+     ],
+     [
+      "Level2",
+      74
+     ],
+     [
+      "Level1",
+      61
+     ],
+     [
+      "Level8",
+      38
+     ],
+     [
+      "Level7",
+      34
+     ],
+     [
+      "Level9",
+      30
+     ],
+     [
+      "Level12",
+      11
+     ],
+     [
+      "Level10",
+      11
+     ],
+     [
+      "Level11",
+      5
+     ]
+    ]
+   }
+  },
+  "carbo": {
+   "tables": [
+    {
+     "name": "dh_transactions",
+     "file": "dh_transactions.csv",
+     "mb": 268.5,
+     "rows": 5197681,
+     "cols": [
+      {
+       "name": "upc",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 923
+      },
+      {
+       "name": "dollar_sales",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1482
+      },
+      {
+       "name": "units",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 49
+      },
+      {
+       "name": "time_of_transaction",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1427
+      },
+      {
+       "name": "geography",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      },
+      {
+       "name": "week",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 105
+      },
+      {
+       "name": "household",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 508416
+      },
+      {
+       "name": "store",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 383
+      },
+      {
+       "name": "basket",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3241469
+      },
+      {
+       "name": "day",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 721
+      },
+      {
+       "name": "coupon",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      }
+     ]
+    },
+    {
+     "name": "dh_causal_lookup",
+     "file": "dh_causal_lookup.csv",
+     "mb": 19.2,
+     "rows": 351372,
+     "cols": [
+      {
+       "name": "upc",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 478
+      },
+      {
+       "name": "store",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 378
+      },
+      {
+       "name": "week",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 61
+      },
+      {
+       "name": "feature_desc",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 8
+      },
+      {
+       "name": "display_desc",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 11
+      },
+      {
+       "name": "geography",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      }
+     ]
+    },
+    {
+     "name": "dh_product_lookup",
+     "file": "dh_product_lookup.csv",
+     "mb": 0.1,
+     "rows": 927,
+     "cols": [
+      {
+       "name": "upc",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 952
+      },
+      {
+       "name": "product_description",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 870
+      },
+      {
+       "name": "commodity",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4
+      },
+      {
+       "name": "brand",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 131
+      },
+      {
+       "name": "product_size",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 147
+      }
+     ]
+    }
+   ],
+   "checks": {
+    "households": 510027,
+    "baskets": 3316349,
+    "stores": 387,
+    "upcs": 927,
+    "week_min": 1,
+    "week_max": 104,
+    "day_min": 1,
+    "day_max": 728,
+    "sales_total": 9130079.889987638,
+    "sales_le0": 9585,
+    "units_le0": 0,
+    "coupon_rows": 91188,
+    "dup_rows": 0,
+    "upc_not_in_lookup": 0,
+    "commodity_sales": [
+     [
+      "pasta sauce",
+      4025026.48000335
+     ],
+     [
+      "pasta",
+      2851930.55999847
+     ],
+     [
+      "syrups",
+      1741308.5400001176
+     ],
+     [
+      "pancake mixes",
+      511814.30999998574
+     ]
+    ],
+    "geography": [
+     [
+      1,
+      227
+     ],
+     [
+      2,
+      160
+     ]
+    ],
+    "price_outlier": 0,
+    "feature_dist": [
+     [
+      "Interior Page Feature",
+      192995
+     ],
+     [
+      "Not on Feature",
+      78955
+     ],
+     [
+      "Front Page Feature",
+      34049
+     ],
+     [
+      "Wrap Interior Feature",
+      22203
+     ],
+     [
+      "Back Page Feature",
+      7397
+     ],
+     [
+      "Interior Page Line Item",
+      6001
+     ],
+     [
+      "Wrap Back Feature",
+      5004
+     ],
+     [
+      "Wrap Front Feature",
+      4768
+     ]
+    ],
+    "display_dist": [
+     [
+      "Not on Display",
+      254776
+     ],
+     [
+      "Rear End Cap",
+      24656
+     ],
+     [
+      "In-Shelf",
+      20617
+     ],
+     [
+      "Secondary Location Display",
+      14475
+     ],
+     [
+      "Front End Cap",
+      10178
+     ],
+     [
+      "In-Aisle",
+      9147
+     ],
+     [
+      "Promo/Seasonal Aisle",
+      5329
+     ],
+     [
+      "Mid-Aisle End Cap",
+      4675
+     ],
+     [
+      "Store Rear",
+      4250
+     ],
+     [
+      "Store Front",
+      2257
+     ],
+     [
+      "Side-Aisle End Cap",
+      1012
+     ]
+    ]
+   }
+  },
+  "batf": {
+   "tables": [
+    {
+     "name": "dh_Transaction_Data",
+     "file": "dunnhumby - Breakfast at the Frat.xlsx · sheet dh_Transaction_Data",
+     "mb": 31.6,
+     "rows": 524950,
+     "cols": [
+      {
+       "name": "WEEK_END_DATE",
+       "type": "TIMESTAMP_NS",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 160
+      },
+      {
+       "name": "STORE_NUM",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 74
+      },
+      {
+       "name": "UPC",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 55
+      },
+      {
+       "name": "UNITS",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 571
+      },
+      {
+       "name": "VISITS",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 457
+      },
+      {
+       "name": "HHS",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 445
+      },
+      {
+       "name": "SPEND",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 20201
+      },
+      {
+       "name": "PRICE",
+       "type": "DOUBLE",
+       "nulls": 23,
+       "null_pct": 4.381369654252786e-05,
+       "distinct": 692
+      },
+      {
+       "name": "BASE_PRICE",
+       "type": "DOUBLE",
+       "nulls": 185,
+       "null_pct": 0.0003524145156681589,
+       "distinct": 666
+      },
+      {
+       "name": "FEATURE",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      },
+      {
+       "name": "DISPLAY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      },
+      {
+       "name": "TPR_ONLY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      }
+     ]
+    },
+    {
+     "name": "dh_Products_Lookup",
+     "file": "dunnhumby - Breakfast at the Frat.xlsx · sheet dh_Products_Lookup",
+     "mb": 0,
+     "rows": 58,
+     "cols": [
+      {
+       "name": "UPC",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 59
+      },
+      {
+       "name": "DESCRIPTION",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 57
+      },
+      {
+       "name": "MANUFACTURER",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 15
+      },
+      {
+       "name": "CATEGORY",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4
+      },
+      {
+       "name": "SUB_CATEGORY",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 7
+      },
+      {
+       "name": "PRODUCT_SIZE",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 30
+      }
+     ]
+    },
+    {
+     "name": "dh_Store_Lookup",
+     "file": "dunnhumby - Breakfast at the Frat.xlsx · sheet dh_Store_Lookup",
+     "mb": 0,
+     "rows": 79,
+     "cols": [
+      {
+       "name": "STORE_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 74
+      },
+      {
+       "name": "STORE_NAME",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 74
+      },
+      {
+       "name": "ADDRESS_CITY_NAME",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 51
+      },
+      {
+       "name": "ADDRESS_STATE_PROV_CODE",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4
+      },
+      {
+       "name": "MSA_CODE",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 9
+      },
+      {
+       "name": "SEG_VALUE_NAME",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3
+      },
+      {
+       "name": "PARKING_SPACE_QTY",
+       "type": "DOUBLE",
+       "nulls": 52,
+       "null_pct": 0.6582278481012658,
+       "distinct": 24
+      },
+      {
+       "name": "SALES_AREA_SIZE_NUM",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 72
+      },
+      {
+       "name": "AVG_WEEKLY_BASKETS",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 79
+      }
+     ]
+    }
+   ],
+   "checks": {
+    "columns": [
+     "WEEK_END_DATE",
+     "STORE_NUM",
+     "UPC",
+     "UNITS",
+     "VISITS",
+     "HHS",
+     "SPEND",
+     "PRICE",
+     "BASE_PRICE",
+     "FEATURE",
+     "DISPLAY",
+     "TPR_ONLY"
+    ],
+    "weeks": 156,
+    "week_min": "2009-01-14 00:00:00",
+    "week_max": "2012-01-04 00:00:00",
+    "stores": 77,
+    "upcs": 55,
+    "units_total": 10293354,
+    "spend_total": 27927722.579987694,
+    "price_null": 23,
+    "base_price_null": 185,
+    "price_gt_base": 4710,
+    "feature_rate": 0.08429564720449567,
+    "display_rate": 0.11013429850461949,
+    "tpr_rate": 0.1347442613582246,
+    "units_le0": 5,
+    "dup_keys": 0,
+    "panel_fill": 0.8608503715948075
+   }
+  },
+  "lgsr": {
+   "tables": [
+    {
+     "name": "transactions_YYYYWW",
+     "file": "115 file tuần transactions_*.csv",
+     "mb": 443.0,
+     "rows": 3105071,
+     "cols": [
+      {
+       "name": "SHOP_WEEK",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 120
+      },
+      {
+       "name": "SHOP_DATE",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 806
+      },
+      {
+       "name": "SHOP_WEEKDAY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 7
+      },
+      {
+       "name": "SHOP_HOUR",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 15
+      },
+      {
+       "name": "QUANTITY",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 94
+      },
+      {
+       "name": "SPEND",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3357
+      },
+      {
+       "name": "PROD_CODE",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 5020
+      },
+      {
+       "name": "PROD_CODE_10",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 253
+      },
+      {
+       "name": "PROD_CODE_20",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 90
+      },
+      {
+       "name": "PROD_CODE_30",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 30
+      },
+      {
+       "name": "PROD_CODE_40",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 9
+      },
+      {
+       "name": "CUST_CODE",
+       "type": "VARCHAR",
+       "nulls": 607203,
+       "null_pct": 0.19555205017856275,
+       "distinct": 4919
+      },
+      {
+       "name": "seg_1",
+       "type": "VARCHAR",
+       "nulls": 607203,
+       "null_pct": 0.19555205017856275,
+       "distinct": 4
+      },
+      {
+       "name": "seg_2",
+       "type": "VARCHAR",
+       "nulls": 909141,
+       "null_pct": 0.29279233872591,
+       "distinct": 6
+      },
+      {
+       "name": "BASKET_ID",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 458556
+      },
+      {
+       "name": "BASKET_SIZE",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3
+      },
+      {
+       "name": "BASKET_PRICE_SENSITIVITY",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4
+      },
+      {
+       "name": "BASKET_TYPE",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4
+      },
+      {
+       "name": "BASKET_DOMINANT_MISSION",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 5
+      },
+      {
+       "name": "STORE_CODE",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 756
+      },
+      {
+       "name": "STORE_FORMAT",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 4
+      },
+      {
+       "name": "STORE_REGION",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 12
+      }
+     ]
+    },
+    {
+     "name": "time",
+     "file": "time.csv",
+     "mb": 0.0,
+     "rows": 142,
+     "cols": [
+      {
+       "name": "shop_week",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 144
+      },
+      {
+       "name": "date_from",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 144
+      },
+      {
+       "name": "date_to",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 144
+      }
+     ]
+    }
+   ],
+   "checks": {
+    "files": 115,
+    "weeks": 115,
+    "week_min": 200607,
+    "week_max": 200819,
+    "date_min": 20060410,
+    "date_max": 20080706,
+    "customers": 4983,
+    "anon_rows": 607203,
+    "baskets": 482636,
+    "stores": 761,
+    "products": 4997,
+    "spend_total": 5933712.070000796,
+    "spend_le0": 6,
+    "hour_range": [
+     8,
+     22
+    ],
+    "seg_null": 607203,
+    "basket_type": [
+     [
+      "Small Shop",
+      265908
+     ],
+     [
+      "Top Up",
+      158439
+     ],
+     [
+      "Full Shop",
+      52053
+     ],
+     [
+      "XX",
+      6236
+     ]
+    ],
+    "store_format": [
+     [
+      "LS",
+      330
+     ],
+     [
+      "MS",
+      236
+     ],
+     [
+      "SS",
+      167
+     ],
+     [
+      "XLS",
+      28
+     ]
+    ],
+    "region": [
+     [
+      "E01",
+      60
+     ],
+     [
+      "E02",
+      61
+     ],
+     [
+      "E03",
+      57
+     ],
+     [
+      "N01",
+      63
+     ],
+     [
+      "N02",
+      59
+     ],
+     [
+      "N03",
+      76
+     ],
+     [
+      "S01",
+      62
+     ],
+     [
+      "S02",
+      77
+     ],
+     [
+      "S03",
+      55
+     ],
+     [
+      "W01",
+      64
+     ],
+     [
+      "W02",
+      73
+     ],
+     [
+      "W03",
+      54
+     ]
+    ],
+    "weeks_missing": [
+     200608,
+     200703
+    ]
+   }
+  },
+  "m5": {
+   "tables": [
+    {
+     "name": "sales_train_evaluation",
+     "file": "sales_train_evaluation.csv",
+     "mb": 121.7,
+     "rows": 30490,
+     "cols": [
+      {
+       "name": "id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 30490
+      },
+      {
+       "name": "item_id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3049
+      },
+      {
+       "name": "dept_id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 7
+      },
+      {
+       "name": "cat_id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3
+      },
+      {
+       "name": "store_id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 10
+      },
+      {
+       "name": "state_id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 3
+      },
+      {
+       "name": "d_1 … d_1941",
+       "type": "INT (lượng bán ngày)",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1941
+      }
+     ]
+    },
+    {
+     "name": "calendar",
+     "file": "calendar.csv",
+     "mb": 0.1,
+     "rows": 1969,
+     "cols": [
+      {
+       "name": "date",
+       "type": "DATE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1975
+      },
+      {
+       "name": "wm_yr_wk",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 282
+      },
+      {
+       "name": "weekday",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 7
+      },
+      {
+       "name": "wday",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 7
+      },
+      {
+       "name": "month",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 12
+      },
+      {
+       "name": "year",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 6
+      },
+      {
+       "name": "d",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1999
+      },
+      {
+       "name": "event_name_1",
+       "type": "VARCHAR",
+       "nulls": 1807,
+       "null_pct": 0.9177247333671915,
+       "distinct": 29
+      },
+      {
+       "name": "event_type_1",
+       "type": "VARCHAR",
+       "nulls": 1807,
+       "null_pct": 0.9177247333671915,
+       "distinct": 4
+      },
+      {
+       "name": "event_name_2",
+       "type": "VARCHAR",
+       "nulls": 1964,
+       "null_pct": 0.9974606399187405,
+       "distinct": 4
+      },
+      {
+       "name": "event_type_2",
+       "type": "VARCHAR",
+       "nulls": 1964,
+       "null_pct": 0.9974606399187405,
+       "distinct": 2
+      },
+      {
+       "name": "snap_CA",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      },
+      {
+       "name": "snap_TX",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      },
+      {
+       "name": "snap_WI",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2
+      }
+     ]
+    },
+    {
+     "name": "sell_prices",
+     "file": "sell_prices.csv",
+     "mb": 203.4,
+     "rows": 6841121,
+     "cols": [
+      {
+       "name": "store_id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 10
+      },
+      {
+       "name": "item_id",
+       "type": "VARCHAR",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 2920
+      },
+      {
+       "name": "wm_yr_wk",
+       "type": "BIGINT",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 282
+      },
+      {
+       "name": "sell_price",
+       "type": "DOUBLE",
+       "nulls": 0,
+       "null_pct": 0.0,
+       "distinct": 1042
+      }
+     ]
+    }
+   ],
+   "checks": {
+    "series": 30490,
+    "days": 1941,
+    "items": 3049,
+    "stores": 10,
+    "depts": 7,
+    "cats": 3,
+    "states": 3,
+    "cells": 59181090,
+    "units_total": 66927173,
+    "neg_cells": 0,
+    "zero_share_all": 0.6799776584040612,
+    "zero_share_after_launch": 0.5952820334633866,
+    "leading_zero_share": 0.2092707315799692,
+    "never_sold": 0,
+    "zero_share_by_cat": {
+     "FOODS": 0.6177342243360772,
+     "HOBBIES": 0.7714916588019131,
+     "HOUSEHOLD": 0.7160219798280408
+    },
+    "all_zero_days": [
+     "d_331",
+     "d_697",
+     "d_1062",
+     "d_1427",
+     "d_1792"
+    ],
+    "price_rows": 6841121,
+    "price_null": 0,
+    "price_le0": 0,
+    "price_min": 0.01,
+    "price_max": 107.32,
+    "price_changes_share": 0.011572349169996143,
+    "events": 162,
+    "snap_days": {
+     "CA": 650,
+     "TX": 650,
+     "WI": 650
+    },
+    "date_min": "2011-01-29",
+    "date_max": "2016-06-19",
+    "sold_cells_with_price": 1.0,
+    "validation_vs_evaluation": "sales_train_validation.csv là 1.913 ngày đầu của sales_train_evaluation.csv (dùng bản evaluation 1.941 ngày)"
+   }
+  },
+  "early": {
+   "online_retail": {
+    "tables": [
+     {
+      "name": "Online Retail",
+      "file": "Online Retail.xlsx",
+      "mb": 23.7,
+      "rows": 541909,
+      "cols": [
+       {
+        "name": "InvoiceNo",
+        "type": "VARCHAR",
+        "nulls": 0,
+        "null_pct": 0.0,
+        "distinct": 26353
+       },
+       {
+        "name": "StockCode",
+        "type": "VARCHAR",
+        "nulls": 0,
+        "null_pct": 0.0,
+        "distinct": 4166
+       },
+       {
+        "name": "Description",
+        "type": "VARCHAR",
+        "nulls": 1454,
+        "null_pct": 0.002683107311375157,
+        "distinct": 4253
+       },
+       {
+        "name": "Quantity",
+        "type": "BIGINT",
+        "nulls": 0,
+        "null_pct": 0.0,
+        "distinct": 719
+       },
+       {
+        "name": "InvoiceDate",
+        "type": "TIMESTAMP_NS",
+        "nulls": 0,
+        "null_pct": 0.0,
+        "distinct": 23875
+       },
+       {
+        "name": "UnitPrice",
+        "type": "DOUBLE",
+        "nulls": 0,
+        "null_pct": 0.0,
+        "distinct": 1643
+       },
+       {
+        "name": "CustomerID",
+        "type": "DOUBLE",
+        "nulls": 135080,
+        "null_pct": 0.249266943342886,
+        "distinct": 4326
+       },
+       {
+        "name": "Country",
+        "type": "VARCHAR",
+        "nulls": 0,
+        "null_pct": 0.0,
+        "distinct": 39
+       }
+      ]
+     }
+    ],
+    "checks": {
+     "date_min": "2010-12-01 08:26:00",
+     "date_max": "2011-12-09 12:50:00",
+     "invoices": 25900,
+     "customers": 4372,
+     "countries": 38,
+     "uk_share_rows": 0.9143195628786382,
+     "cust_null": 135080,
+     "cancel_rows": 9288,
+     "qty_le0": 10624,
+     "price_le0": 2517,
+     "dup_rows": 5268,
+     "non_product_codes": 2916
+    }
+   },
+   "cj_r": {
+    "rows": 1469307,
+    "cols": [
+     "household_id",
+     "store_id",
+     "basket_id",
+     "product_id",
+     "quantity",
+     "sales_value",
+     "retail_disc",
+     "coupon_disc",
+     "coupon_match_disc",
+     "week",
+     "transaction_timestamp"
+    ],
+    "households": 2469,
+    "date_min": "2017-01-01 11:53:26",
+    "date_max": "2018-01-01 04:01:20",
+    "sales_total": 4596039.58
+   }
+  }
+ },
+ "web": {
+  "files": [
+   {
+    "file": "chart_data.json",
+    "kb": 79.8,
+    "sha256": "9c547157bf08273d"
+   },
+   {
+    "file": "cj_dept_weekly.parquet",
+    "kb": 58.9,
+    "sha256": "da6bc63b20c71464",
+    "rows": 2544,
+    "cols": [
+     "week",
+     "department",
+     "sales",
+     "baskets",
+     "households",
+     "discount",
+     "private_sales"
+    ]
+   },
+   {
+    "file": "content.json",
+    "kb": 46.1,
+    "sha256": "b41125f2a3f8e4b6"
+   },
+   {
+    "file": "m5_calendar.parquet",
+    "kb": 22.3,
+    "sha256": "ad3d883725a5bce0",
+    "rows": 1941,
+    "cols": [
+     "date",
+     "event_name_1",
+     "event_type_1",
+     "snap_CA",
+     "snap_TX",
+     "snap_WI"
+    ]
+   },
+   {
+    "file": "m5_store_dept_daily.parquet",
+    "kb": 1613.9,
+    "sha256": "26c23736dbd6e4d5",
+    "rows": 135870,
+    "cols": [
+     "date",
+     "store",
+     "state",
+     "dept",
+     "cat",
+     "units",
+     "revenue",
+     "zero_share"
+    ]
+   },
+   {
+    "file": "results.json",
+    "kb": 214.1,
+    "sha256": "794ae226565fe2da"
+   },
+   {
+    "file": "results_deep.json",
+    "kb": 39.1,
+    "sha256": "1fc5882424f84dc3"
+   }
+  ],
+  "m5_reconcile": {
+   "units_total": 66927173.0,
+   "revenue_total": 191577546.04000235,
+   "date_min": "2011-01-29",
+   "date_max": "2016-05-22"
+  }
+ },
+ "inventory": {
+  "files": 154,
+  "total_mb": 2435.3,
+  "by_folder": {
+   "raw": 61.4,
+   "raw_dunnhumby": 1875.4,
+   "raw_m5": 498.5
+  },
+  "large": [
+   {
+    "path": "data/raw_dunnhumby/dunnhumby_Carbo-Loading/dunnhumby - Carbo-Loading CSV/dh_transactions.csv",
+    "mb": 268.52
+   },
+   {
+    "path": "data/raw_dunnhumby/dunnhumby_Carbo-Loading.zip",
+    "mb": 57.66
+   },
+   {
+    "path": "data/raw_dunnhumby/dunnhumby_The-Complete-Journey/dunnhumby_The-Complete-Journey CSV/causal_data.csv",
+    "mb": 695.86
+   },
+   {
+    "path": "data/raw_dunnhumby/dunnhumby_The-Complete-Journey/dunnhumby_The-Complete-Journey CSV/transaction_data.csv",
+    "mb": 141.74
+   },
+   {
+    "path": "data/raw_dunnhumby/dunnhumby_The-Complete-Journey.zip",
+    "mb": 134.72
+   },
+   {
+    "path": "data/raw_m5/sales_train_evaluation.csv",
+    "mb": 121.74
+   },
+   {
+    "path": "data/raw_m5/sales_train_validation.csv",
+    "mb": 120.01
+   },
+   {
+    "path": "data/raw_m5/sell_prices.csv",
+    "mb": 203.4
+   }
+  ]
+ }
+}

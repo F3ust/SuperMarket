@@ -1,0 +1,232 @@
+[
+  {
+    "id": "UPG-01",
+    "priority": "P0",
+    "owner_de_xuat": "DA và sponsor",
+    "deliverable": "Decision brief hai vai trò",
+    "acceptance": "Mỗi quyết định có owner, nhịp xem, lựa chọn hành động, chi phí sai và outcome đo lại.",
+    "dependency": "Phỏng vấn đại diện hai vai trò",
+    "sources": "S01 S02",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-02",
+    "priority": "P0",
+    "owner_de_xuat": "DA và Tài chính",
+    "deliverable": "Metric catalog có phiên bản",
+    "acceptance": "Mỗi KPI có công thức, grain, filter, đơn vị, kỳ, nguồn và người xác nhận; không lẫn raw và positive.",
+    "dependency": "Định nghĩa doanh nghiệp",
+    "sources": "S07 S08",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-03",
+    "priority": "P0",
+    "owner_de_xuat": "DE và chủ nguồn",
+    "deliverable": "Data contract POS và master",
+    "acceptance": "Khóa dòng ổn định, khóa giỏ toàn cục, timezone, UOM, currency, correction và coverage được chốt.",
+    "dependency": "Quyền lấy nguồn",
+    "sources": "S07 S09",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-04",
+    "priority": "P0",
+    "owner_de_xuat": "DE và Tài chính",
+    "deliverable": "Control totals từ nguồn",
+    "acceptance": "Đối soát dòng và tổng tiền với nguồn ngoài file; mọi chênh lệch có lý do hoặc chặn publish.",
+    "dependency": "POS hoặc sổ đối soát",
+    "sources": "S09",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-05",
+    "priority": "P0",
+    "owner_de_xuat": "DA và DE",
+    "deliverable": "Grain và cardinality khi join",
+    "acceptance": "Test chứng minh không nhân dòng khi nối SKU, cost, campaign; distinct count không bị cộng sai.",
+    "dependency": "Khóa và lịch hiệu lực",
+    "sources": "S07",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-06",
+    "priority": "P0",
+    "owner_de_xuat": "Vận hành và DE",
+    "deliverable": "Lịch nguồn và missing zero",
+    "acceptance": "Ngày thiếu bản ghi được xác minh bằng lịch/heartbeat; unknown không chuyển thành zero tự động.",
+    "dependency": "Lịch cửa hàng và lịch ingest",
+    "sources": "S09",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-07",
+    "priority": "P0",
+    "owner_de_xuat": "DA và Tài chính",
+    "deliverable": "Giới hạn thông tin tài chính",
+    "acceptance": "Chưa có cost/OPEX thì metric lãi ghi chưa có actual; kịch bản có nhãn và scope nhất quán.",
+    "dependency": "Cost và chính sách kế toán",
+    "sources": "S16 S17",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-08",
+    "priority": "P0",
+    "owner_de_xuat": "Frontend và DA",
+    "deliverable": "Contrast chữ và khả năng đọc",
+    "acceptance": "Computed styles của chữ thường đạt ngưỡng áp dụng WCAG AA; kiểm tra trạng thái enabled/disabled riêng.",
+    "dependency": "Audit giao diện thực tế",
+    "sources": "S11",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-09",
+    "priority": "P1",
+    "owner_de_xuat": "DE và Backend",
+    "deliverable": "Batch store và watermark bền vững",
+    "acceptance": "Đóng tab/restart worker không mất batch hoặc watermark; chỉ advance sau commit thành công.",
+    "dependency": "Storage riêng tư và database",
+    "sources": "S10",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-10",
+    "priority": "P1",
+    "owner_de_xuat": "DE",
+    "deliverable": "Retry backfill và crash recovery",
+    "acceptance": "Chạy lại không nhân giao dịch; crash giữa job không công bố kết quả dở dang; backfill tái tạo đúng version.",
+    "dependency": "Batch store",
+    "sources": "S10",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-11",
+    "priority": "P1",
+    "owner_de_xuat": "Backend và người phụ trách quyền",
+    "deliverable": "Danh tính và quyền theo vai trò",
+    "acceptance": "Có hai tài khoản thử riêng; API và export tuân scope; đổi select UI không mở rộng quyền.",
+    "dependency": "Hệ thống xác thực",
+    "sources": "S06 S15",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-12",
+    "priority": "P1",
+    "owner_de_xuat": "DA và DE",
+    "deliverable": "Lineage đến KPI và score",
+    "acceptance": "Từ một giá trị truy được batch, mapping, code, metric và model version.",
+    "dependency": "Metadata store",
+    "sources": "S08 S14",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-13",
+    "priority": "P1",
+    "owner_de_xuat": "DE và Vận hành",
+    "deliverable": "Incident và data observability",
+    "acceptance": "Có owner và hướng xử lý cho freshness, completeness, duplicate, mismatch; diễn tập một incident.",
+    "dependency": "Lịch nguồn và người trực",
+    "sources": "S09",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-14",
+    "priority": "P1",
+    "owner_de_xuat": "DS và DE",
+    "deliverable": "Label table theo as of và horizon",
+    "acceptance": "Chỉ đánh giá target đã chín; khóa khách/as-of/horizon rõ; không nhập tương lai vào feature.",
+    "dependency": "Dữ liệu 28 và 56 ngày về sau",
+    "sources": "S12 S14",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-15",
+    "priority": "P1",
+    "owner_de_xuat": "DS và DA",
+    "deliverable": "Calibration trên nguồn doanh nghiệp",
+    "acceptance": "Có reliability theo cohort, support từng bin, Brier/log loss và baseline trên dữ liệu ngoài thời gian.",
+    "dependency": "Label table đủ dữ liệu",
+    "sources": "S12",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-16",
+    "priority": "P1",
+    "owner_de_xuat": "Backend và Vận hành",
+    "deliverable": "Decision ledger bền vững",
+    "acceptance": "Lưu người quyết định, lý do, hạn, version score, hành động và outcome; giữ lịch sử sửa trạng thái.",
+    "dependency": "Database và quy trình owner",
+    "sources": "S01 S15",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-17",
+    "priority": "P1",
+    "owner_de_xuat": "DE và người phụ trách bảo mật",
+    "deliverable": "Chính sách file dữ liệu thật",
+    "acceptance": "Có thời hạn giữ, xóa, kiểm soát tải xuống và kiểm thử phục hồi; raw nhạy cảm không nhúng trong HTML.",
+    "dependency": "Phân loại dữ liệu và hạ tầng",
+    "sources": "S06",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-18",
+    "priority": "P2",
+    "owner_de_xuat": "DA và người dùng",
+    "deliverable": "Usability theo nhiệm vụ",
+    "acceptance": "Đại diện từng vai trò hoàn thành nhiệm vụ đã chốt; ghi thời gian, lỗi hiểu và câu hỏi cần trợ giúp.",
+    "dependency": "Prototype và người tham gia",
+    "sources": "S01 S03",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-19",
+    "priority": "P2",
+    "owner_de_xuat": "Frontend",
+    "deliverable": "Bàn phím zoom và biểu đồ thay thế",
+    "acceptance": "Dùng được bằng bàn phím, focus rõ, có nội dung thay thế cần thiết và tín hiệu ngoài màu sắc.",
+    "dependency": "Audit accessibility",
+    "sources": "S11",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-20",
+    "priority": "P2",
+    "owner_de_xuat": "Frontend và Backend",
+    "deliverable": "Latency và tải dữ liệu",
+    "acceptance": "Có p50 p95 trên thiết bị/mạng/dataset đại diện; ngân sách hiệu năng được nhóm phê duyệt trước tối ưu.",
+    "dependency": "API và bộ đo hiệu năng",
+    "sources": "S02",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-21",
+    "priority": "P2",
+    "owner_de_xuat": "CRM và DS",
+    "deliverable": "Pilot giữ chân có đối chứng",
+    "acceptance": "Chốt đơn vị randomization, power, outcome, guardrail và kiểm tra chất lượng thí nghiệm trước khi mở kết quả.",
+    "dependency": "Consent, chi phí và label",
+    "sources": "S13",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-22",
+    "priority": "P2",
+    "owner_de_xuat": "Tài chính và Sponsor",
+    "deliverable": "Đánh giá hiệu quả tăng thêm",
+    "acceptance": "Đối chiếu contribution tăng thêm với tổng chi phí không double count; ghi uncertainty và điều kiện dừng.",
+    "dependency": "Thử nghiệm và cost đã xác nhận",
+    "sources": "S13 S16",
+    "status": "Đề xuất chưa triển khai"
+  },
+  {
+    "id": "UPG-23",
+    "priority": "P2",
+    "owner_de_xuat": "Sponsor và DA",
+    "deliverable": "Theo dõi adoption và rà soát danh mục",
+    "acceptance": "Đo task completion và quyết định có outcome; rà lại màn hình ít dùng hoặc metric không còn phục vụ quyết định.",
+    "dependency": "Decision ledger và usage telemetry",
+    "sources": "S01 S05",
+    "status": "Đề xuất chưa triển khai"
+  }
+]

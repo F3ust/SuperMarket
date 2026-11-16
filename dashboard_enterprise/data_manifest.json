@@ -1,0 +1,18 @@
+{
+  "name": "Complete Journey",
+  "runId": "20261101_211545_762551_356e56a9",
+  "signature": "356e56a950890ee4f7016e41c6b77a9d741c54e4661c70d9619475ab2189601b",
+  "dateOrigin": "2017-01-01",
+  "dateEnd": "2017-12-31",
+  "rows": 1468773,
+  "sourceRows": 1469307,
+  "currency": "USD",
+  "rawSalesCents": 459414632,
+  "missingDays": [
+    358
+  ],
+  "rawBinaryBytes": 57282161,
+  "compressedBytes": 10593382,
+  "compressedSHA256": "e3c11d8dfeceba619806bf6429eafded6f560d6bf4da5d84892f700608faafcc",
+  "dateNote": "25/12/2017 không có bản ghi. Không suy diễn đây là ngày không có nhu cầu. 534 dòng của phần ngày 01/01/2018 nằm ngoài kỳ đã chốt."
+}

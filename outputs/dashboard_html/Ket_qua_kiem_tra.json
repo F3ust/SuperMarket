@@ -1,0 +1,138 @@
+{
+  "version": "probability-upload-v3",
+  "status": "passed",
+  "trained_models": 5,
+  "html_sha256": "888c4ecd1544a6a78249bb393a64637725554367df4f96447c4e31ee095a2890",
+  "worker": {
+    "decimalCommaAndFX": true,
+    "models": 5,
+    "maxProbabilityError": 1.380520173732691e-07,
+    "snapshotCustomers": 54,
+    "sampleRows": 9188,
+    "appendCustomers": 2324,
+    "idempotentReplay": true,
+    "blockedGates": 7,
+    "orderedMonotonic": true,
+    "distributionsSumOne": true
+  },
+  "python_parity": {
+    "python_vs_browser_pipeline_max_error": 1.3815422772456287e-07,
+    "customers": 54,
+    "binary_convergence_audit": [
+      {
+        "task": "no_purchase_28",
+        "penalized_gradient_max_abs": 6.781659498917528e-06
+      },
+      {
+        "task": "decline_30",
+        "penalized_gradient_max_abs": 1.8524729178666227e-06
+      },
+      {
+        "task": "discount_purchase_28",
+        "penalized_gradient_max_abs": 8.939565569643707e-06
+      }
+    ]
+  },
+  "browser": {
+    "offline": true,
+    "twoRoles": true,
+    "snapshotScored": true,
+    "actualFileAppend": true,
+    "distributions": true,
+    "csvExport": true,
+    "auditExport": true,
+    "invalidBatchPreservesPrevious": true,
+    "mobileOverflow": false,
+    "clearWorks": true,
+    "errors": []
+  },
+  "business_regression": {
+    "views": [
+      {
+        "role": "executive",
+        "route": "growth",
+        "overflow": false
+      },
+      {
+        "role": "executive",
+        "route": "finance",
+        "overflow": false
+      },
+      {
+        "role": "executive",
+        "route": "decisions",
+        "overflow": false
+      },
+      {
+        "role": "executive",
+        "route": "assistant",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "overview",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "workboard",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "stores",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "catalog",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "customers",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "basket",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "forecast",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "risk",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "inventory",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "explorer",
+        "overflow": false
+      },
+      {
+        "role": "operations",
+        "route": "assistant",
+        "overflow": false
+      }
+    ],
+    "calendarBridge": true,
+    "financialInputs": true,
+    "negativeMarginHandled": true,
+    "workboardPersists": true,
+    "twoRoles": true,
+    "offline": true,
+    "allDataReconciled": true,
+    "errors": []
+  },
+  "portable_package_vs_workspace_max_difference": 1.942890293094024e-16,
+  "source_commit": "35540dd5deb846adb5ef4f9e1abb5f53ee02dcc3"
+}

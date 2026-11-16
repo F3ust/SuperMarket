@@ -1,0 +1,2177 @@
+{
+ "cj": {
+  "periods": [
+   {
+    "p4": 1,
+    "sales": 45496.7,
+    "hh": 448,
+    "baskets": 1493,
+    "trips_per_hh": 3.333,
+    "aov": 30.473,
+    "active_rate": 0.179
+   },
+   {
+    "p4": 2,
+    "sales": 104931.46,
+    "hh": 877,
+    "baskets": 3703,
+    "trips_per_hh": 4.222,
+    "aov": 28.337,
+    "active_rate": 0.351
+   },
+   {
+    "p4": 3,
+    "sales": 178437.15,
+    "hh": 1391,
+    "baskets": 6514,
+    "trips_per_hh": 4.683,
+    "aov": 27.393,
+    "active_rate": 0.556
+   },
+   {
+    "p4": 4,
+    "sales": 271474.51,
+    "hh": 1963,
+    "baskets": 10219,
+    "trips_per_hh": 5.206,
+    "aov": 26.566,
+    "active_rate": 0.785
+   },
+   {
+    "p4": 5,
+    "sales": 314170.31,
+    "hh": 2012,
+    "baskets": 12192,
+    "trips_per_hh": 6.06,
+    "aov": 25.769,
+    "active_rate": 0.805
+   },
+   {
+    "p4": 6,
+    "sales": 327171.6,
+    "hh": 1985,
+    "baskets": 12150,
+    "trips_per_hh": 6.121,
+    "aov": 26.928,
+    "active_rate": 0.794
+   },
+   {
+    "p4": 7,
+    "sales": 326601.02,
+    "hh": 1959,
+    "baskets": 11613,
+    "trips_per_hh": 5.928,
+    "aov": 28.124,
+    "active_rate": 0.784
+   },
+   {
+    "p4": 8,
+    "sales": 323526.67,
+    "hh": 1971,
+    "baskets": 11621,
+    "trips_per_hh": 5.896,
+    "aov": 27.84,
+    "active_rate": 0.788
+   },
+   {
+    "p4": 9,
+    "sales": 334546.14,
+    "hh": 1992,
+    "baskets": 11635,
+    "trips_per_hh": 5.841,
+    "aov": 28.753,
+    "active_rate": 0.797
+   },
+   {
+    "p4": 10,
+    "sales": 350642.67,
+    "hh": 1975,
+    "baskets": 11529,
+    "trips_per_hh": 5.837,
+    "aov": 30.414,
+    "active_rate": 0.79
+   },
+   {
+    "p4": 11,
+    "sales": 344056.57,
+    "hh": 1981,
+    "baskets": 11751,
+    "trips_per_hh": 5.932,
+    "aov": 29.279,
+    "active_rate": 0.792
+   },
+   {
+    "p4": 12,
+    "sales": 345696.15,
+    "hh": 1961,
+    "baskets": 11739,
+    "trips_per_hh": 5.986,
+    "aov": 29.449,
+    "active_rate": 0.784
+   },
+   {
+    "p4": 13,
+    "sales": 346441.2,
+    "hh": 1967,
+    "baskets": 11797,
+    "trips_per_hh": 5.997,
+    "aov": 29.367,
+    "active_rate": 0.787
+   },
+   {
+    "p4": 14,
+    "sales": 347275.16,
+    "hh": 1983,
+    "baskets": 11768,
+    "trips_per_hh": 5.934,
+    "aov": 29.51,
+    "active_rate": 0.793
+   },
+   {
+    "p4": 15,
+    "sales": 353987.84,
+    "hh": 1993,
+    "baskets": 12041,
+    "trips_per_hh": 6.042,
+    "aov": 29.399,
+    "active_rate": 0.797
+   },
+   {
+    "p4": 16,
+    "sales": 362761.12,
+    "hh": 2010,
+    "baskets": 12363,
+    "trips_per_hh": 6.151,
+    "aov": 29.342,
+    "active_rate": 0.804
+   },
+   {
+    "p4": 17,
+    "sales": 354003.61,
+    "hh": 2039,
+    "baskets": 12394,
+    "trips_per_hh": 6.078,
+    "aov": 28.562,
+    "active_rate": 0.816
+   },
+   {
+    "p4": 18,
+    "sales": 352200.57,
+    "hh": 2020,
+    "baskets": 12237,
+    "trips_per_hh": 6.058,
+    "aov": 28.782,
+    "active_rate": 0.808
+   },
+   {
+    "p4": 19,
+    "sales": 345186.96,
+    "hh": 1996,
+    "baskets": 12005,
+    "trips_per_hh": 6.015,
+    "aov": 28.754,
+    "active_rate": 0.798
+   },
+   {
+    "p4": 20,
+    "sales": 338941.84,
+    "hh": 1999,
+    "baskets": 11778,
+    "trips_per_hh": 5.892,
+    "aov": 28.778,
+    "active_rate": 0.8
+   },
+   {
+    "p4": 21,
+    "sales": 346250.5,
+    "hh": 2027,
+    "baskets": 11862,
+    "trips_per_hh": 5.852,
+    "aov": 29.19,
+    "active_rate": 0.811
+   },
+   {
+    "p4": 22,
+    "sales": 367969.76,
+    "hh": 2052,
+    "baskets": 12064,
+    "trips_per_hh": 5.879,
+    "aov": 30.501,
+    "active_rate": 0.821
+   },
+   {
+    "p4": 23,
+    "sales": 383600.22,
+    "hh": 2023,
+    "baskets": 12103,
+    "trips_per_hh": 5.983,
+    "aov": 31.695,
+    "active_rate": 0.809
+   },
+   {
+    "p4": 24,
+    "sales": 353501.57,
+    "hh": 2017,
+    "baskets": 11254,
+    "trips_per_hh": 5.58,
+    "aov": 31.411,
+    "active_rate": 0.807
+   },
+   {
+    "p4": 25,
+    "sales": 382215.9,
+    "hh": 2029,
+    "baskets": 11594,
+    "trips_per_hh": 5.714,
+    "aov": 32.967,
+    "active_rate": 0.812
+   },
+   {
+    "p4": 26,
+    "sales": 156375.88,
+    "hh": 1633,
+    "baskets": 5065,
+    "trips_per_hh": 3.102,
+    "aov": 30.874,
+    "active_rate": 0.653
+   }
+  ],
+  "growth_decomp": {
+   "sales": 0.2212,
+   "hh": 0.074,
+   "trips_per_hh": 0.0293,
+   "aov": 0.1265
+  },
+  "trajectory": [
+   {
+    "traj": "Giảm chi (<−20%)",
+    "households": 466,
+    "h1": 722468.0,
+    "h2": 393806.0,
+    "total": 1116275.0,
+    "delta": -328662.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "households": 274,
+    "h1": 181489.0,
+    "h2": 117345.0,
+    "total": 298834.0,
+    "delta": -64143.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "households": 1263,
+    "h1": 1639848.0,
+    "h2": 3018073.0,
+    "total": 4657921.0,
+    "delta": 1378225.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "households": 488,
+    "h1": 982922.0,
+    "h2": 991933.0,
+    "total": 1974855.0,
+    "delta": 9012.0
+   }
+  ],
+  "trajectory_n": 2491,
+  "trajectory_dept": [
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "DRUG GM",
+    "h1": 211252.0,
+    "h2": 392696.0,
+    "delta": 181445.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "PRODUCE",
+    "h1": 43064.0,
+    "h2": 23689.0,
+    "delta": -19374.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "PASTRY",
+    "h1": 3037.0,
+    "h2": 2358.0,
+    "delta": -679.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "MEAT-PCKGD",
+    "h1": 48831.0,
+    "h2": 48952.0,
+    "delta": 121.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "PRODUCE",
+    "h1": 115103.0,
+    "h2": 210759.0,
+    "delta": 95657.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "KIOSK-GAS",
+    "h1": 61820.0,
+    "h2": 68002.0,
+    "delta": 6182.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "DRUG GM",
+    "h1": 104596.0,
+    "h2": 58352.0,
+    "delta": -46243.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "GROCERY",
+    "h1": 95161.0,
+    "h2": 58529.0,
+    "delta": -36632.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "DELI",
+    "h1": 5998.0,
+    "h2": 3903.0,
+    "delta": -2095.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "MEAT-PCKGD",
+    "h1": 83669.0,
+    "h2": 149584.0,
+    "delta": 65915.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "DRUG GM",
+    "h1": 129835.0,
+    "h2": 122109.0,
+    "delta": -7726.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "KIOSK-GAS",
+    "h1": 43641.0,
+    "h2": 23008.0,
+    "delta": -20633.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "MEAT",
+    "h1": 13064.0,
+    "h2": 8334.0,
+    "delta": -4730.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "PRODUCE",
+    "h1": 70073.0,
+    "h2": 73620.0,
+    "delta": 3546.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "MEAT-PCKGD",
+    "h1": 41437.0,
+    "h2": 21213.0,
+    "delta": -20224.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "KIOSK-GAS",
+    "h1": 100242.0,
+    "h2": 225907.0,
+    "delta": 125665.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "DRUG GM",
+    "h1": 21275.0,
+    "h2": 14268.0,
+    "delta": -7007.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "GROCERY",
+    "h1": 497754.0,
+    "h2": 501498.0,
+    "delta": 3744.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "PASTRY",
+    "h1": 25147.0,
+    "h2": 43059.0,
+    "delta": 17911.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "DELI",
+    "h1": 32225.0,
+    "h2": 33215.0,
+    "delta": 990.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "GROCERY",
+    "h1": 844837.0,
+    "h2": 1516584.0,
+    "delta": 671747.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "DELI",
+    "h1": 52736.0,
+    "h2": 97787.0,
+    "delta": 45051.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "MEAT",
+    "h1": 50601.0,
+    "h2": 25852.0,
+    "delta": -24749.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "PASTRY",
+    "h1": 15031.0,
+    "h2": 15640.0,
+    "delta": 608.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "MEAT-PCKGD",
+    "h1": 11350.0,
+    "h2": 7084.0,
+    "delta": -4266.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "GROCERY",
+    "h1": 372990.0,
+    "h2": 201995.0,
+    "delta": -170995.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "KIOSK-GAS",
+    "h1": 11809.0,
+    "h2": 9230.0,
+    "delta": -2578.0
+   },
+   {
+    "traj": "Tăng chi (>+20%)",
+    "dept": "MEAT",
+    "h1": 114223.0,
+    "h2": 199560.0,
+    "delta": 85338.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "DELI",
+    "h1": 22751.0,
+    "h2": 12079.0,
+    "delta": -10673.0
+   },
+   {
+    "traj": "Rời bỏ (≥8 tuần không mua)",
+    "dept": "PRODUCE",
+    "h1": 11642.0,
+    "h2": 8060.0,
+    "delta": -3582.0
+   },
+   {
+    "traj": "Giảm chi (<−20%)",
+    "dept": "PASTRY",
+    "h1": 10651.0,
+    "h2": 6677.0,
+    "delta": -3974.0
+   },
+   {
+    "traj": "Ổn định (±20%)",
+    "dept": "MEAT",
+    "h1": 70331.0,
+    "h2": 65983.0,
+    "delta": -4348.0
+   }
+  ],
+  "rfm": [
+   {
+    "segment": "Nhà vô địch",
+    "households": 554,
+    "monetary": 3844383.52,
+    "recency": 1.0,
+    "frequency": 196.0,
+    "avg_m": 6939.3204,
+    "hh_share": 0.2216,
+    "rev_share": 0.4771
+   },
+   {
+    "segment": "Trung thành",
+    "households": 541,
+    "monetary": 2042701.98,
+    "recency": 4.0,
+    "frequency": 108.0,
+    "avg_m": 3775.7892,
+    "hh_share": 0.2164,
+    "rev_share": 0.2535
+   },
+   {
+    "segment": "Có nguy cơ mất (giá trị cao)",
+    "households": 137,
+    "monetary": 686306.23,
+    "recency": 18.0,
+    "frequency": 148.0,
+    "avg_m": 5009.5345,
+    "hh_share": 0.0548,
+    "rev_share": 0.0852
+   },
+   {
+    "segment": "Cần chăm sóc",
+    "households": 281,
+    "monetary": 648749.2,
+    "recency": 19.0,
+    "frequency": 72.0,
+    "avg_m": 2308.716,
+    "hh_share": 0.1124,
+    "rev_share": 0.0805
+   },
+   {
+    "segment": "Đã ngủ đông",
+    "households": 582,
+    "monetary": 390988.21,
+    "recency": 38.5,
+    "frequency": 26.0,
+    "avg_m": 671.801,
+    "hh_share": 0.2328,
+    "rev_share": 0.0485
+   },
+   {
+    "segment": "Mới / tiềm năng",
+    "households": 219,
+    "monetary": 235843.9,
+    "recency": 1.0,
+    "frequency": 43.0,
+    "avg_m": 1076.9128,
+    "hh_share": 0.0876,
+    "rev_share": 0.0293
+   },
+   {
+    "segment": "Ngủ đông nhẹ",
+    "households": 186,
+    "monetary": 208490.04,
+    "recency": 6.0,
+    "frequency": 44.0,
+    "avg_m": 1120.9142,
+    "hh_share": 0.0744,
+    "rev_share": 0.0259
+   }
+  ],
+  "rfm_grid": [
+   {
+    "R": 1,
+    "F": 1,
+    "n": 272,
+    "m": 503.2
+   },
+   {
+    "R": 1,
+    "F": 2,
+    "n": 117,
+    "m": 1267.2
+   },
+   {
+    "R": 1,
+    "F": 3,
+    "n": 53,
+    "m": 2481.7
+   },
+   {
+    "R": 1,
+    "F": 4,
+    "n": 40,
+    "m": 3205.0
+   },
+   {
+    "R": 1,
+    "F": 5,
+    "n": 18,
+    "m": 6166.9
+   },
+   {
+    "R": 2,
+    "F": 1,
+    "n": 112,
+    "m": 791.1
+   },
+   {
+    "R": 2,
+    "F": 2,
+    "n": 153,
+    "m": 1379.6
+   },
+   {
+    "R": 2,
+    "F": 3,
+    "n": 132,
+    "m": 2492.0
+   },
+   {
+    "R": 2,
+    "F": 4,
+    "n": 68,
+    "m": 3983.0
+   },
+   {
+    "R": 2,
+    "F": 5,
+    "n": 35,
+    "m": 4876.8
+   },
+   {
+    "R": 3,
+    "F": 1,
+    "n": 58,
+    "m": 657.2
+   },
+   {
+    "R": 3,
+    "F": 2,
+    "n": 105,
+    "m": 1713.7
+   },
+   {
+    "R": 3,
+    "F": 3,
+    "n": 134,
+    "m": 2651.8
+   },
+   {
+    "R": 3,
+    "F": 4,
+    "n": 130,
+    "m": 4747.7
+   },
+   {
+    "R": 3,
+    "F": 5,
+    "n": 73,
+    "m": 6786.7
+   },
+   {
+    "R": 4,
+    "F": 1,
+    "n": 28,
+    "m": 838.2
+   },
+   {
+    "R": 4,
+    "F": 2,
+    "n": 65,
+    "m": 1378.9
+   },
+   {
+    "R": 4,
+    "F": 3,
+    "n": 105,
+    "m": 2784.6
+   },
+   {
+    "R": 4,
+    "F": 4,
+    "n": 140,
+    "m": 3762.9
+   },
+   {
+    "R": 4,
+    "F": 5,
+    "n": 162,
+    "m": 7688.0
+   },
+   {
+    "R": 5,
+    "F": 1,
+    "n": 30,
+    "m": 644.3
+   },
+   {
+    "R": 5,
+    "F": 2,
+    "n": 60,
+    "m": 1407.2
+   },
+   {
+    "R": 5,
+    "F": 3,
+    "n": 76,
+    "m": 2865.7
+   },
+   {
+    "R": 5,
+    "F": 4,
+    "n": 122,
+    "m": 4147.2
+   },
+   {
+    "R": 5,
+    "F": 5,
+    "n": 212,
+    "m": 7736.5
+   }
+  ],
+  "rules_top_lift": [
+   {
+    "a": "DRY NOODLES/PASTA",
+    "b": "PASTA SAUCE",
+    "n": 6423,
+    "support": 0.0256,
+    "conf_a_b": 0.4582,
+    "conf_b_a": 0.5479,
+    "lift": 9.8106
+   },
+   {
+    "a": "CHEESES",
+    "b": "DELI MEATS",
+    "n": 7132,
+    "support": 0.0284,
+    "conf_a_b": 0.63,
+    "conf_b_a": 0.4167,
+    "lift": 9.239
+   },
+   {
+    "a": "TOMATOES",
+    "b": "VEGETABLES SALAD",
+    "n": 4112,
+    "support": 0.0164,
+    "conf_a_b": 0.2695,
+    "conf_b_a": 0.384,
+    "lift": 6.3171
+   },
+   {
+    "a": "DINNER MXS:DRY",
+    "b": "MEAT - SHELF STABLE",
+    "n": 4103,
+    "support": 0.0163,
+    "conf_a_b": 0.3084,
+    "conf_b_a": 0.2974,
+    "lift": 5.6106
+   },
+   {
+    "a": "BACON",
+    "b": "BREAKFAST SAUSAGE/SANDWICHES",
+    "n": 2659,
+    "support": 0.0106,
+    "conf_a_b": 0.2448,
+    "conf_b_a": 0.2424,
+    "lift": 5.5988
+   },
+   {
+    "a": "BAKING MIXES",
+    "b": "BAKING NEEDS",
+    "n": 2587,
+    "support": 0.0103,
+    "conf_a_b": 0.2293,
+    "conf_b_a": 0.2489,
+    "lift": 5.5376
+   },
+   {
+    "a": "DINNER MXS:DRY",
+    "b": "DRY BN/VEG/POTATO/RICE",
+    "n": 3725,
+    "support": 0.0148,
+    "conf_a_b": 0.28,
+    "conf_b_a": 0.2809,
+    "lift": 5.2996
+   },
+   {
+    "a": "DINNER MXS:DRY",
+    "b": "PASTA SAUCE",
+    "n": 3095,
+    "support": 0.0123,
+    "conf_a_b": 0.2327,
+    "conf_b_a": 0.264,
+    "lift": 4.9814
+   },
+   {
+    "a": "HOT DOGS",
+    "b": "MEAT - SHELF STABLE",
+    "n": 2882,
+    "support": 0.0115,
+    "conf_a_b": 0.2639,
+    "conf_b_a": 0.2089,
+    "lift": 4.8002
+   },
+   {
+    "a": "DRY BN/VEG/POTATO/RICE",
+    "b": "PASTA SAUCE",
+    "n": 2896,
+    "support": 0.0115,
+    "conf_a_b": 0.2184,
+    "conf_b_a": 0.2471,
+    "lift": 4.6756
+   },
+   {
+    "a": "BREAKFAST SAUSAGE/SANDWICHES",
+    "b": "REFRGRATD DOUGH PRODUCTS",
+    "n": 2874,
+    "support": 0.0115,
+    "conf_a_b": 0.262,
+    "conf_b_a": 0.2036,
+    "lift": 4.6567
+   },
+   {
+    "a": "ONIONS",
+    "b": "VEGETABLES - ALL OTHERS",
+    "n": 4712,
+    "support": 0.0188,
+    "conf_a_b": 0.303,
+    "conf_b_a": 0.2883,
+    "lift": 4.6518
+   },
+   {
+    "a": "ONIONS",
+    "b": "POTATOES",
+    "n": 4370,
+    "support": 0.0174,
+    "conf_a_b": 0.281,
+    "conf_b_a": 0.2859,
+    "lift": 4.6136
+   },
+   {
+    "a": "VEGETABLES - ALL OTHERS",
+    "b": "VEGETABLES SALAD",
+    "n": 3168,
+    "support": 0.0126,
+    "conf_a_b": 0.1938,
+    "conf_b_a": 0.2959,
+    "lift": 4.5426
+   },
+   {
+    "a": "DINNER MXS:DRY",
+    "b": "FRUIT - SHELF STABLE",
+    "n": 3198,
+    "support": 0.0127,
+    "conf_a_b": 0.2404,
+    "conf_b_a": 0.2405,
+    "lift": 4.5382
+   }
+  ],
+  "rules_top_support": [
+   {
+    "a": "BAKED BREAD/BUNS/ROLLS",
+    "b": "FLUID MILK PRODUCTS",
+    "n": 30971,
+    "support": 0.1234,
+    "conf_a_b": 0.5139,
+    "conf_b_a": 0.4476,
+    "lift": 1.8639
+   },
+   {
+    "a": "FLUID MILK PRODUCTS",
+    "b": "SOFT DRINKS",
+    "n": 25392,
+    "support": 0.1012,
+    "conf_a_b": 0.3669,
+    "conf_b_a": 0.3549,
+    "lift": 1.2872
+   },
+   {
+    "a": "CHEESE",
+    "b": "FLUID MILK PRODUCTS",
+    "n": 24551,
+    "support": 0.0978,
+    "conf_a_b": 0.524,
+    "conf_b_a": 0.3548,
+    "lift": 1.9003
+   },
+   {
+    "a": "BAKED BREAD/BUNS/ROLLS",
+    "b": "SOFT DRINKS",
+    "n": 24471,
+    "support": 0.0975,
+    "conf_a_b": 0.4061,
+    "conf_b_a": 0.342,
+    "lift": 1.4244
+   },
+   {
+    "a": "BAKED BREAD/BUNS/ROLLS",
+    "b": "CHEESE",
+    "n": 23917,
+    "support": 0.0953,
+    "conf_a_b": 0.3969,
+    "conf_b_a": 0.5104,
+    "lift": 2.1257
+   },
+   {
+    "a": "BAG SNACKS",
+    "b": "SOFT DRINKS",
+    "n": 20525,
+    "support": 0.0818,
+    "conf_a_b": 0.489,
+    "conf_b_a": 0.2869,
+    "lift": 1.7152
+   },
+   {
+    "a": "BAG SNACKS",
+    "b": "BAKED BREAD/BUNS/ROLLS",
+    "n": 19611,
+    "support": 0.0781,
+    "conf_a_b": 0.4672,
+    "conf_b_a": 0.3254,
+    "lift": 1.9457
+   },
+   {
+    "a": "CHEESE",
+    "b": "SOFT DRINKS",
+    "n": 18843,
+    "support": 0.0751,
+    "conf_a_b": 0.4021,
+    "conf_b_a": 0.2634,
+    "lift": 1.4106
+   },
+   {
+    "a": "BAKED BREAD/BUNS/ROLLS",
+    "b": "BEEF",
+    "n": 18799,
+    "support": 0.0749,
+    "conf_a_b": 0.3119,
+    "conf_b_a": 0.5123,
+    "lift": 2.1335
+   },
+   {
+    "a": "BAG SNACKS",
+    "b": "FLUID MILK PRODUCTS",
+    "n": 18314,
+    "support": 0.073,
+    "conf_a_b": 0.4363,
+    "conf_b_a": 0.2647,
+    "lift": 1.5824
+   }
+  ],
+  "baskets_n": 250965,
+  "commodity_top": [
+   {
+    "c": "SOFT DRINKS",
+    "n": 71545,
+    "share": 0.2851
+   },
+   {
+    "c": "FLUID MILK PRODUCTS",
+    "n": 69198,
+    "share": 0.2757
+   },
+   {
+    "c": "BAKED BREAD/BUNS/ROLLS",
+    "n": 60263,
+    "share": 0.2401
+   },
+   {
+    "c": "CHEESE",
+    "n": 46856,
+    "share": 0.1867
+   },
+   {
+    "c": "BAG SNACKS",
+    "n": 41975,
+    "share": 0.1673
+   },
+   {
+    "c": "BEEF",
+    "n": 36695,
+    "share": 0.1462
+   },
+   {
+    "c": "TROPICAL FRUIT",
+    "n": 32466,
+    "share": 0.1294
+   },
+   {
+    "c": "EGGS",
+    "n": 27866,
+    "share": 0.111
+   },
+   {
+    "c": "REFRGRATD JUICES/DRNKS",
+    "n": 25920,
+    "share": 0.1033
+   },
+   {
+    "c": "COLD CEREAL",
+    "n": 25128,
+    "share": 0.1001
+   },
+   {
+    "c": "LUNCHMEAT",
+    "n": 23697,
+    "share": 0.0944
+   },
+   {
+    "c": "SOUP",
+    "n": 23576,
+    "share": 0.0939
+   },
+   {
+    "c": "CANDY - CHECKLANE",
+    "n": 23239,
+    "share": 0.0926
+   },
+   {
+    "c": "FROZEN PIZZA",
+    "n": 23142,
+    "share": 0.0922
+   },
+   {
+    "c": "FRZN MEAT/MEAT DINNERS",
+    "n": 22746,
+    "share": 0.0906
+   }
+  ],
+  "pasta_sauce_full": {
+   "lift": 9.8106,
+   "conf_sauce_given_pasta": 0.4582,
+   "conf_pasta_given_sauce": 0.5479,
+   "support": 0.02559,
+   "baskets": 250965
+  }
+ },
+ "batf": {
+  "dynamics": [
+   {
+    "category": "BAG SNACKS",
+    "n": 119030,
+    "lp": -1.3199,
+    "promo_l1": 0.0395,
+    "promo_l2": -0.016,
+    "rival_promo": -0.1328,
+    "promo_l1_se": 0.0044,
+    "promo_l2_se": 0.0046,
+    "rival_promo_se": 0.0161
+   },
+   {
+    "category": "COLD CEREAL",
+    "n": 166156,
+    "lp": -1.7966,
+    "promo_l1": 0.0132,
+    "promo_l2": -0.0074,
+    "rival_promo": -0.2234,
+    "promo_l1_se": 0.0034,
+    "promo_l2_se": 0.0033,
+    "rival_promo_se": 0.0186
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "n": 100967,
+    "lp": -2.9655,
+    "promo_l1": 0.0251,
+    "promo_l2": 0.0121,
+    "rival_promo": -0.0821,
+    "promo_l1_se": 0.0067,
+    "promo_l2_se": 0.0056,
+    "rival_promo_se": 0.0212
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "n": 88781,
+    "lp": -1.3178,
+    "promo_l1": 0.0202,
+    "promo_l2": -0.0383,
+    "rival_promo": -0.053,
+    "promo_l1_se": 0.0068,
+    "promo_l2_se": 0.0061,
+    "rival_promo_se": 0.0221
+   }
+  ],
+  "profit_sim": [
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.2,
+    "cut": 0.1,
+    "units_mult": 1.1539,
+    "profit_change_price_only": -0.423,
+    "profit_change_with_display": -0.1643,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": -0.1398
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.2,
+    "cut": 0.2,
+    "units_mult": 1.3543,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": -0.9756
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.2,
+    "cut": 0.3,
+    "units_mult": 1.6237,
+    "profit_change_price_only": -1.8119,
+    "profit_change_with_display": -2.176,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": -2.1516
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.3,
+    "cut": 0.1,
+    "units_mult": 1.1539,
+    "profit_change_price_only": -0.2307,
+    "profit_change_with_display": 0.1143,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": 0.1387
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.3,
+    "cut": 0.2,
+    "units_mult": 1.3543,
+    "profit_change_price_only": -0.5486,
+    "profit_change_with_display": -0.3461,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": -0.3217
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.3,
+    "cut": 0.3,
+    "units_mult": 1.6237,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": -0.9756
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.4,
+    "cut": 0.1,
+    "units_mult": 1.1539,
+    "profit_change_price_only": -0.1345,
+    "profit_change_with_display": 0.2536,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": 0.278
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.4,
+    "cut": 0.2,
+    "units_mult": 1.3543,
+    "profit_change_price_only": -0.3229,
+    "profit_change_with_display": -0.0192,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": 0.0052
+   },
+   {
+    "category": "BAG SNACKS",
+    "margin": 0.4,
+    "cut": 0.3,
+    "units_mult": 1.6237,
+    "profit_change_price_only": -0.5941,
+    "profit_change_with_display": -0.412,
+    "post_dip_weeks": 0.0244,
+    "profit_change_net_dip": -0.3876
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.2,
+    "cut": 0.1,
+    "units_mult": 1.2055,
+    "profit_change_price_only": -0.3973,
+    "profit_change_with_display": 0.016,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": 0.0219
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.2,
+    "cut": 0.2,
+    "units_mult": 1.4856,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": -0.9941
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.2,
+    "cut": 0.3,
+    "units_mult": 1.8826,
+    "profit_change_price_only": -1.9413,
+    "profit_change_with_display": -2.5867,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": -2.5808
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.3,
+    "cut": 0.1,
+    "units_mult": 1.2055,
+    "profit_change_price_only": -0.1963,
+    "profit_change_with_display": 0.3547,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": 0.3606
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.3,
+    "cut": 0.2,
+    "units_mult": 1.4856,
+    "profit_change_price_only": -0.5048,
+    "profit_change_with_display": -0.1653,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": -0.1594
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.3,
+    "cut": 0.3,
+    "units_mult": 1.8826,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": -0.9941
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.4,
+    "cut": 0.1,
+    "units_mult": 1.2055,
+    "profit_change_price_only": -0.0959,
+    "profit_change_with_display": 0.524,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": 0.5299
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.4,
+    "cut": 0.2,
+    "units_mult": 1.4856,
+    "profit_change_price_only": -0.2572,
+    "profit_change_with_display": 0.2521,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": 0.258
+   },
+   {
+    "category": "COLD CEREAL",
+    "margin": 0.4,
+    "cut": 0.3,
+    "units_mult": 1.8826,
+    "profit_change_price_only": -0.5293,
+    "profit_change_with_display": -0.2067,
+    "post_dip_weeks": 0.0059,
+    "profit_change_net_dip": -0.2007
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.2,
+    "cut": 0.1,
+    "units_mult": 1.3698,
+    "profit_change_price_only": -0.3151,
+    "profit_change_with_display": -0.0083,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": 0.0292
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.2,
+    "cut": 0.2,
+    "units_mult": 1.9472,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": -0.9624
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.2,
+    "cut": 0.3,
+    "units_mult": 2.9013,
+    "profit_change_price_only": -2.4507,
+    "profit_change_with_display": -3.1004,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": -3.0628
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.3,
+    "cut": 0.1,
+    "units_mult": 1.3698,
+    "profit_change_price_only": -0.0868,
+    "profit_change_with_display": 0.3222,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": 0.3598
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.3,
+    "cut": 0.2,
+    "units_mult": 1.9472,
+    "profit_change_price_only": -0.3509,
+    "profit_change_with_display": -0.0602,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": -0.0226
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.3,
+    "cut": 0.3,
+    "units_mult": 2.9013,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": -0.9624
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.4,
+    "cut": 0.1,
+    "units_mult": 1.3698,
+    "profit_change_price_only": 0.0273,
+    "profit_change_with_display": 0.4875,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": 0.5251
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.4,
+    "cut": 0.2,
+    "units_mult": 1.9472,
+    "profit_change_price_only": -0.0264,
+    "profit_change_with_display": 0.4097,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": 0.4473
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "margin": 0.4,
+    "cut": 0.3,
+    "units_mult": 2.9013,
+    "profit_change_price_only": -0.2747,
+    "profit_change_with_display": 0.0502,
+    "post_dip_weeks": 0.0376,
+    "profit_change_net_dip": 0.0878
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.2,
+    "cut": 0.1,
+    "units_mult": 1.1446,
+    "profit_change_price_only": -0.4277,
+    "profit_change_with_display": -0.265,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -0.2822
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.2,
+    "cut": 0.2,
+    "units_mult": 1.331,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -1.0172
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.2,
+    "cut": 0.3,
+    "units_mult": 1.5795,
+    "profit_change_price_only": -1.7897,
+    "profit_change_with_display": -2.0142,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -2.0314
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.3,
+    "cut": 0.1,
+    "units_mult": 1.1446,
+    "profit_change_price_only": -0.237,
+    "profit_change_with_display": -0.02,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -0.0372
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.3,
+    "cut": 0.2,
+    "units_mult": 1.331,
+    "profit_change_price_only": -0.5563,
+    "profit_change_with_display": -0.4302,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -0.4474
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.3,
+    "cut": 0.3,
+    "units_mult": 1.5795,
+    "profit_change_price_only": -1.0,
+    "profit_change_with_display": -1.0,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -1.0172
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.4,
+    "cut": 0.1,
+    "units_mult": 1.1446,
+    "profit_change_price_only": -0.1416,
+    "profit_change_with_display": 0.1025,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": 0.0853
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.4,
+    "cut": 0.2,
+    "units_mult": 1.331,
+    "profit_change_price_only": -0.3345,
+    "profit_change_with_display": -0.1453,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -0.1624
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "margin": 0.4,
+    "cut": 0.3,
+    "units_mult": 1.5795,
+    "profit_change_price_only": -0.6051,
+    "profit_change_with_display": -0.4929,
+    "post_dip_weeks": -0.0172,
+    "profit_change_net_dip": -0.51
+   }
+  ],
+  "lerner": [
+   {
+    "category": "BAG SNACKS",
+    "elasticity": -1.359,
+    "implied_margin": 0.7358,
+    "breakeven_margin_20pct_cut": 0.7646
+   },
+   {
+    "category": "COLD CEREAL",
+    "elasticity": -1.7738,
+    "implied_margin": 0.5638,
+    "breakeven_margin_20pct_cut": 0.6119
+   },
+   {
+    "category": "FROZEN PIZZA",
+    "elasticity": -2.9864,
+    "implied_margin": 0.3349,
+    "breakeven_margin_20pct_cut": 0.4111
+   },
+   {
+    "category": "ORAL HYGIENE PRODUCTS",
+    "elasticity": -1.2815,
+    "implied_margin": 0.7803,
+    "breakeven_margin_20pct_cut": 0.8042
+   }
+  ]
+ },
+ "carbo": {
+  "pasta sauce": {
+   "brands": [
+    "Ragu",
+    "Khác",
+    "Prego",
+    "Private Label",
+    "Classico",
+    "Bertolli"
+   ],
+   "matrix": [
+    [
+     0.6882,
+     0.0852,
+     0.0955,
+     0.0741,
+     0.0355,
+     0.0214
+    ],
+    [
+     0.1809,
+     0.5402,
+     0.0838,
+     0.0922,
+     0.0604,
+     0.0425
+    ],
+    [
+     0.2057,
+     0.0826,
+     0.5922,
+     0.0565,
+     0.0385,
+     0.0246
+    ],
+    [
+     0.2348,
+     0.1329,
+     0.0845,
+     0.5025,
+     0.0294,
+     0.0159
+    ],
+    [
+     0.1791,
+     0.148,
+     0.093,
+     0.0446,
+     0.4528,
+     0.0824
+    ],
+    [
+     0.1774,
+     0.1621,
+     0.1006,
+     0.0413,
+     0.1365,
+     0.3821
+    ]
+   ],
+   "repeat": {
+    "Ragu": 0.6882,
+    "Khác": 0.5402,
+    "Prego": 0.5922,
+    "Private Label": 0.5025,
+    "Classico": 0.4528,
+    "Bertolli": 0.3821
+   },
+   "steady_share": {
+    "Ragu": 0.3893,
+    "Khác": 0.1816,
+    "Prego": 0.183,
+    "Private Label": 0.1231,
+    "Classico": 0.0764,
+    "Bertolli": 0.0466
+   },
+   "current_share": {
+    "Ragu": 0.3806,
+    "Khác": 0.1867,
+    "Prego": 0.1857,
+    "Private Label": 0.1233,
+    "Classico": 0.0771,
+    "Bertolli": 0.0465
+   }
+  },
+  "pasta": {
+   "brands": [
+    "Private Label",
+    "Khác",
+    "Barilla",
+    "Mueller",
+    "Creamette",
+    "Ronzoni"
+   ],
+   "matrix": [
+    [
+     0.6429,
+     0.1229,
+     0.0783,
+     0.0456,
+     0.0724,
+     0.0379
+    ],
+    [
+     0.2975,
+     0.4095,
+     0.1192,
+     0.0485,
+     0.0763,
+     0.049
+    ],
+    [
+     0.2628,
+     0.1662,
+     0.3676,
+     0.0605,
+     0.0683,
+     0.0748
+    ],
+    [
+     0.2547,
+     0.1039,
+     0.0982,
+     0.439,
+     0.0166,
+     0.0877
+    ],
+    [
+     0.3488,
+     0.1438,
+     0.1002,
+     0.0178,
+     0.386,
+     0.0033
+    ],
+    [
+     0.2697,
+     0.1386,
+     0.1656,
+     0.1205,
+     0.0035,
+     0.3022
+    ]
+   ],
+   "repeat": {
+    "Private Label": 0.6429,
+    "Khác": 0.4095,
+    "Barilla": 0.3676,
+    "Mueller": 0.439,
+    "Creamette": 0.386,
+    "Ronzoni": 0.3022
+   },
+   "steady_share": {
+    "Private Label": 0.4466,
+    "Khác": 0.1823,
+    "Barilla": 0.1335,
+    "Mueller": 0.0827,
+    "Creamette": 0.0928,
+    "Ronzoni": 0.0622
+   },
+   "current_share": {
+    "Private Label": 0.4303,
+    "Khác": 0.1867,
+    "Barilla": 0.1332,
+    "Mueller": 0.0901,
+    "Creamette": 0.0947,
+    "Ronzoni": 0.065
+   }
+  }
+ },
+ "m5": {
+  "price_change_freq": [
+   {
+    "cat": "FOODS",
+    "freq": 0.0162,
+    "up": 0.0096,
+    "down": 0.0064
+   },
+   {
+    "cat": "HOBBIES",
+    "freq": 0.0074,
+    "up": 0.0042,
+    "down": 0.0031
+   },
+   {
+    "cat": "HOUSEHOLD",
+    "freq": 0.0076,
+    "up": 0.0036,
+    "down": 0.0036
+   }
+  ],
+  "price_change_size": [
+   {
+    "cat": "FOODS",
+    "median_abs": 0.1007,
+    "mean_up": 0.2384,
+    "mean_down": -0.1718
+   },
+   {
+    "cat": "HOBBIES",
+    "median_abs": 0.0793,
+    "mean_up": 0.3859,
+    "mean_down": -0.1362
+   },
+   {
+    "cat": "HOUSEHOLD",
+    "median_abs": 0.0839,
+    "mean_up": 0.506,
+    "mean_down": -0.1529
+   }
+  ],
+  "duration_weeks": {
+   "FOODS": 61.5559,
+   "HOBBIES": 134.9509,
+   "HOUSEHOLD": 132.2165
+  },
+  "price_change_hist": [
+   {
+    "bin": "≤−30%",
+    "n": 5693
+   },
+   {
+    "bin": "−30…−20%",
+    "n": 3343
+   },
+   {
+    "bin": "−20…−10%",
+    "n": 7992
+   },
+   {
+    "bin": "−10…−5%",
+    "n": 8140
+   },
+   {
+    "bin": "−5…0%",
+    "n": 7421
+   },
+   {
+    "bin": "0…5%",
+    "n": 11989
+   },
+   {
+    "bin": "5…10%",
+    "n": 11514
+   },
+   {
+    "bin": "10…20%",
+    "n": 10100
+   },
+   {
+    "bin": "20…30%",
+    "n": 3064
+   },
+   {
+    "bin": ">30%",
+    "n": 7595
+   }
+  ],
+  "inflation": [
+   {
+    "year": 2012,
+    "FOODS": 0.0226,
+    "HOBBIES": 0.0123,
+    "HOUSEHOLD": 0.0051
+   },
+   {
+    "year": 2013,
+    "FOODS": -0.0011,
+    "HOBBIES": 0.0141,
+    "HOUSEHOLD": 0.001
+   },
+   {
+    "year": 2014,
+    "FOODS": 0.0053,
+    "HOBBIES": -0.0041,
+    "HOUSEHOLD": 0.0039
+   },
+   {
+    "year": 2015,
+    "FOODS": 0.0131,
+    "HOBBIES": -0.0038,
+    "HOUSEHOLD": 0.0024
+   },
+   {
+    "year": 2016,
+    "FOODS": 0.003,
+    "HOBBIES": -0.0023,
+    "HOUSEHOLD": 0.0013
+   }
+  ],
+  "price_level": [
+   {
+    "year": 2011,
+    "FOODS": 1.0105,
+    "HOBBIES": 1.0086,
+    "HOUSEHOLD": 0.9993
+   },
+   {
+    "year": 2012,
+    "FOODS": 1.0283,
+    "HOBBIES": 1.0177,
+    "HOUSEHOLD": 1.0047
+   },
+   {
+    "year": 2013,
+    "FOODS": 1.0217,
+    "HOBBIES": 1.0269,
+    "HOUSEHOLD": 1.005
+   },
+   {
+    "year": 2014,
+    "FOODS": 1.0243,
+    "HOBBIES": 1.019,
+    "HOUSEHOLD": 1.0081
+   },
+   {
+    "year": 2015,
+    "FOODS": 1.0358,
+    "HOBBIES": 1.0143,
+    "HOUSEHOLD": 1.0099
+   },
+   {
+    "year": 2016,
+    "FOODS": 1.0384,
+    "HOBBIES": 1.012,
+    "HOUSEHOLD": 1.0112
+   }
+  ],
+  "forecast": [
+   {
+    "model": "Naive (ngày cuối)",
+    "wrmsse_item": 1.1645,
+    "wape": 0.9516,
+    "bias": 0.1319,
+    "rmse_total_daily": 8817.2
+   },
+   {
+    "model": "Naive mùa vụ 7 ngày",
+    "wrmsse_item": 1.1004,
+    "wape": 0.8622,
+    "bias": -0.0736,
+    "rmse_total_daily": 4453.0
+   },
+   {
+    "model": "Trung bình 28 ngày",
+    "wrmsse_item": 0.8681,
+    "wape": 0.7386,
+    "bias": -0.0391,
+    "rmse_total_daily": 6857.0
+   },
+   {
+    "model": "TB theo thứ, 8 tuần",
+    "wrmsse_item": 0.8805,
+    "wape": 0.7506,
+    "bias": -0.0421,
+    "rmse_total_daily": 3567.8
+   },
+   {
+    "model": "GBM toàn cục (Poisson)",
+    "wrmsse_item": 0.8583,
+    "wape": 0.7387,
+    "bias": -0.0619,
+    "rmse_total_daily": 3441.8
+   }
+  ],
+  "forecast_train_rows": 2499530,
+  "forecast_total": {
+   "actual": [
+    38793.0,
+    35487.0,
+    34445.0,
+    34732.0,
+    42896.0,
+    50429.0,
+    53032.0,
+    43181.0,
+    44314.0,
+    39601.0,
+    40763.0,
+    43805.0,
+    54239.0,
+    45609.0,
+    46400.0,
+    39379.0,
+    42248.0,
+    40503.0,
+    44073.0,
+    54308.0,
+    59921.0,
+    42362.0,
+    38777.0,
+    37096.0,
+    36963.0,
+    42552.0,
+    51518.0,
+    54338.0
+   ],
+   "dates": [
+    "2016-04-25",
+    "2016-04-26",
+    "2016-04-27",
+    "2016-04-28",
+    "2016-04-29",
+    "2016-04-30",
+    "2016-05-01",
+    "2016-05-02",
+    "2016-05-03",
+    "2016-05-04",
+    "2016-05-05",
+    "2016-05-06",
+    "2016-05-07",
+    "2016-05-08",
+    "2016-05-09",
+    "2016-05-10",
+    "2016-05-11",
+    "2016-05-12",
+    "2016-05-13",
+    "2016-05-14",
+    "2016-05-15",
+    "2016-05-16",
+    "2016-05-17",
+    "2016-05-18",
+    "2016-05-19",
+    "2016-05-20",
+    "2016-05-21",
+    "2016-05-22"
+   ],
+   "Naive (ngày cuối)": [
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0,
+    49795.0
+   ],
+   "Naive mùa vụ 7 ngày": [
+    38059.0,
+    37570.0,
+    35343.0,
+    35033.0,
+    40517.0,
+    48962.0,
+    49795.0,
+    38059.0,
+    37570.0,
+    35343.0,
+    35033.0,
+    40517.0,
+    48962.0,
+    49795.0,
+    38059.0,
+    37570.0,
+    35343.0,
+    35033.0,
+    40517.0,
+    48962.0,
+    49795.0,
+    38059.0,
+    37570.0,
+    35343.0,
+    35033.0,
+    40517.0,
+    48962.0,
+    49795.0
+   ],
+   "Trung bình 28 ngày": [
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0,
+    42272.0
+   ],
+   "TB theo thứ, 8 tuần": [
+    39270.0,
+    37504.0,
+    36114.0,
+    36762.0,
+    42067.0,
+    51427.0,
+    51818.0,
+    39270.0,
+    37504.0,
+    36114.0,
+    36762.0,
+    42067.0,
+    51427.0,
+    51818.0,
+    39270.0,
+    37504.0,
+    36114.0,
+    36762.0,
+    42067.0,
+    51427.0,
+    51818.0,
+    39270.0,
+    37504.0,
+    36114.0,
+    36762.0,
+    42067.0,
+    51427.0,
+    51818.0
+   ],
+   "GBM toàn cục (Poisson)": [
+    37721.0,
+    34410.0,
+    33310.0,
+    33450.0,
+    38672.0,
+    46494.0,
+    46174.0,
+    42388.0,
+    41046.0,
+    37034.0,
+    38257.0,
+    43665.0,
+    52386.0,
+    49007.0,
+    43388.0,
+    37577.0,
+    38065.0,
+    38085.0,
+    40913.0,
+    50908.0,
+    52290.0,
+    39448.0,
+    35794.0,
+    35344.0,
+    34810.0,
+    39433.0,
+    47349.0,
+    48073.0
+   ]
+  },
+  "forecast_importance": [
+   {
+    "feature": "rm28",
+    "importance": 42.1575
+   },
+   {
+    "feature": "rm91",
+    "importance": 2.4241
+   },
+   {
+    "feature": "rm7",
+    "importance": 0.7967
+   },
+   {
+    "feature": "lag28",
+    "importance": 0.4536
+   },
+   {
+    "feature": "price",
+    "importance": 0.1982
+   },
+   {
+    "feature": "lag364",
+    "importance": 0.1937
+   },
+   {
+    "feature": "price_rel",
+    "importance": 0.1346
+   },
+   {
+    "feature": "store",
+    "importance": 0.0623
+   },
+   {
+    "feature": "dept",
+    "importance": 0.0586
+   },
+   {
+    "feature": "lag35",
+    "importance": 0.0401
+   },
+   {
+    "feature": "price_chg",
+    "importance": 0.0114
+   },
+   {
+    "feature": "wday",
+    "importance": 0.0
+   },
+   {
+    "feature": "month",
+    "importance": 0.0
+   },
+   {
+    "feature": "event",
+    "importance": 0.0
+   },
+   {
+    "feature": "snap",
+    "importance": 0.0
+   },
+   {
+    "feature": "dom",
+    "importance": 0.0
+   },
+   {
+    "feature": "lag42",
+    "importance": -0.0624
+   }
+  ],
+  "forecast_by_cat": [
+   {
+    "cat": "FOODS",
+    "model": "Naive mùa vụ 7 ngày",
+    "wape": 0.7867
+   },
+   {
+    "cat": "FOODS",
+    "model": "TB theo thứ, 8 tuần",
+    "wape": 0.6868
+   },
+   {
+    "cat": "FOODS",
+    "model": "GBM toàn cục (Poisson)",
+    "wape": 0.6739
+   },
+   {
+    "cat": "HOUSEHOLD",
+    "model": "Naive mùa vụ 7 ngày",
+    "wape": 0.9515
+   },
+   {
+    "cat": "HOUSEHOLD",
+    "model": "TB theo thứ, 8 tuần",
+    "wape": 0.8271
+   },
+   {
+    "cat": "HOUSEHOLD",
+    "model": "GBM toàn cục (Poisson)",
+    "wape": 0.817
+   },
+   {
+    "cat": "HOBBIES",
+    "model": "Naive mùa vụ 7 ngày",
+    "wape": 1.1865
+   },
+   {
+    "cat": "HOBBIES",
+    "model": "TB theo thứ, 8 tuần",
+    "wape": 1.0221
+   },
+   {
+    "cat": "HOBBIES",
+    "model": "GBM toàn cục (Poisson)",
+    "wape": 1.0122
+   }
+  ]
+ }
+}
